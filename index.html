@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Smart Crop Advisory - Farmer Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Crop Advisory</h1>
+            <p>Register for personalized farming advice</p>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                </select>
+                <button id="listenBtn" aria-label="Listen to page">
+                    <span class="material-icons">volume_up</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <form id="farmerForm" class="registration-form">
+                <h2>Farmer Registration</h2>
+                
+                <div class="form-group">
+                    <label for="farmerName">Full Name</label>
+                    <input type="text" id="farmerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" pattern="[0-9]{10}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="soilType">Soil Type</label>
+                    <select id="soilType" required>
+                        <option value="">Select Soil Type</option>
+                        <option value="alluvial">Alluvial</option>
+                        <option value="black">Black (Regur)</option>
+                        <option value="red">Red</option>
+                        <option value="laterite">Laterite</option>
+                        <option value="mountain">Mountain</option>
+                        <option value="desert">Desert</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" required>
+                    <button type="button" id="getLocation" class="btn-location">
+                        <span class="material-icons">location_on</span> Use Current Location
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="preferredLanguage">Preferred Language</label>
+                    <select id="preferredLanguage" required>
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-primary">Register & Continue</button>
+            </form>
+        </main>
+        
+        <footer>
+            <p>Smart Crop Advisory System &copy; 2024</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.10/i18next.min.js"></script>
+    <script src="register-sw.js"></script>
+    <script>
+        // Your app.js content can go here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize your app here
+            console.log('App initialized');
+        });
+    </script>
+</body>
+</html>
