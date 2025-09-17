@@ -1,838 +1,1578 @@
-// Language content mapping
-const translations = {
-    en: {
-        welcome: "Welcome to Smart Crop Advisor",
-        dashboard: "Dashboard",
-        soilAnalysis: "Soil Analysis",
-        pestDetection: "Pest Detection",
-        marketPrices: "Market Prices",
-        weatherToday: "Weather Today",
-        getWeather: "Get Weather",
-        cropHealth: "Crop Health",
-        quickActions: "Quick Actions",
-        recentActivities: "Recent Activities",
-        viewAll: "View All",
-        addCrop: "Add New Crop",
-        scheduleTask: "Schedule Task",
-        viewReports: "View Reports",
-        lastUpdated: "Last updated"
-    },
-    hi: {
-        welcome: "स्मार्ट क्रॉप सलाहकार में आपका स्वागत है",
-        dashboard: "डैशबोर्ड",
-        soilAnalysis: "मृदा विश्लेषण",
-        pestDetection: "कीट पहचान",
-        marketPrices: "बाजार मूल्य",
-        weatherToday: "आज का मौसम",
-        getWeather: "मौसम जानें",
-        cropHealth: "फसल स्वास्थ्य",
-        quickActions: "त्वरित कार्य",
-        recentActivities: "हाल की गतिविधियाँ",
-        viewAll: "सभी देखें",
-        addCrop: "नई फसल जोड़ें",
-        scheduleTask: "कार्य शेड्यूल करें",
-        viewReports: "रिपोर्ट देखें",
-        lastUpdated: "अंतिम अपडेट"
-    },
-    pa: {
-        welcome: "ਸਮਾਰਟ ਕਰਾਪ ਸਲਾਹਕਾਰ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ",
-        dashboard: "ਡੈਸ਼ਬੋਰਡ",
-        soilAnalysis: "ਮਿੱਟੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ",
-        pestDetection: "ਕੀੜੇ ਦੀ ਪਛਾਣ",
-        marketPrices: "ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ",
-        weatherToday: "ਅੱਜ ਦਾ ਮੌਸਮ",
-        getWeather: "ਮੌਸਮ ਪਤਾ ਕਰੋ",
-        cropHealth: "ਫਸਲ ਦੀ ਸਿਹਤ",
-        quickActions: "ਤੇਜ਼ ਕਾਰਵਾਈਆਂ",
-        recentActivities: "ਤਾਜ਼ਾ ਗਤੀਵਿਧੀਆਂ",
-        viewAll: "ਸਭ ਵੇਖੋ",
-        addCrop: "ਨਵੀਂ ਫਸਲ ਜੋੜੋ",
-        scheduleTask: "ਕੰਮ ਸ਼ੈਡਿਊਲ ਕਰੋ",
-        viewReports: "ਰਿਪੋਰਟਾਂ ਵੇਖੋ",
-        lastUpdated: "ਆਖਰੀ ਅੱਪਡੇਟ"
-    },
-    hne: {
-        welcome: "स्मार्ट क्रॉप सलाहकार में रा़ज होय",
-        dashboard: "डैशबोर्ड",
-        soilAnalysis: "माटी जांच",
-        pestDetection: "कीड़ा पहिचान",
-        marketPrices: "बजार भाओ",
-        weatherToday: "आज के मौसम",
-        getWeather: "मौसम देखें",
-        cropHealth: "फसल सेहत",
-        quickActions: "जल्दी काम",
-        recentActivities: "हाल के काम",
-        viewAll: "सब देखें",
-        addCrop: "नई फसल डालें",
-        scheduleTask: "कार्य तय करें",
-        viewReports: "रिपोर्ट देखें",
-        lastUpdated: "आखिरी अपडेट"
-    },
-    te: {
-        welcome: "స్మార్ట్ క్రాప్ సలహాదారుకు స్వాగతం",
-        dashboard: "డాష్‌బోర్డ్",
-        soilAnalysis: "నేల విశ్లేషణ",
-        pestDetection: "కీటకాల గుర్తింపు",
-        marketPrices: "మార్కెట్ ధరలు",
-        weatherToday: "ఈరోజు వాతావరణం",
-        getWeather: "వాతావరణం తెలుసుకోండి",
-        cropHealth: "పంట ఆరోగ్యం",
-        quickActions: "త్వరిత చర్యలు",
-        recentActivities: "ఇటీవలి కార్యకలాపాలు",
-        viewAll: "అన్నీ చూడండి",
-        addCrop: "కొత్త పంటను జోడించండి",
-        scheduleTask: "పనిని షెడ్యూల్ చేయండి",
-        viewReports: "నివేదికలను వీక్షించండి",
-        lastUpdated: "చివరిగా నవీకరించబడింది"
-    },
-    ml: {
-        welcome: "സ്മാർട്ട് ക്രോപ്പ് ഉപദേശകിലേക്ക് സ്വാഗതം",
-        dashboard: "ഡാഷ്ബോർഡ്",
-        soilAnalysis: "മണ്ണ് പരിശോധന",
-        pestDetection: "കീടം കണ്ടെത്തൽ",
-        marketPrices: "മാർക്കറ്റ് വിലകൾ",
-        weatherToday: "ഇന്നത്തെ കാലാവസ്ഥ",
-        getWeather: "കാലാവസ്ഥ പരിശോധിക്കുക",
-        cropHealth: "വിളയുടെ ആരോഗ്യം",
-        quickActions: "ദ്രുത പ്രവർത്തനങ്ങൾ",
-        recentActivities: "സമീപകാല പ്രവർത്തനങ്ങൾ",
-        viewAll: "എല്ലാം കാണുക",
-        addCrop: "പുതിയ വിള ചേർക്കുക",
-        scheduleTask: "ജോലി ഷെഡ്യൂൾ ചെയ്യുക",
-        viewReports: "റിപ്പോർട്ടുകൾ കാണുക",
-        lastUpdated: "അവസാനമായി അപ്ഡേറ്റ് ചെയ്തത്"
-    }
-};
+// KrishiSetu Main Application JavaScript
+// Global variables
+let currentUser = null;
+let currentLocation = null;
+let weatherData = null;
+let isVoiceEnabled = false;
+let speechRecognition = null;
+let speechSynthesis = window.speechSynthesis;
+let currentCalendarDate = new Date(); // tracks which month is shown on calendar page
 
-// Update content based on selected language
-function updateContentLanguage(lang) {
-    // Update all elements with data-i18n attribute
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            // For input placeholders and other special attributes
-            if (element.hasAttribute('placeholder')) {
-                element.setAttribute('placeholder', translations[lang][key]);
-            } else {
-                element.textContent = translations[lang][key];
-            }
-        }
-    });
+// Weather API Configuration
+const WEATHER_API_KEY = 'cad6a2e3e077442e88b194629251409';
+const WEATHER_API_URL = 'https://api.weatherapi.com/v1';
 
-    // Update HTML lang attribute
-    document.documentElement.lang = lang;
+// Initialize application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
     
-    // Update RTL/LTR based on language
-    if (['ar', 'fa', 'he', 'ur'].includes(lang)) {
-        document.documentElement.dir = 'rtl';
-    } else {
-        document.documentElement.dir = 'ltr';
+    // Check if coming from authentication (only redirect from landing/index)
+    const isAuthenticated = localStorage.getItem('krishiSetuAuth');
+    const path = (window.location.pathname || '').toLowerCase();
+    const isLanding = path.endsWith('/index.html') || path.endsWith('/krishisetu/') || path.endsWith('/');
+    if (isAuthenticated && isLanding) {
+        showDashboard();
     }
     
-    // Update the active language button in the language selector
-    document.querySelectorAll('.language-select').forEach(btn => {
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-}
-
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('ServiceWorker registration successful');
-                
-                // Check for updates
-                registration.addEventListener('updatefound', () => {
-                    const newWorker = registration.installing;
-                    newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // New update available
-                            showUpdateNotification();
-                        }
-                    });
-                });
-            })
-            .catch(err => console.error('ServiceWorker registration failed: ', err));
-    });
-}
-
-// PWA Installation Prompt
-let deferredPrompt;
-const installButton = document.getElementById('install-button');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
-    // Stash the event so it can be triggered later
-    deferredPrompt = e;
-    
-    // Show the install button if it exists
-    if (installButton) {
-        installButton.style.display = 'block';
-        installButton.addEventListener('click', installApp);
+    // Initialize speech recognition if available
+    if ('webkitSpeechRecognition' in window) {
+        speechRecognition = new webkitSpeechRecognition();
+        setupSpeechRecognition();
+    } else if ('SpeechRecognition' in window) {
+        speechRecognition = new SpeechRecognition();
+        setupSpeechRecognition();
     }
+    
+    // Get user location for weather
+    getUserLocation();
+    
+    // Reset notification badge (removes hardcoded number)
+    updateNotificationBadge(0);
+    
+    // Page-specific bootstrapping
+    bootstrapPerPage();
+    
+    // Update weather data every 30 minutes
+    setInterval(refreshWeatherData, 30 * 60 * 1000);
 });
 
-async function installApp() {
-    if (!deferredPrompt) return;
+// Initialize application
+function initializeApp() {
+    console.log('KrishiSetu application initialized');
     
-    // Show the install prompt
-    deferredPrompt.prompt();
-    
-    // Wait for the user to respond to the prompt
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
-    
-    // Hide the install button
-    if (installButton) {
-        installButton.style.display = 'none';
+    // Apply saved language preference
+    const savedLanguage = localStorage.getItem('krishiSetuLanguage');
+    if (savedLanguage) {
+        changeLanguage(savedLanguage);
     }
     
-    // We've used the prompt, and can't use it again, throw it away
-    deferredPrompt = null;
-}
-
-// Show update notification
-function showUpdateNotification() {
-    if (window.Notification && Notification.permission === 'granted') {
-        new Notification('Update Available', {
-            body: 'A new version of CropAdvisor is available. Restart the app to update.',
-            icon: 'images/icons/icon-192x192.png',
-            vibrate: [200, 100, 200]
-        });
-    } else if (window.Notification && Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-            if (permission === 'granted') {
-                showUpdateNotification();
-            }
-        });
+    // Initialize service worker for PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(registration => console.log('SW registered:', registration))
+            .catch(error => console.log('SW registration failed:', error));
     }
 }
 
-// Check if app is running in standalone mode
-function isRunningStandalone() {
-    return window.matchMedia('(display-mode: standalone)').matches || 
-           window.navigator.standalone || 
-           document.referrer.includes('android-app://');
+// Language and Navigation Functions
+function selectLanguage(languageCode) {
+    changeLanguage(languageCode);
+    showAuthScreen();
 }
 
-// Show install button if not running in standalone mode
-if (!isRunningStandalone() && installButton) {
-    installButton.style.display = 'block';
+function showLanguageScreen() {
+    hideAllScreens();
+    document.getElementById('languageScreen').classList.add('active');
 }
 
-// Language Selection and App Initialization
-document.addEventListener('DOMContentLoaded', function() {
-    // Enable text selection
-    document.body.style.userSelect = 'auto';
-    
-    // Get the modal element
-    const languageModalElement = document.getElementById('languageModal');
-    const languageModal = new bootstrap.Modal(languageModalElement, {
-        backdrop: 'static',
-        keyboard: false
+function showAuthScreen() {
+    hideAllScreens();
+    document.getElementById('authScreen').classList.add('active');
+}
+
+function showLoginForm() {
+    hideAllScreens();
+    document.getElementById('loginForm').classList.add('active');
+}
+
+function showSignupForm() {
+    hideAllScreens();
+    document.getElementById('signupForm').classList.add('active');
+}
+
+function continueWithoutLogin() {
+    localStorage.setItem('krishiSetuAuth', 'guest');
+    showDashboard();
+}
+
+function hideAllScreens() {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
     });
-    
-    // Show language modal on first load if no language is selected
-    const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (!savedLanguage) {
-        languageModal.show();
-    } else {
-        updateContentLanguage(savedLanguage);
-        document.getElementById('app').classList.remove('d-none');
-    }
-    
-    // Handle language selection
-    document.querySelectorAll('.language-select').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const selectedLanguage = this.getAttribute('data-lang');
-            localStorage.setItem('selectedLanguage', selectedLanguage);
-            updateContentLanguage(selectedLanguage);
-            languageModal.hide();
-            document.getElementById('app').classList.remove('d-none');
-        });
-    });
-    
-    // Handle change language button
-    const changeLanguageBtn = document.getElementById('changeLanguageBtn');
-    if (changeLanguageBtn) {
-        changeLanguageBtn.addEventListener('click', function() {
-            languageModal.show();
-        });
-    }
-    
-    // Navigation handling
-    setupNavigation();
-    
-    // Weather functionality
-    setupWeather();
-    
-    // Initialize dashboard
-    initializeDashboard();
-    
-    // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+}
 
-    // Initialize Chatbot
-    const chatbotBtn = document.getElementById('chatbotBtn');
-    const chatbotModal = new bootstrap.Modal(document.getElementById('chatbotModal'));
-    
-    if (chatbotBtn) {
-        chatbotBtn.addEventListener('click', function() {
-            chatbotModal.show();
-        });
-    }
+function showDashboard() {
+    window.location.href = 'dashboard.html';
+}
 
-    // Initialize AR Scanner
-    const arScanBtn = document.getElementById('ar-scan-btn');
-    const arScannerModal = new bootstrap.Modal(document.getElementById('arScannerModal'));
+// Authentication Functions
+function handleLogin(event) {
+    event.preventDefault();
     
-    if (arScanBtn) {
-        arScanBtn.addEventListener('click', function() {
-            // In a real implementation, this would access the device camera
-            // For the prototype, we'll just show the modal with a placeholder
-            arScannerModal.show();
-        });
-    }
-
-    // Handle chat input
-    const chatInput = document.querySelector('#chatbotModal input[type="text"]');
-    const chatSendBtn = document.querySelector('#chatbotModal .btn-primary');
+    const phone = document.getElementById('loginPhone').value;
+    const password = document.getElementById('loginPassword').value;
     
-    if (chatInput && chatSendBtn) {
-        const sendMessage = () => {
-            const message = chatInput.value.trim();
-            if (message) {
-                // In a real implementation, this would send the message to an AI service
-                console.log('Sending message to AI:', message);
-                chatInput.value = '';
-                
-                // Simulate AI response
-                setTimeout(() => {
-                    const responses = [
-                        "I can help you with crop management and farming techniques. What specific information do you need?",
-                        "For optimal growth, make sure your crops get enough sunlight and water.",
-                        "I've analyzed your query. Here's what I recommend based on your crop type and region.",
-                        "Based on the current season, you might want to consider adjusting your irrigation schedule."
-                    ];
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    alert("AI Response: " + randomResponse);
-                }, 1000);
-            }
+    // Simulate login process
+    if (phone && password) {
+        const userData = {
+            phone: phone,
+            name: 'Farmer User',
+            farmSize: '5.0',
+            location: 'Punjab, India'
         };
         
-        chatSendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
+        localStorage.setItem('krishiSetuAuth', 'authenticated');
+        localStorage.setItem('krishiSetuUser', JSON.stringify(userData));
+        
+        showSuccess('Login successful! Redirecting to dashboard...');
+        setTimeout(() => showDashboard(), 2000);
+    } else {
+        showError('Please fill in all fields');
     }
+}
+
+function handleSignup(event) {
+    event.preventDefault();
     
-    // Simulate AR scanning (just for the prototype)
-    document.getElementById('arScannerModal')?.addEventListener('shown.bs.modal', function() {
-        console.log('AR Scanner activated - in a real implementation, this would access the device camera');
+    const name = document.getElementById('signupName').value;
+    const phone = document.getElementById('signupPhone').value;
+    const farmSize = document.getElementById('farmSize').value;
+    const location = document.getElementById('location').value;
+    const password = document.getElementById('signupPassword').value;
+    
+    // Simulate signup process
+    if (name && phone && farmSize && location && password) {
+        const userData = {
+            phone: phone,
+            name: name,
+            farmSize: farmSize,
+            location: location
+        };
+        
+        localStorage.setItem('krishiSetuAuth', 'authenticated');
+        localStorage.setItem('krishiSetuUser', JSON.stringify(userData));
+        
+        showSuccess('Account created successfully! Redirecting to dashboard...');
+        setTimeout(() => showDashboard(), 2000);
+    } else {
+        showError('Please fill in all fields');
+    }
+}
+
+// Dashboard Functions (for dashboard.html)
+function showSection(sectionName) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
     });
     
-    // Add event listeners for quick action buttons
-    document.querySelectorAll('.quick-action').forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            let message = '';
-            let icon = 'info-circle';
-            
-            switch(action) {
-                case 'schedule-irrigation':
-                    message = 'Irrigation scheduling feature will be available in the next update. Our team is working on optimizing water usage recommendations for your fields.';
-                    break;
-                case 'add-note':
-                    message = 'Field notes feature coming soon! You\'ll be able to record observations, soil conditions, and crop growth stages.';
-                    break;
-                case 'view-weather':
-                    message = 'Weather forecast integration is in progress. Soon you\'ll get hyper-local weather predictions for your fields.';
-                    break;
-                case 'scan-pest':
-                    message = 'Pest scanning with AI is under development. This feature will help identify pests and diseases from photos of your crops.';
-                    icon = 'bug';
-                    break;
-                default:
-                    message = 'This feature is coming soon!';
-            }
-            
-            // Show a toast notification
-            showToast('Feature Coming Soon', message, icon);
-        });
-    });
-
-    // Show toast notification
-    function showToast(title, message, icon = 'info-circle') {
-        const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) return;
-        
-        const toastId = 'toast-' + Date.now();
-        const toast = document.createElement('div');
-        toast.className = 'toast align-items-center text-white bg-primary border-0';
-        toast.role = 'alert';
-        toast.setAttribute('aria-live', 'assertive');
-        toast.setAttribute('aria-atomic', 'true');
-        toast.id = toastId;
-        
-        toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-${icon} me-2 fs-5"></i>
-                        <strong class="me-auto">${title}</strong>
-                    </div>
-                    <div class="mt-1">${message}</div>
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
-        
-        toastContainer.appendChild(toast);
-        
-        const bsToast = new bootstrap.Toast(toast, {
-            autohide: true,
-            delay: 5000
-        });
-        
-        toast.addEventListener('hidden.bs.toast', function() {
-            toast.remove();
-        });
-        
-        bsToast.show();
-    }
-
-    // Add toast container to body if it doesn't exist
-    function ensureToastContainer() {
-        if (!document.getElementById('toastContainer')) {
-            const container = document.createElement('div');
-            container.id = 'toastContainer';
-            container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-            container.style.zIndex = '1100';
-            document.body.appendChild(container);
-        }
-    }
-
-    // Initialize toast container when DOM is loaded
-    ensureToastContainer();
-    
-    // Show welcome message
-    setTimeout(() => {
-        showToast(
-            'Welcome to CropAdvisor', 
-            'Explore the new features including soil analysis, pest detection, and market prices!',
-            'emoji-smile'
-        );
-    }, 1000);
-});
-
-// Add CSS for toast notifications
-const toastStyles = document.createElement('style');
-toastStyles.textContent = `
-    .toast {
-        margin-bottom: 1rem;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        border-radius: 0.5rem;
-        max-width: 350px;
-    }
-    .toast-body {
-        padding: 1rem;
-    }
-    .toast-container {
-        z-index: 1090;
-    }
-`;
-document.head.appendChild(toastStyles);
-
-// Add this to your existing DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing initialization code...
-    
-    // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+    // Remove active class from nav items
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
     });
     
-    // Add click handlers for view buttons in tables
-    document.querySelectorAll('button[data-bs-target^="#"]').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const target = this.getAttribute('data-bs-target');
-            if (target === '#soilAnalysisModal' || target === '#pestHistoryModal' || target === '#priceTrendsModal') {
-                e.preventDefault();
-                showToast(
-                    'Feature Preview', 
-                    'This is a preview of the detailed view. The complete feature with real-time data will be available in the next update.',
-                    'info-circle'
-                );
-            }
-        });
-    });
-});
+    // Show selected section
+    const section = document.getElementById(sectionName + 'Section');
+    if (section) {
+        section.classList.add('active');
+    }
+    
+    // Add active class to corresponding nav item
+    const navItem = document.querySelector(`[onclick="showSection('${sectionName}')"]`);
+    if (navItem) {
+        navItem.classList.add('active');
+    }
+    
+    // Initialize section-specific functionality
+    switch (sectionName) {
+        case 'chatbot':
+            initializeChatbot();
+            break;
+        case 'ar':
+            initializeAR();
+            break;
+        case 'soil':
+            // Soil analysis is loaded via iframe
+            break;
+        case 'pest':
+            // Pest detection is loaded via iframe
+            break;
+    }
+}
 
-// Previous code...
-
-// AR Scanner with Camera Access
-let stream = null;
-
-async function startCamera() {
-    try {
-        stream = await navigator.mediaDevices.getUserMedia({
-            video: { 
-                facingMode: 'environment',
-                width: { ideal: 1920 },
-                height: { ideal: 1080 }
+// Weather Functions
+function getUserLocation() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                currentLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                fetchWeatherData();
             },
-            audio: false
-        });
-        
-        const videoElement = document.getElementById('camera-feed');
-        videoElement.srcObject = stream;
-        videoElement.play();
-        
-        // Show scanner UI
-        document.getElementById('scanner-ui').classList.remove('d-none');
-        document.getElementById('camera-permission-prompt').classList.add('d-none');
-        
-        // Start analysis simulation
-        startAnalysis();
-        
-    } catch (err) {
-        console.error('Error accessing camera:', err);
-        document.getElementById('camera-error').classList.remove('d-none');
-        document.getElementById('camera-permission-prompt').classList.add('d-none');
-        
-        // Fallback to static image for demo
-        document.getElementById('camera-fallback').classList.remove('d-none');
+            (error) => {
+                console.log('Location access denied, using default location');
+                currentLocation = { latitude: 30.7333, longitude: 76.7794 }; // Chandigarh default
+                fetchWeatherData();
+            }
+        );
+    } else {
+        currentLocation = { latitude: 30.7333, longitude: 76.7794 }; // Chandigarh default
+        fetchWeatherData();
     }
 }
 
-function stopCamera() {
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        stream = null;
+async function fetchWeatherData() {
+    try {
+        // Get current weather and forecast data
+        const response = await fetch(
+            `${WEATHER_API_URL}/forecast.json?key=${WEATHER_API_KEY}&q=${currentLocation.latitude},${currentLocation.longitude}&days=7&aqi=yes&alerts=yes`
+        );
+        
+        if (response.ok) {
+            weatherData = await response.json();
+            updateWeatherDisplay();
+            updateDetailedWeatherInfo();
+            checkWeatherAlerts();
+            renderFarmingCalendar();
+            renderByProductSuggestions();
+        } else {
+            console.log('API response not ok:', response.status);
+            // Try with city name fallback
+            await fetchWeatherByCity('Chandigarh');
+        }
+    } catch (error) {
+        console.log('Weather API error, trying fallback:', error);
+        await fetchWeatherByCity('Chandigarh');
     }
 }
 
-// Dummy crop data for simulation
-const dummyCropData = {
-    'wheat': {
-        health: 85,
-        issues: [
-            { type: 'rust', severity: 'low', confidence: 0.75 },
-            { type: 'nutrient_deficiency', nutrient: 'nitrogen', severity: 'medium', confidence: 0.82 }
-        ],
-        growthStage: 'tillering',
-        daysToHarvest: 45,
-        recommendations: [
-            'Apply nitrogen-rich fertilizer',
-            'Monitor for rust spread',
-            'Check soil moisture levels'
-        ]
-    },
-    'rice': {
-        health: 92,
-        issues: [
-            { type: 'blast', severity: 'low', confidence: 0.68 }
-        ],
-        growthStage: 'vegetative',
-        daysToHarvest: 60,
-        recommendations: [
-            'Apply fungicide for blast control',
-            'Maintain proper water levels',
-            'Monitor for leaf folder insects'
-        ]
-    },
-    'corn': {
-        health: 78,
-        issues: [
-            { type: 'armyworm', severity: 'high', confidence: 0.88 },
-            { type: 'drought_stress', severity: 'medium', confidence: 0.65 }
-        ],
-        growthStage: 'silking',
-        daysToHarvest: 30,
-        recommendations: [
-            'Apply appropriate insecticide for armyworm',
-            'Irrigate if possible',
-            'Consider early harvest if damage is severe'
-        ]
+// Fetch weather by city name as fallback
+async function fetchWeatherByCity(cityName) {
+    try {
+        const response = await fetch(
+            `${WEATHER_API_URL}/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=7&aqi=yes&alerts=yes`
+        );
+        
+        if (response.ok) {
+            weatherData = await response.json();
+            updateWeatherDisplay();
+            updateDetailedWeatherInfo();
+            checkWeatherAlerts();
+            renderFarmingCalendar();
+            renderByProductSuggestions();
+        } else {
+            // Use enhanced dummy weather data if API fails
+            weatherData = getEnhancedDummyWeatherData();
+            updateWeatherDisplay();
+            updateDetailedWeatherInfo();
+            renderFarmingCalendar();
+            renderByProductSuggestions();
+        }
+    } catch (error) {
+        console.log('Fallback weather API error, using dummy data:', error);
+        weatherData = getEnhancedDummyWeatherData();
+        updateWeatherDisplay();
+        updateDetailedWeatherInfo();
+        renderFarmingCalendar();
+        renderByProductSuggestions();
     }
-};
+}
 
-function getRandomCropData() {
-    const crops = Object.keys(dummyCropData);
-    const randomCrop = crops[Math.floor(Math.random() * crops.length)];
+// Search weather by location name
+async function searchWeatherByLocation(locationName) {
+    if (!locationName || locationName.trim() === '') {
+        return;
+    }
+    
+    try {
+        const response = await fetch(
+            `${WEATHER_API_URL}/forecast.json?key=${WEATHER_API_KEY}&q=${encodeURIComponent(locationName)}&days=7&aqi=yes&alerts=yes`
+        );
+        
+        if (response.ok) {
+            weatherData = await response.json();
+            updateWeatherDisplay();
+            updateDetailedWeatherInfo();
+            checkWeatherAlerts();
+            renderFarmingCalendar();
+            renderByProductSuggestions();
+            showSuccess(`Weather updated for ${weatherData.location.name}`);
+        } else {
+            showError('Location not found. Please try again.');
+        }
+    } catch (error) {
+        console.log('Search weather error:', error);
+        showError('Failed to fetch weather data. Please check your connection.');
+    }
+}
+
+function getEnhancedDummyWeatherData() {
+    const today = new Date();
     return {
-        cropType: randomCrop,
-        ...dummyCropData[randomCrop]
+        location: {
+            name: "Chandigarh",
+            region: "Chandigarh",
+            country: "India",
+            lat: 30.73,
+            lon: 76.78,
+            tz_id: "Asia/Kolkata",
+            localtime: today.toISOString()
+        },
+        current: {
+            temp_c: 28,
+            temp_f: 82.4,
+            condition: {
+                text: "Sunny",
+                icon: "//cdn.weatherapi.com/weather/64x64/day/113.png",
+                code: 1000
+            },
+            wind_mph: 7.5,
+            wind_kph: 12,
+            wind_degree: 220,
+            wind_dir: "SW",
+            pressure_mb: 1013,
+            pressure_in: 29.94,
+            precip_mm: 0,
+            precip_in: 0,
+            humidity: 65,
+            cloud: 20,
+            feelslike_c: 30,
+            feelslike_f: 86,
+            vis_km: 10,
+            vis_miles: 6,
+            uv: 6,
+            gust_mph: 9,
+            gust_kph: 14.4
+        },
+        forecast: {
+            forecastday: [
+                {
+                    date: today.toISOString().split('T')[0],
+                    day: {
+                        maxtemp_c: 28,
+                        maxtemp_f: 82.4,
+                        mintemp_c: 22,
+                        mintemp_f: 71.6,
+                        avgtemp_c: 25,
+                        avgtemp_f: 77,
+                        maxwind_mph: 8.5,
+                        maxwind_kph: 13.7,
+                        totalprecip_mm: 0,
+                        totalprecip_in: 0,
+                        avgvis_km: 10,
+                        avgvis_miles: 6,
+                        avghumidity: 65,
+                        daily_will_it_rain: 0,
+                        daily_chance_of_rain: 10,
+                        daily_will_it_snow: 0,
+                        daily_chance_of_snow: 0,
+                        condition: {
+                            text: "Sunny",
+                            icon: "//cdn.weatherapi.com/weather/64x64/day/113.png",
+                            code: 1000
+                        },
+                        uv: 6
+                    },
+                    astro: {
+                        sunrise: "06:15 AM",
+                        sunset: "06:45 PM",
+                        moonrise: "08:30 PM",
+                        moonset: "09:15 AM",
+                        moon_phase: "Waxing Crescent",
+                        moon_illumination: "45"
+                    }
+                },
+                {
+                    date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+                    day: {
+                        maxtemp_c: 26,
+                        maxtemp_f: 78.8,
+                        mintemp_c: 20,
+                        mintemp_f: 68,
+                        avgtemp_c: 23,
+                        avgtemp_f: 73.4,
+                        maxwind_mph: 12,
+                        maxwind_kph: 19.3,
+                        totalprecip_mm: 5.2,
+                        totalprecip_in: 0.2,
+                        avgvis_km: 8,
+                        avgvis_miles: 5,
+                        avghumidity: 75,
+                        daily_will_it_rain: 1,
+                        daily_chance_of_rain: 80,
+                        daily_will_it_snow: 0,
+                        daily_chance_of_snow: 0,
+                        condition: {
+                            text: "Light rain",
+                            icon: "//cdn.weatherapi.com/weather/64x64/day/296.png",
+                            code: 1183
+                        },
+                        uv: 4
+                    },
+                    astro: {
+                        sunrise: "06:16 AM",
+                        sunset: "06:44 PM",
+                        moonrise: "09:15 PM",
+                        moonset: "10:00 AM",
+                        moon_phase: "Waxing Crescent",
+                        moon_illumination: "52"
+                    }
+                },
+                {
+                    date: new Date(Date.now() + 172800000).toISOString().split('T')[0],
+                    day: {
+                        maxtemp_c: 24,
+                        maxtemp_f: 75.2,
+                        mintemp_c: 18,
+                        mintemp_f: 64.4,
+                        avgtemp_c: 21,
+                        avgtemp_f: 69.8,
+                        maxwind_mph: 10,
+                        maxwind_kph: 16.1,
+                        totalprecip_mm: 0,
+                        totalprecip_in: 0,
+                        avgvis_km: 9,
+                        avgvis_miles: 5.6,
+                        avghumidity: 70,
+                        daily_will_it_rain: 0,
+                        daily_chance_of_rain: 20,
+                        daily_will_it_snow: 0,
+                        daily_chance_of_snow: 0,
+                        condition: {
+                            text: "Partly cloudy",
+                            icon: "//cdn.weatherapi.com/weather/64x64/day/116.png",
+                            code: 1003
+                        },
+                        uv: 5
+                    },
+                    astro: {
+                        sunrise: "06:17 AM",
+                        sunset: "06:43 PM",
+                        moonrise: "10:00 PM",
+                        moonset: "10:45 AM",
+                        moon_phase: "First Quarter",
+                        moon_illumination: "58"
+                    }
+                }
+            ]
+        },
+        alerts: {
+            alert: []
+        }
     };
 }
 
-let analysisInterval;
-
-function startAnalysis() {
-    // Clear any existing interval
-    if (analysisInterval) clearInterval(analysisInterval);
+function updateWeatherDisplay() {
+    if (!weatherData) return;
     
-    // Initial analysis
-    updateAnalysisUI();
+    const weatherContent = document.getElementById('weatherContent');
+    if (!weatherContent) return;
     
-    // Update analysis every 5 seconds
-    analysisInterval = setInterval(updateAnalysisUI, 5000);
-}
-
-function updateAnalysisUI() {
-    const cropData = getRandomCropData();
-    const resultsContainer = document.getElementById('ar-analysis-results');
+    const current = weatherData.current;
+    const forecast = weatherData.forecast.forecastday;
     
-    // Update crop type
-    resultsContainer.querySelector('.crop-type').textContent = cropData.cropType.charAt(0).toUpperCase() + cropData.cropType.slice(1);
+    // Update current weather
+    const tempElement = weatherContent.querySelector('.temperature');
+    if (tempElement) tempElement.textContent = `${current.temp_c}°C`;
     
-    // Update health meter
-    const healthMeter = resultsContainer.querySelector('.health-meter');
-    healthMeter.style.width = `${cropData.health}%`;
-    healthMeter.setAttribute('aria-valuenow', cropData.health);
-    healthMeter.textContent = `${cropData.health}%`;
+    const conditionElement = weatherContent.querySelector('.weather-desc');
+    if (conditionElement) conditionElement.textContent = translate(getWeatherConditionKey(current.condition.text));
     
-    // Update issues
-    const issuesList = resultsContainer.querySelector('.issues-list');
-    issuesList.innerHTML = cropData.issues.map(issue => `
-        <div class="d-flex align-items-center mb-2">
-            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-            <div>
-                <strong>${issue.type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong>
-                <div class="text-muted small">
-                    Severity: ${issue.severity} • Confidence: ${Math.round(issue.confidence * 100)}%
-                    ${issue.nutrient ? `• Nutrient: ${issue.nutrient}` : ''}
-                </div>
-            </div>
-        </div>
-    `).join('');
+    const humidityElement = weatherContent.querySelector('.weather-item:nth-child(1) span:last-child');
+    if (humidityElement) humidityElement.textContent = `${current.humidity}%`;
     
-    // Update recommendations
-    const recommendationsList = resultsContainer.querySelector('.recommendations-list');
-    recommendationsList.innerHTML = cropData.recommendations.map(rec => `
-        <li class="d-flex align-items-start mb-2">
-            <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-            <span>${rec}</span>
-        </li>
-    `).join('');
+    const windElement = weatherContent.querySelector('.weather-item:nth-child(2) span:last-child');
+    if (windElement) windElement.textContent = `${current.wind_kph} km/h`;
     
-    // Show results
-    resultsContainer.classList.remove('d-none');
-}
-
-// Update AR scanner modal event listeners
-document.getElementById('arScannerModal')?.addEventListener('show.bs.modal', function() {
-    document.getElementById('camera-permission-prompt').classList.remove('d-none');
-    document.getElementById('scanner-ui').classList.add('d-none');
-    document.getElementById('camera-error').classList.add('d-none');
-    document.getElementById('camera-fallback').classList.add('d-none');
-    document.getElementById('ar-analysis-results').classList.add('d-none');
-});
-
-document.getElementById('arScannerModal')?.addEventListener('hidden.bs.modal', function() {
-    stopCamera();
-    if (analysisInterval) clearInterval(analysisInterval);
-});
-
-// Add click handler for retry button
-document.getElementById('retry-camera')?.addEventListener('click', startCamera);
-
-// Initialize camera when the start scanning button is clicked
-document.getElementById('start-scanning')?.addEventListener('click', startCamera);
-
-function setupNavigation() {
-    // Show dashboard by default and set active nav link
-    document.querySelectorAll('.section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById('dashboard').style.display = 'block';
+    // Update weather icon
+    const iconElement = weatherContent.querySelector('.weather-icon');
+    if (iconElement) {
+        iconElement.className = 'fas weather-icon ' + getWeatherIcon(current.condition.text);
+    }
     
-    // Set active nav link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#dashboard') {
-            link.classList.add('active');
+    // Update forecast
+    const forecastItems = weatherContent.querySelectorAll('.forecast-item');
+    forecast.slice(0, 3).forEach((day, index) => {
+        if (forecastItems[index]) {
+            const dayName = index === 0 ? 'Today' : index === 1 ? 'Tomorrow' : 'Day 3';
+            forecastItems[index].querySelector('.forecast-day').textContent = dayName;
+            forecastItems[index].querySelector('.forecast-temp').textContent = 
+                `${day.day.maxtemp_c}°/${day.day.mintemp_c}°`;
+            
+            const forecastIcon = forecastItems[index].querySelector('i');
+            if (forecastIcon) {
+                forecastIcon.className = 'fas ' + getWeatherIcon(day.day.condition.text);
+            }
         }
     });
-    
-    // Handle nav link clicks
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // Show target section
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.style.display = 'block';
-            }
-            
-            // Update active nav link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            this.classList.add('active');
-        });
-    });
 }
 
-function setupWeather() {
-    const weatherWidget = document.getElementById('weather-widget');
-    const requestLocationBtn = document.getElementById('request-location');
-    
-    if (requestLocationBtn) {
-        requestLocationBtn.addEventListener('click', function() {
-            getWeatherByLocation();
-        });
-    }
-    
-    // Load weather on page load if location is available
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;
-                fetchWeatherData(latitude, longitude);
-            },
-            error => {
-                console.error('Error getting location:', error);
-                // Default to New Delhi coordinates if location access is denied
-                fetchWeatherData(28.6139, 77.2090);
-            }
-        );
-    } else {
-        // Default to New Delhi coordinates if geolocation is not supported
-        fetchWeatherData(28.6139, 77.2090);
-    }
+function getWeatherIcon(condition) {
+    const iconMap = {
+        'Sunny': 'fa-sun',
+        'Clear': 'fa-sun',
+        'Partly cloudy': 'fa-cloud-sun',
+        'Cloudy': 'fa-cloud',
+        'Overcast': 'fa-cloud',
+        'Light rain': 'fa-cloud-rain',
+        'Rain': 'fa-cloud-rain',
+        'Heavy rain': 'fa-cloud-showers-heavy',
+        'Snow': 'fa-snowflake',
+        'Thunderstorm': 'fa-bolt'
+    };
+    return iconMap[condition] || 'fa-cloud';
 }
 
-async function fetchWeatherData(lat, lon) {
-    const apiKey = 'cad6a2e3e077442e88b194629251409';
-    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&aqi=no`;
+function getWeatherConditionKey(condition) {
+    const conditionMap = {
+        'Sunny': 'sunny',
+        'Clear': 'sunny',
+        'Partly cloudy': 'partlyCloudy',
+        'Cloudy': 'cloudy',
+        'Light rain': 'rainy',
+        'Rain': 'rainy',
+        'Heavy rain': 'rainy'
+    };
+    return conditionMap[condition] || 'cloudy';
+}
+
+function refreshWeather() {
+    const refreshBtn = document.querySelector('.refresh-btn');
+    if (refreshBtn) {
+        refreshBtn.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            refreshBtn.style.transform = 'rotate(0deg)';
+        }, 1000);
+    }
+    fetchWeatherData();
+}
+
+function refreshWeatherData() {
+    fetchWeatherData();
+}
+
+// Update detailed weather information
+function updateDetailedWeatherInfo() {
+    if (!weatherData) return;
     
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Weather data not available');
+    const current = weatherData.current;
+    const location = weatherData.location;
+    
+    // Update location information
+    const locationElement = document.querySelector('.weather-location');
+    if (locationElement) {
+        locationElement.textContent = `${location.name}, ${location.region}`;
+    }
+    
+    // Update additional weather parameters
+    const pressureElement = document.querySelector('.pressure-value');
+    if (pressureElement) pressureElement.textContent = `${current.pressure_mb} mb`;
+    
+    const visibilityElement = document.querySelector('.visibility-value');
+    if (visibilityElement) visibilityElement.textContent = `${current.vis_km} km`;
+    
+    const uvElement = document.querySelector('.uv-value');
+    if (uvElement) uvElement.textContent = getUVIndexDescription(current.uv);
+    
+    const feelsLikeElement = document.querySelector('.feels-like-value');
+    if (feelsLikeElement) feelsLikeElement.textContent = `${current.feelslike_c}°C`;
+    
+    // Update farming recommendations based on weather
+    updateFarmingRecommendations();
+}
+
+// Check for weather alerts
+function checkWeatherAlerts() {
+    if (!weatherData || !weatherData.alerts || !weatherData.alerts.alert) {
+        updateNotificationBadge(0);
+        return;
+    }
+    
+    const alerts = weatherData.alerts.alert;
+    if (alerts.length > 0) {
+        const alertContainer = document.querySelector('.weather-alerts');
+        if (alertContainer) {
+            alertContainer.innerHTML = '';
+            alerts.forEach(alert => {
+                const alertElement = document.createElement('div');
+                alertElement.className = 'weather-alert';
+                alertElement.innerHTML = `
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h5>${alert.headline}</h5>
+                        <p>${alert.desc}</p>
+                        <small>Valid until: ${alert.expires}</small>
+                    </div>
+                `;
+                alertContainer.appendChild(alertElement);
+            });
+            alertContainer.style.display = 'block';
         }
-        const data = await response.json();
-        updateWeatherUI(data);
-    } catch (error) {
-        console.error('Error fetching weather data:', error);
-        showWeatherError('Failed to fetch weather data. Please try again.');
-    }
-}
-
-function updateWeatherUI(data) {
-    const weatherWidget = document.getElementById('weather-widget');
-    if (!weatherWidget) return;
-    
-    const iconUrl = data.current.condition.icon.startsWith('http') ? 
-        data.current.condition.icon : 
-        'https:' + data.current.condition.icon;
-    
-    weatherWidget.innerHTML = `
-        <div class="weather-info">
-            <div class="d-flex align-items-center">
-                <img src="${iconUrl}" alt="${data.current.condition.text}" class="me-2">
-                <div>
-                    <h4 class="mb-0">${Math.round(data.current.temp_c)}°C</h4>
-                    <small class="text-muted">${data.current.condition.text}</small>
-                </div>
-            </div>
-            <div class="mt-2">
-                <small class="text-muted">
-                    <i class="bi bi-geo-alt"></i> ${data.location.name}, ${data.location.country}
-                </small>
-            </div>
-        </div>
-    `;
-}
-
-function showWeatherError(message) {
-    const weatherWidget = document.getElementById('weather-widget');
-    if (!weatherWidget) return;
-    
-    weatherWidget.innerHTML = `
-        <div class="alert alert-warning mb-0">
-            <i class="bi bi-exclamation-triangle"></i> ${message}
-        </div>
-    `;
-}
-
-function getWeatherByLocation() {
-    const weatherWidget = document.getElementById('weather-widget');
-    if (!weatherWidget) return;
-    
-    weatherWidget.innerHTML = `
-        <div class="text-center py-2">
-            <div class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <span class="ms-2">Getting weather...</span>
-        </div>
-    `;
-    
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;
-                fetchWeatherData(latitude, longitude);
-            },
-            error => {
-                console.error('Error getting location:', error);
-                showWeatherError('Unable to get your location. Using default location.');
-                fetchWeatherData(28.6139, 77.2090); // Default to New Delhi
-            }
-        );
+        updateNotificationBadge(alerts.length);
     } else {
-        showWeatherError('Geolocation is not supported by your browser.');
-        fetchWeatherData(28.6139, 77.2090); // Default to New Delhi
+        updateNotificationBadge(0);
     }
 }
 
-function initializeDashboard() {
-    // Sample data for recent activities
-    const activities = [
-        { title: 'Irrigation Completed', time: '2 hours ago', description: 'Field A1 was irrigated' },
-        { title: 'Pest Alert', time: '5 hours ago', description: 'Pest detected in Field B2' },
-        { title: 'Fertilization Scheduled', time: '1 day ago', description: 'Scheduled for tomorrow' }
-    ];
+// Get UV Index description
+function getUVIndexDescription(uvIndex) {
+    if (uvIndex <= 2) return `${uvIndex} (Low)`;
+    if (uvIndex <= 5) return `${uvIndex} (Moderate)`;
+    if (uvIndex <= 7) return `${uvIndex} (High)`;
+    if (uvIndex <= 10) return `${uvIndex} (Very High)`;
+    return `${uvIndex} (Extreme)`;
+}
+
+// Update farming recommendations based on weather
+function updateFarmingRecommendations() {
+    if (!weatherData) return;
     
-    // Update recent activities
-    const activitiesList = document.querySelector('.recent-activities');
-    if (activitiesList) {
-        activitiesList.innerHTML = activities.map(activity => `
-            <div class="list-group-item border-0 px-0">
-                <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">${activity.title}</h6>
-                    <small class="text-muted">${activity.time}</small>
-                </div>
-                <p class="mb-1 small text-muted">${activity.description}</p>
+    const current = weatherData.current;
+    const forecast = weatherData.forecast.forecastday[0];
+    const recommendations = [];
+    
+    // Temperature-based recommendations
+    if (current.temp_c > 35) {
+        recommendations.push({
+            type: 'warning',
+            icon: 'fa-thermometer-full',
+            message: translate('highTempWarning') || 'Very high temperature. Ensure adequate irrigation for crops.'
+        });
+    } else if (current.temp_c < 5) {
+        recommendations.push({
+            type: 'warning',
+            icon: 'fa-snowflake',
+            message: translate('lowTempWarning') || 'Low temperature alert. Protect sensitive crops from frost.'
+        });
+    }
+    
+    // Rain-based recommendations
+    if (forecast.day.daily_chance_of_rain > 70) {
+        recommendations.push({
+            type: 'info',
+            icon: 'fa-cloud-rain',
+            message: translate('rainExpected') || 'Heavy rain expected. Postpone spraying and harvesting activities.'
+        });
+    } else if (forecast.day.daily_chance_of_rain > 30) {
+        recommendations.push({
+            type: 'info',
+            icon: 'fa-cloud-rain',
+            message: translate('lightRainExpected') || 'Light rain possible. Plan indoor activities as backup.'
+        });
+    }
+    
+    // Wind-based recommendations
+    if (current.wind_kph > 25) {
+        recommendations.push({
+            type: 'warning',
+            icon: 'fa-wind',
+            message: translate('highWindWarning') || 'High winds detected. Avoid pesticide spraying.'
+        });
+    }
+    
+    // UV-based recommendations
+    if (current.uv > 7) {
+        recommendations.push({
+            type: 'info',
+            icon: 'fa-sun',
+            message: translate('highUVWarning') || 'High UV levels. Ideal for sun-drying crops but protect workers.'
+        });
+    }
+    
+    // Humidity-based recommendations
+    if (current.humidity > 85) {
+        recommendations.push({
+            type: 'warning',
+            icon: 'fa-eye',
+            message: translate('highHumidityWarning') || 'High humidity may increase fungal disease risk. Monitor crops closely.'
+        });
+    }
+    
+    // Update recommendations display
+    const recommendationsContainer = document.querySelector('.farming-recommendations');
+    if (recommendationsContainer && recommendations.length > 0) {
+        recommendationsContainer.innerHTML = recommendations.map(rec => `
+            <div class="recommendation-item ${rec.type}">
+                <i class="fas ${rec.icon}"></i>
+                <span>${rec.message}</span>
             </div>
         `).join('');
+        recommendationsContainer.style.display = 'block';
+    }
+}
+
+// Get weather for current user location from signup
+function getLocationWeather() {
+    const userData = localStorage.getItem('krishiSetuUser');
+    if (userData) {
+        const user = JSON.parse(userData);
+        if (user.location) {
+            searchWeatherByLocation(user.location);
+        }
+    }
+}
+
+// Format weather data for farming calendar integration
+function getWeatherForFarmingCalendar() {
+    if (!weatherData) return null;
+    
+    const forecast = weatherData.forecast.forecastday;
+    return forecast.map(day => ({
+        date: day.date,
+        maxTemp: day.day.maxtemp_c,
+        minTemp: day.day.mintemp_c,
+        condition: day.day.condition.text,
+        rainChance: day.day.daily_chance_of_rain,
+        rainAmount: day.day.totalprecip_mm,
+        windSpeed: day.day.maxwind_kph,
+        humidity: day.day.avghumidity,
+        uv: day.day.uv,
+        sunrise: day.astro.sunrise,
+        sunset: day.astro.sunset,
+        suitableForFarming: getSuitabilityScore(day.day)
+    }));
+}
+
+// Calculate farming suitability score based on weather conditions
+function getSuitabilityScore(dayData) {
+    let score = 100; // Start with perfect score
+    
+    // Reduce score for extreme temperatures
+    if (dayData.maxtemp_c > 40 || dayData.maxtemp_c < 0) score -= 30;
+    else if (dayData.maxtemp_c > 35 || dayData.maxtemp_c < 5) score -= 15;
+    
+    // Reduce score for high rain probability
+    if (dayData.daily_chance_of_rain > 80) score -= 25;
+    else if (dayData.daily_chance_of_rain > 60) score -= 15;
+    
+    // Reduce score for high wind
+    if (dayData.maxwind_kph > 30) score -= 20;
+    else if (dayData.maxwind_kph > 20) score -= 10;
+    
+    // Reduce score for very high humidity
+    if (dayData.avghumidity > 90) score -= 15;
+    
+    return Math.max(0, Math.min(100, score));
+}
+
+// Chatbot Functions
+function initializeChatbot() {
+    const chatMessages = document.getElementById('chatMessages');
+    if (chatMessages && chatMessages.children.length <= 1) {
+        // Add welcome message in current language
+        addBotMessage(translate('welcomeMessage'));
+    }
+}
+
+function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+    
+    if (message) {
+        addUserMessage(message);
+        chatInput.value = '';
+        
+        // Simulate bot response
+        setTimeout(() => {
+            const response = generateBotResponse(message);
+            addBotMessage(response);
+        }, 1000);
+    }
+}
+
+function addUserMessage(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message user-message';
+    messageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addBotMessage(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message bot-message';
+    messageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Speak the message if voice is enabled
+    if (isVoiceEnabled && speechSynthesis) {
+        speakText(message);
+    }
+}
+
+function generateBotResponse(userMessage) {
+    const responses = {
+        en: {
+            greeting: ["Hello! How can I help you with your farming today?", "Hi there! What farming question do you have?"],
+            weather: ["The weather today is perfect for farming activities. Temperature is 28°C with good humidity levels."],
+            crops: ["For your soil type, I recommend wheat and corn. They should give you good yields this season."],
+            pest: ["I can help you identify pests. Please use the AR scanning feature or upload an image of the affected plant."],
+            fertilizer: ["Based on your soil analysis, you need phosphorus fertilizer. Apply 20-25 kg/acre of DAP."],
+            default: ["I understand you're asking about farming. Can you be more specific? I can help with weather, crops, pests, or soil analysis."]
+        },
+        hi: {
+            greeting: ["नमस्ते! आज मैं आपकी खेती में कैसे मदद कर सकता हूँ?", "हैलो! आपका कौन सा खेती का सवाल है?"],
+            weather: ["आज का मौसम खेती के लिए बहुत अच्छा है। तापमान 28°C है और नमी का स्तर भी ठीक है।"],
+            crops: ["आपकी मिट्टी के लिए मैं गेहूँ और मक्का की सिफारिश करता हूँ। इस सीजन में अच्छी पैदावार होगी।"],
+            pest: ["मैं कीटों की पहचान में आपकी मदद कर सकता हूँ। कृपया AR स्कैनिंग का उपयोग करें या प्रभावित पौधे की तस्वीर अपलोड करें।"],
+            fertilizer: ["आपके मिट्टी के विश्लेषण के अनुसार, आपको फास्फोरस उर्वरक की जरूरत है। DAP 20-25 किग्रा प्रति एकड़ डालें।"],
+            default: ["मैं समझ गया कि आप खेती के बारे में पूछ रहे हैं। क्या आप और स्पष्ट बता सकते हैं? मैं मौसम, फसल, कीट, या मिट्टी विश्लेषण में मदद कर सकता हूँ।"]
+        }
+    };
+    
+    const currentLang = currentLanguage || 'en';
+    const langResponses = responses[currentLang] || responses.en;
+    
+    const lowerMessage = userMessage.toLowerCase();
+    
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('नमस्ते')) {
+        return getRandomResponse(langResponses.greeting);
+    } else if (lowerMessage.includes('weather') || lowerMessage.includes('मौसम')) {
+        return getRandomResponse(langResponses.weather);
+    } else if (lowerMessage.includes('crop') || lowerMessage.includes('फसल')) {
+        return getRandomResponse(langResponses.crops);
+    } else if (lowerMessage.includes('pest') || lowerMessage.includes('कीट')) {
+        return getRandomResponse(langResponses.pest);
+    } else if (lowerMessage.includes('fertilizer') || lowerMessage.includes('खाद')) {
+        return getRandomResponse(langResponses.fertilizer);
+    } else {
+        return getRandomResponse(langResponses.default);
+    }
+}
+
+function getRandomResponse(responses) {
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+
+// Voice Functions
+function toggleVoice() {
+    const voiceBtn = document.getElementById('voiceBtn');
+    
+    if (!speechRecognition) {
+        alert('Voice recognition not supported in this browser');
+        return;
     }
     
-    // Update last updated time
-    const lastUpdatedElements = document.querySelectorAll('.last-updated');
-    lastUpdatedElements.forEach(el => {
-        el.textContent = new Date().toLocaleTimeString();
-    });
+    if (isVoiceEnabled) {
+        speechRecognition.stop();
+        voiceBtn.classList.remove('active');
+        isVoiceEnabled = false;
+    } else {
+        speechRecognition.start();
+        voiceBtn.classList.add('active');
+        isVoiceEnabled = true;
+    }
 }
+
+function toggleSpeaker() {
+    const speakerBtn = document.getElementById('speakerBtn');
+    
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        speakerBtn.classList.remove('active');
+    } else {
+        speakerBtn.classList.add('active');
+    }
+}
+
+function setupSpeechRecognition() {
+    speechRecognition.continuous = false;
+    speechRecognition.interimResults = false;
+    speechRecognition.lang = currentLanguage === 'hi' ? 'hi-IN' : 'en-US';
+    
+    speechRecognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('chatInput').value = transcript;
+        sendMessage();
+    };
+    
+    speechRecognition.onend = function() {
+        const voiceBtn = document.getElementById('voiceBtn');
+        if (voiceBtn) voiceBtn.classList.remove('active');
+        isVoiceEnabled = false;
+    };
+}
+
+function speakText(text) {
+    if (speechSynthesis) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : 'en-US';
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+// AR Functions
+function initializeAR() {
+    console.log('AR initialized');
+}
+
+function startAR() {
+    const video = document.getElementById('video');
+    
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+                
+                // Simulate AR scanning
+                setTimeout(() => {
+                    showARResults();
+                    stopAR();
+                }, 5000);
+            })
+            .catch(function(error) {
+                console.log('Camera access denied:', error);
+                alert('Camera access required for AR scanning');
+            });
+    }
+}
+
+function stopAR() {
+    const video = document.getElementById('video');
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+    }
+}
+
+function showARResults() {
+    const resultsDiv = document.getElementById('arResults');
+    if (resultsDiv) {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = `
+            <h4>Crop Analysis Results</h4>
+            <div class="ar-result-item">
+                <strong>Crop Health:</strong> Good (85%)
+            </div>
+            <div class="ar-result-item">
+                <strong>Growth Stage:</strong> Flowering
+            </div>
+            <div class="ar-result-item">
+                <strong>Recommendation:</strong> Continue current care routine
+            </div>
+        `;
+    }
+}
+
+// Modal Functions
+function showAddCropModal() {
+    document.getElementById('addCropModal').style.display = 'flex';
+}
+
+function showScheduleModal() {
+    alert('Schedule task functionality coming soon!');
+}
+
+function viewReports() {
+    alert('Reports functionality coming soon!');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+function openWeatherForecastModal() {
+    const existing = document.getElementById('forecastIframeModal');
+    if (!existing) {
+        const modalHtml = `
+        <div class="modal" id="forecastIframeModal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3>7-Day Weather Forecast</h3>
+                    <button class="modal-close" onclick="closeModal('forecastIframeModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe class="modal-iframe" src="weather-forecast.html" title="Extended Forecast" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+    document.getElementById('forecastIframeModal').style.display = 'flex';
+}
+
+// Utility Functions
+function showSuccess(message) {
+    showNotification(message, 'success');
+}
+
+function showError(message) {
+    showNotification(message, 'error');
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    
+    if (type === 'success') {
+        notification.style.background = '#4CAF50';
+    } else {
+        notification.style.background = '#F44336';
+    }
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Event Listeners
+document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const activeElement = document.activeElement;
+        
+        // Send chat message on Enter
+        if (activeElement.id === 'chatInput') {
+            sendMessage();
+        }
+    }
+});
+
+// Click outside modal to close
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+});
+
+// Update language when changed
+window.addEventListener('languageChanged', function(event) {
+    const newLang = event.detail.language;
+    
+    // Update speech recognition language
+    if (speechRecognition) {
+        speechRecognition.lang = newLang === 'hi' ? 'hi-IN' : 'en-US';
+    }
+    
+    // Refresh chatbot welcome message
+    if (document.getElementById('chatMessages')) {
+        initializeChatbot();
+    }
+});
+
+// PWA Install Event
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    deferredPrompt = e;
+    // Show install banner or button
+    showInstallBanner();
+});
+
+function showInstallBanner() {
+    // Create install banner
+    const banner = document.createElement('div');
+    banner.id = 'installBanner';
+    banner.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    `;
+    
+    banner.innerHTML = `
+        <div>
+            <strong>Install KrishiSetu</strong><br>
+            <small>Get the full app experience</small>
+        </div>
+        <div>
+            <button onclick="installPWA()" style="background: white; color: #4CAF50; border: none; padding: 0.5rem 1rem; border-radius: 4px; margin-right: 0.5rem; cursor: pointer;">Install</button>
+            <button onclick="dismissInstallBanner()" style="background: transparent; color: white; border: 1px solid white; padding: 0.5rem; border-radius: 4px; cursor: pointer;">×</button>
+        </div>
+    `;
+    
+    document.body.appendChild(banner);
+}
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            }
+            deferredPrompt = null;
+        });
+    }
+    dismissInstallBanner();
+}
+
+function dismissInstallBanner() {
+    const banner = document.getElementById('installBanner');
+    if (banner) {
+        banner.remove();
+    }
+}
+
+// Farming Calendar Functions
+function generateFarmingCalendar() {
+    const calendar = {
+        'January': [
+            { task: 'Prepare fields for Rabi harvest', icon: 'fa-tractor' },
+            { task: 'Apply fertilizer to wheat crops', icon: 'fa-seedling' }
+        ],
+        'February': [
+            { task: 'Harvest wheat and barley', icon: 'fa-cut' },
+            { task: 'Prepare for summer crops', icon: 'fa-sun' }
+        ],
+        'March': [
+            { task: 'Plant summer vegetables', icon: 'fa-carrot' },
+            { task: 'Start irrigation for summer crops', icon: 'fa-tint' }
+        ],
+        // Add more months as needed
+    };
+    
+    return calendar;
+}
+
+// By-Product Income Maximizer
+function getByProductSuggestions() {
+    return [
+        {
+            crop: 'Wheat',
+            byProduct: 'Wheat Straw',
+            uses: ['Paper industry', 'Biofuel', 'Animal feed'],
+            income: '₹2,000-3,000 per ton'
+        },
+        {
+            crop: 'Rice',
+            byProduct: 'Rice Husk',
+            uses: ['Construction material', 'Biofuel', 'Organic fertilizer'],
+            income: '₹1,500-2,500 per ton'
+        },
+        {
+            crop: 'Sugarcane',
+            byProduct: 'Bagasse',
+            uses: ['Paper production', 'Biofuel', 'Building material'],
+            income: '₹3,000-4,000 per ton'
+        }
+    ];
+}
+
+// Government Schemes Data
+function getGovernmentSchemes() {
+    return [
+        {
+            name: 'PM-KISAN',
+            description: 'Direct income support to farmers',
+            benefit: '₹6,000 per year',
+            eligibility: 'Small and marginal farmers',
+            link: '#'
+        },
+        {
+            name: 'Pradhan Mantri Fasal Bima Yojana',
+            description: 'Crop insurance scheme',
+            benefit: 'Up to 90% coverage',
+            eligibility: 'All farmers',
+            link: '#'
+        },
+        {
+            name: 'Soil Health Card Scheme',
+            description: 'Free soil testing',
+            benefit: 'Soil nutrient analysis',
+            eligibility: 'All farmers',
+            link: '#'
+        },
+        {
+            name: 'Pradhan Mantri Krishi Sinchai Yojana',
+            description: 'Irrigation support',
+            benefit: 'Up to 55% subsidy',
+            eligibility: 'All categories of farmers',
+            link: '#'
+        }
+    ];
+}
+
+// Location search functions
+function handleLocationSearch(event) {
+    if (event.key === 'Enter') {
+        const locationInput = document.getElementById('locationSearch');
+        const location = locationInput.value.trim();
+        if (location) {
+            searchWeatherByLocation(location);
+        }
+    }
+}
+
+function searchCurrentLocation() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                currentLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                fetchWeatherData();
+                showSuccess('Location updated successfully!');
+            },
+            (error) => {
+                showError('Location access denied. Please enter location manually.');
+            }
+        );
+    } else {
+        showError('Geolocation not supported by this browser.');
+    }
+}
+
+// Enhanced weather display functions
+function showExtendedForecast() {
+    if (!weatherData || !weatherData.forecast) return;
+    
+    const forecastData = weatherData.forecast.forecastday;
+    let forecastHtml = '<div class="extended-forecast">';
+    
+    forecastData.forEach((day, index) => {
+        const date = new Date(day.date);
+        const dayName = index === 0 ? 'Today' : 
+                       index === 1 ? 'Tomorrow' : 
+                       date.toLocaleDateString('en', { weekday: 'short' });
+        
+        const suitability = getSuitabilityScore(day.day);
+        const suitabilityClass = suitability >= 80 ? 'excellent' : 
+                               suitability >= 60 ? 'good' : 
+                               suitability >= 40 ? 'fair' : 'poor';
+        
+        forecastHtml += `
+            <div class="forecast-day-detailed">
+                <div class="forecast-header">
+                    <h5>${dayName}</h5>
+                    <span class="forecast-date">${date.toLocaleDateString()}</span>
+                </div>
+                <div class="forecast-weather">
+                    <i class="fas ${getWeatherIcon(day.day.condition.text)}"></i>
+                    <span class="temp-range">${day.day.maxtemp_c}°/${day.day.mintemp_c}°</span>
+                    <span class="condition">${day.day.condition.text}</span>
+                </div>
+                <div class="forecast-details">
+                    <span><i class="fas fa-cloud-rain"></i> ${day.day.daily_chance_of_rain}%</span>
+                    <span><i class="fas fa-wind"></i> ${day.day.maxwind_kph} km/h</span>
+                    <span><i class="fas fa-eye"></i> ${day.day.avghumidity}%</span>
+                </div>
+                <div class="farming-suitability ${suitabilityClass}">
+                    <span>Farming Suitability: ${suitability}%</span>
+                </div>
+                <div class="astro-info">
+                    <span><i class="fas fa-sun"></i> ${day.astro.sunrise}</span>
+                    <span><i class="fas fa-moon"></i> ${day.astro.sunset}</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    forecastHtml += '</div>';
+    
+    // Display in modal or dedicated section
+    const modalContent = `
+        <div class="modal" id="forecastModal">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3>7-Day Weather Forecast</h3>
+                    <button class="modal-close" onclick="closeModal('forecastModal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ${forecastHtml}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to document if it doesn't exist
+    if (!document.getElementById('forecastModal')) {
+        document.body.insertAdjacentHTML('beforeend', modalContent);
+    }
+    
+    document.getElementById('forecastModal').style.display = 'flex';
+}
+
+// Notification badge helper
+function updateNotificationBadge(count) {
+    const badge = document.querySelector('.notification-badge');
+    if (!badge) return;
+    if (count && count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'flex';
+    } else {
+        badge.textContent = '';
+        badge.style.display = 'none';
+    }
+}
+
+// Personalized Farming Calendar rendering
+function renderFarmingCalendar() {
+    const container = document.getElementById('farmingCalendar');
+    if (!container) return;
+    const forecast = getWeatherForFarmingCalendar();
+    const profile = loadUserProfile();
+    const userStr = localStorage.getItem('krishiSetuUser');
+    const user = userStr ? JSON.parse(userStr) : {};
+    const crop = profile.cropType || user.cropType || 'Wheat';
+    const farmSize = profile.farmSize || user.farmSize || '5.0';
+    
+    if (!forecast) {
+        container.innerHTML = '<p>Calendar will appear once weather data loads.</p>';
+        return;
+    }
+    
+    const items = forecast.slice(0, 7).map(day => {
+        const suitable = day.suitableForFarming;
+        let task = 'General field monitoring';
+        if (day.rainChance > 70) task = 'Avoid spraying; plan drainage checks';
+        else if (day.rainChance > 40) task = 'Weeding and soil aeration';
+        else if (day.windSpeed > 25) task = 'Stake/support plants; avoid spraying';
+        else if (suitable >= 80) task = `Irrigation and nutrient application for ${crop}`;
+        else if (suitable >= 60) task = `Field operations and pest scouting`;
+        return {
+            date: day.date,
+            condition: day.condition,
+            task,
+            suitable
+        };
+    });
+    
+    container.innerHTML = `
+        <div class="calendar-meta">Crop: <strong>${crop}</strong> • Farm size: <strong>${farmSize} acres</strong></div>
+        <div class="calendar-grid">
+            ${items.map(i => `
+                <div class="calendar-item suitability-${i.suitable >= 80 ? 'high' : i.suitable >= 60 ? 'med' : 'low'}">
+                    <div class="calendar-date">${new Date(i.date).toLocaleDateString()}</div>
+                    <div class="calendar-condition"><i class="fas fa-cloud"></i> ${i.condition}</div>
+                    <div class="calendar-task">${i.task}</div>
+                    <div class="calendar-score">Suitability: ${i.suitable}%</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// By-Product Income Maximizer rendering
+function renderByProductSuggestions() {
+    const container = document.getElementById('byProductSuggestions');
+    if (!container) return;
+    const userStr = localStorage.getItem('krishiSetuUser');
+    const user = userStr ? JSON.parse(userStr) : {};
+    const crop = user.cropType || 'Wheat';
+    const suggestions = getByProductSuggestions();
+    
+    const filtered = suggestions.filter(s => s.crop === crop);
+    const list = (filtered.length ? filtered : suggestions).map(s => `
+        <div class="byproduct-item">
+            <div class="byproduct-title">${s.crop} — ${s.byProduct}</div>
+            <div class="byproduct-uses">Uses: ${s.uses.join(', ')}</div>
+            <div class="byproduct-income">Potential: ${s.income}</div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = `
+        <div class="byproduct-list">${list}</div>
+    `;
+}
+
+// Profile helpers
+function loadUserProfile() {
+    try {
+        const raw = localStorage.getItem('krishiSetuUserProfile');
+        return raw ? JSON.parse(raw) : {};
+    } catch { return {}; }
+}
+
+function saveUserProfile(profile) {
+    const existing = loadUserProfile();
+    const merged = { ...existing, ...profile };
+    localStorage.setItem('krishiSetuUserProfile', JSON.stringify(merged));
+    // also mirror a few useful fields into krishiSetuUser for backward compatibility
+    const userRaw = localStorage.getItem('krishiSetuUser');
+    const userObj = userRaw ? JSON.parse(userRaw) : {};
+    if (merged.farmSize) userObj.farmSize = merged.farmSize;
+    if (merged.location) userObj.location = merged.location;
+    if (merged.cropType) userObj.cropType = merged.cropType;
+    localStorage.setItem('krishiSetuUser', JSON.stringify(userObj));
+    showSuccess('Profile saved successfully');
+}
+
+function bootstrapPerPage() {
+    const path = (window.location.pathname || '').toLowerCase();
+    if (path.endsWith('/calendar.html')) {
+        // Attach month navigation
+        const prevBtn = document.getElementById('prevMonthBtn');
+        const nextBtn = document.getElementById('nextMonthBtn');
+        if (prevBtn) prevBtn.addEventListener('click', () => changeCalendarMonth(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => changeCalendarMonth(1));
+        // Initial render
+        renderMonthlyCalendar(currentCalendarDate);
+        // Re-render when weather data becomes available
+        if (weatherData) renderMonthlyCalendar(currentCalendarDate);
+    } else if (path.endsWith('/profile.html')) {
+        // populate form fields if present
+        const profile = loadUserProfile();
+        const fields = ['farmerName','location','farmSize','cropType','soilType','irrigation','phone'];
+        fields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && profile[id] !== undefined) el.value = profile[id];
+        });
+        const form = document.getElementById('profileForm');
+        if (form) {
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                const payload = {
+                    farmerName: document.getElementById('farmerName')?.value || '',
+                    location: document.getElementById('location')?.value || '',
+                    farmSize: document.getElementById('farmSize')?.value || '',
+                    cropType: document.getElementById('cropType')?.value || '',
+                    soilType: document.getElementById('soilType')?.value || '',
+                    irrigation: document.getElementById('irrigation')?.value || '',
+                    phone: document.getElementById('phone')?.value || ''
+                };
+                saveUserProfile(payload);
+            });
+        }
+    }
+}
+
+function changeCalendarMonth(delta) {
+    const d = new Date(currentCalendarDate);
+    d.setMonth(d.getMonth() + delta);
+    currentCalendarDate = d;
+    renderMonthlyCalendar(currentCalendarDate);
+}
+
+function renderMonthlyCalendar(dateObj) {
+    const monthGrid = document.getElementById('monthGrid');
+    const monthLabel = document.getElementById('monthLabel');
+    const meta = document.getElementById('calendarMeta');
+    if (!monthGrid || !monthLabel) return;
+    
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const startDayOfWeek = firstDay.getDay(); // 0=Sun
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    // Header
+    const monthName = firstDay.toLocaleString('en', { month: 'long' });
+    monthLabel.textContent = `${monthName} ${year}`;
+    
+    // Meta (profile summary)
+    if (meta) {
+        const profile = loadUserProfile();
+        const crop = profile.cropType || 'Wheat';
+        const size = profile.farmSize || '5.0';
+        meta.innerHTML = `Crop: <strong>${crop}</strong> • Farm size: <strong>${size} acres</strong>`;
+    }
+    
+    // Build grid (6 weeks x 7 days = 42 cells)
+    const totalCells = 42;
+    let html = '';
+    for (let cell = 0; cell < totalCells; cell++) {
+        const dayNum = cell - startDayOfWeek + 1; // 1..daysInMonth
+        if (dayNum < 1 || dayNum > daysInMonth) {
+            html += `<div class="day-cell empty"></div>`;
+            continue;
+        }
+        const cellDate = new Date(year, month, dayNum);
+        const dateStr = cellDate.toISOString().split('T')[0];
+        const suitability = getSuitabilityForDate(dateStr);
+        const suitabilityClass = suitability == null ? 'no' : (suitability >= 80 ? 'high' : suitability >= 60 ? 'med' : 'low');
+        const task = getSuggestedTaskForSuitability(suitability);
+        html += `
+            <div class="day-cell suitability-${suitabilityClass}" title="${task}">
+                <div class="date-number">${dayNum}</div>
+                <div class="day-task">${task}</div>
+                ${suitability != null ? `<div class="day-score">${suitability}%</div>` : ''}
+            </div>
+        `;
+    }
+    monthGrid.innerHTML = html;
+}
+
+function getSuitabilityForDate(dateStr) {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.forecastday) return null;
+    const match = weatherData.forecast.forecastday.find(d => d.date === dateStr);
+    if (!match) return null; // no forecast for that day
+    return getSuitabilityScore(match.day);
+}
+
+function getSuggestedTaskForSuitability(suitability) {
+    if (suitability == null) return 'No forecast data';
+    if (suitability >= 80) return 'Irrigation & nutrient application';
+    if (suitability >= 60) return 'Field operations & pest scouting';
+    if (suitability >= 40) return 'Weeding & soil aeration';
+    return 'Avoid spraying; plan maintenance';
+}
+
+// Export functions for use in other scripts
+window.KrishiSetu = {
+    selectLanguage,
+    showAuthScreen,
+    showLoginForm,
+    showSignupForm,
+    continueWithoutLogin,
+    handleLogin,
+    handleSignup,
+    showSection,
+    refreshWeather,
+    sendMessage,
+    toggleVoice,
+    toggleSpeaker,
+    startAR,
+    stopAR,
+    showAddCropModal,
+    closeModal,
+    generateFarmingCalendar,
+    getByProductSuggestions,
+    getGovernmentSchemes,
+    searchWeatherByLocation,
+    handleLocationSearch,
+    searchCurrentLocation,
+    showExtendedForecast,
+    openWeatherForecastModal,
+    getWeatherForFarmingCalendar,
+    updateDetailedWeatherInfo,
+    renderFarmingCalendar,
+    renderByProductSuggestions,
+    loadUserProfile,
+    saveUserProfile,
+    renderMonthlyCalendar,
+    changeCalendarMonth
+};

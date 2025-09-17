@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - KrishiSetu</title>
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%234CAF50' d='M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z'/%3E%3Cpath fill='%234CAF50' d='M50 25c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .weather-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            padding: 1rem;
+        }
+        
+        .weather-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .location-search-bar {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 1.5rem auto 0;
+            align-items: center;
+        }
+        
+        .location-search-bar input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .location-search-bar button {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .location-search-bar button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .weather-card-detailed {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .weather-card-detailed:hover {
+            transform: translateY(-5px);
+        }
+        
+        .current-weather-detailed {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .current-weather-detailed .weather-icon {
+            font-size: 4rem;
+            color: #f39c12;
+            margin-bottom: 1rem;
+        }
+        
+        .current-weather-detailed .temperature {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+        
+        .current-weather-detailed .condition {
+            font-size: 1.2rem;
+            color: #636e72;
+            margin-bottom: 1rem;
+        }
+        
+        .weather-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .detail-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(116, 185, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .detail-item i {
+            font-size: 1.5rem;
+            color: #0984e3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-item .label {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 0.25rem;
+        }
+        
+        .detail-item .value {
+            font-weight: bold;
+            color: #2d3436;
+        }
+        
+        .forecast-timeline {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .forecast-days {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .forecast-day-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .forecast-day-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .forecast-day-card .day-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .forecast-day-card .day-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .forecast-day-card .weather-icon {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        
+        .forecast-day-card .temp-range {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .forecast-day-card .condition {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .forecast-details-mini {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .farming-insights {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid;
+        }
+        
+        .insight-card.excellent {
+            background: rgba(0, 184, 148, 0.1);
+            border-color: #00b894;
+        }
+        
+        .insight-card.good {
+            background: rgba(253, 203, 110, 0.1);
+            border-color: #fdcb6e;
+        }
+        
+        .insight-card.fair {
+            background: rgba(255, 127, 80, 0.1);
+            border-color: #fd7f50;
+        }
+        
+        .insight-card.poor {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: #e74c3c;
+        }
+        
+        .insight-card h4 {
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+        
+        .insight-card p {
+            color: #636e72;
+            margin-bottom: 1rem;
+        }
+        
+        .suitability-score {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .suitability-score.excellent { color: #00b894; }
+        .suitability-score.good { color: #fdcb6e; }
+        .suitability-score.fair { color: #fd7f50; }
+        .suitability-score.poor { color: #e74c3c; }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .weather-page { padding: 0.5rem; }
+            .page-header { padding: 1.5rem; }
+            .weather-grid { grid-template-columns: 1fr; }
+            .forecast-days { grid-template-columns: 1fr; }
+            .insights-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-page">
+        <button class="back-button" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <div class="weather-container">
+            <div class="page-header">
+                <h1 data-translate="weatherForecast">Weather Forecast</h1>
+                <p data-translate="weatherSubtitle">Detailed weather information for smart farming decisions</p>
+                
+                <div class="location-search-bar">
+                    <input type="text" id="locationSearchInput" placeholder="Search for a city..." onkeypress="handleLocationSearchPage(event)">
+                    <button onclick="searchCurrentLocationPage()" title="Use current location">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <button onclick="refreshWeatherPage()" title="Refresh weather">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="weather-grid">
+                <!-- Current Weather Card -->
+                <div class="weather-card-detailed">
+                    <h3 data-translate="currentWeather">Current Weather</h3>
+                    <div id="currentWeatherContent" class="current-weather-detailed">
+                        <i class="fas fa-sun weather-icon"></i>
+                        <div class="temperature">28°C</div>
+                        <div class="condition">Sunny</div>
+                        <div class="location-display">Chandigarh, Punjab</div>
+                    </div>
+                    
+                    <div class="weather-details-grid">
+                        <div class="detail-item">
+                            <i class="fas fa-thermometer-half"></i>
+                            <div class="label" data-translate="feelsLike">Feels Like</div>
+                            <div class="value feels-like-display">30°C</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-eye"></i>
+                            <div class="label" data-translate="humidity">Humidity</div>
+                            <div class="value humidity-display">65%</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-wind"></i>
+                            <div class="label" data-translate="windSpeed">Wind</div>
+                            <div class="value wind-display">12 km/h</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                            <div class="label" data-translate="pressure">Pressure</div>
+                            <div class="value pressure-display">1013 mb</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-eye"></i>
+                            <div class="label" data-translate="visibility">Visibility</div>
+                            <div class="value visibility-display">10 km</div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-sun"></i>
+                            <div class="label" data-translate="uvIndex">UV Index</div>
+                            <div class="value uv-display">6 (High)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Today's Highlights -->
+                <div class="weather-card-detailed">
+                    <h3 data-translate="todayHighlights">Today's Highlights</h3>
+                    <div id="todayHighlights" class="weather-details-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 7-Day Forecast -->
+            <div class="forecast-timeline">
+                <h3 data-translate="sevenDayForecast">7-Day Weather Forecast</h3>
+                <div id="forecastDays" class="forecast-days">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Farming Insights -->
+            <div class="farming-insights">
+                <h3 data-translate="farmingInsights">Farming Insights & Recommendations</h3>
+                <div id="farmingInsightsContent" class="insights-grid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Weather Alerts -->
+            <div id="weatherAlertsSection" class="farming-insights" style="display: none;">
+                <h3 data-translate="weatherAlerts">Weather Alerts</h3>
+                <div id="weatherAlertsContent">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Weather page specific functions
+        function handleLocationSearchPage(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('locationSearchInput');
+                const location = input.value.trim();
+                if (location) {
+                    searchWeatherByLocation(location);
+                }
+            }
+        }
+        
+        function searchCurrentLocationPage() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        currentLocation = {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        };
+                        fetchWeatherData();
+                        showSuccess('Location updated successfully!');
+                    },
+                    (error) => {
+                        showError('Location access denied. Please enter location manually.');
+                    }
+                );
+            } else {
+                showError('Geolocation not supported by this browser.');
+            }
+        }
+        
+        function refreshWeatherPage() {
+            fetchWeatherData();
+        }
+        
+        // Update weather display for this page
+        function updateWeatherPageDisplay() {
+            if (!weatherData) return;
+            
+            const current = weatherData.current;
+            const location = weatherData.location;
+            const forecast = weatherData.forecast.forecastday;
+            
+            // Update current weather
+            document.querySelector('.temperature').textContent = `${current.temp_c}°C`;
+            document.querySelector('.condition').textContent = current.condition.text;
+            document.querySelector('.location-display').textContent = `${location.name}, ${location.region}`;
+            document.querySelector('.weather-icon').className = `fas weather-icon ${getWeatherIcon(current.condition.text)}`;
+            
+            // Update detail displays
+            document.querySelector('.feels-like-display').textContent = `${current.feelslike_c}°C`;
+            document.querySelector('.humidity-display').textContent = `${current.humidity}%`;
+            document.querySelector('.wind-display').textContent = `${current.wind_kph} km/h`;
+            document.querySelector('.pressure-display').textContent = `${current.pressure_mb} mb`;
+            document.querySelector('.visibility-display').textContent = `${current.vis_km} km`;
+            document.querySelector('.uv-display').textContent = getUVIndexDescription(current.uv);
+            
+            // Update today's highlights
+            updateTodayHighlights(current);
+            
+            // Update 7-day forecast
+            updateSevenDayForecast(forecast);
+            
+            // Update farming insights
+            updateFarmingInsights(forecast);
+            
+            // Check for alerts
+            checkWeatherAlertsPage();
+        }
+        
+        function updateTodayHighlights(current) {
+            const highlights = document.getElementById('todayHighlights');
+            highlights.innerHTML = `
+                <div class="detail-item">
+                    <i class="fas fa-sun"></i>
+                    <div class="label">Sunrise</div>
+                    <div class="value">${weatherData.forecast.forecastday[0].astro.sunrise}</div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-moon"></i>
+                    <div class="label">Sunset</div>
+                    <div class="value">${weatherData.forecast.forecastday[0].astro.sunset}</div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-cloud-rain"></i>
+                    <div class="label">Rain Chance</div>
+                    <div class="value">${weatherData.forecast.forecastday[0].day.daily_chance_of_rain}%</div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-wind"></i>
+                    <div class="label">Wind Gusts</div>
+                    <div class="value">${current.gust_kph || current.wind_kph} km/h</div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-cloud"></i>
+                    <div class="label">Cloud Cover</div>
+                    <div class="value">${current.cloud}%</div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-moon-o"></i>
+                    <div class="label">Moon Phase</div>
+                    <div class="value">${weatherData.forecast.forecastday[0].astro.moon_phase}</div>
+                </div>
+            `;
+        }
+        
+        function updateSevenDayForecast(forecast) {
+            const container = document.getElementById('forecastDays');
+            container.innerHTML = forecast.map((day, index) => {
+                const date = new Date(day.date);
+                const dayName = index === 0 ? 'Today' : 
+                               index === 1 ? 'Tomorrow' : 
+                               date.toLocaleDateString('en', { weekday: 'short' });
+                
+                const suitability = getSuitabilityScore(day.day);
+                const suitabilityClass = suitability >= 80 ? 'excellent' : 
+                                       suitability >= 60 ? 'good' : 
+                                       suitability >= 40 ? 'fair' : 'poor';
+                
+                return `
+                    <div class="forecast-day-card">
+                        <div class="day-name">${dayName}</div>
+                        <div class="day-date">${date.toLocaleDateString()}</div>
+                        <i class="fas ${getWeatherIcon(day.day.condition.text)} weather-icon"></i>
+                        <div class="temp-range">${day.day.maxtemp_c}°/${day.day.mintemp_c}°</div>
+                        <div class="condition">${day.day.condition.text}</div>
+                        <div class="forecast-details-mini">
+                            <span><i class="fas fa-cloud-rain"></i> ${day.day.daily_chance_of_rain}%</span>
+                            <span><i class="fas fa-wind"></i> ${day.day.maxwind_kph}km/h</span>
+                            <span><i class="fas fa-eye"></i> ${day.day.avghumidity}%</span>
+                        </div>
+                        <div class="suitability-score ${suitabilityClass}">
+                            Farming: ${suitability}%
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateFarmingInsights(forecast) {
+            const container = document.getElementById('farmingInsightsContent');
+            const insights = [];
+            
+            forecast.slice(0, 7).forEach((day, index) => {
+                const date = new Date(day.date);
+                const dayName = index === 0 ? 'Today' : 
+                               index === 1 ? 'Tomorrow' : 
+                               date.toLocaleDateString('en', { weekday: 'long' });
+                
+                const suitability = getSuitabilityScore(day.day);
+                const suitabilityClass = suitability >= 80 ? 'excellent' : 
+                                       suitability >= 60 ? 'good' : 
+                                       suitability >= 40 ? 'fair' : 'poor';
+                
+                let recommendation = '';
+                if (suitability >= 80) {
+                    recommendation = 'Excellent day for all farming activities including planting, harvesting, and field work.';
+                } else if (suitability >= 60) {
+                    recommendation = 'Good conditions for most farming activities. Monitor weather changes.';
+                } else if (suitability >= 40) {
+                    recommendation = 'Fair conditions. Plan activities carefully and have backup plans.';
+                } else {
+                    recommendation = 'Poor conditions for outdoor farming. Consider postponing activities.';
+                }
+                
+                insights.push({
+                    day: dayName,
+                    date: date.toLocaleDateString(),
+                    suitability,
+                    suitabilityClass,
+                    recommendation,
+                    details: day.day
+                });
+            });
+            
+            container.innerHTML = insights.map(insight => `
+                <div class="insight-card ${insight.suitabilityClass}">
+                    <h4>${insight.day}</h4>
+                    <p class="suitability-score ${insight.suitabilityClass}">
+                        Suitability Score: ${insight.suitability}%
+                    </p>
+                    <p>${insight.recommendation}</p>
+                    <div style="font-size: 0.9rem; color: #636e72;">
+                        <strong>Weather:</strong> ${insight.details.condition.text} • 
+                        ${insight.details.maxtemp_c}°/${insight.details.mintemp_c}° • 
+                        Rain: ${insight.details.daily_chance_of_rain}%
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function checkWeatherAlertsPage() {
+            if (!weatherData || !weatherData.alerts || !weatherData.alerts.alert || weatherData.alerts.alert.length === 0) {
+                document.getElementById('weatherAlertsSection').style.display = 'none';
+                return;
+            }
+            
+            const alertsSection = document.getElementById('weatherAlertsSection');
+            const alertsContent = document.getElementById('weatherAlertsContent');
+            
+            alertsContent.innerHTML = weatherData.alerts.alert.map(alert => `
+                <div class="insight-card poor" style="margin-bottom: 1rem;">
+                    <h4><i class="fas fa-exclamation-triangle"></i> ${alert.headline}</h4>
+                    <p>${alert.desc}</p>
+                    <small>Valid until: ${alert.expires}</small>
+                </div>
+            `).join('');
+            
+            alertsSection.style.display = 'block';
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load weather data
+            fetchWeatherData().then(() => {
+                updateWeatherPageDisplay();
+            });
+            
+            // Override the default updateWeatherDisplay to also update this page
+            const originalUpdate = updateWeatherDisplay;
+            updateWeatherDisplay = function() {
+                originalUpdate();
+                updateWeatherPageDisplay();
+            };
+        });
+    </script>
+</body>
+</html>

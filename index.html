@@ -3,396 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#198754">
-    <meta name="description" content="Smart Crop Advisory System for Farmers">
-    
-    <!-- PWA Meta Tags -->
+    <title>KrishiSetu - Where Farmers Efforts Meet Everyone's Progress</title>
+    <meta name="description" content="Smart Crop Advisory System for Small and Marginal Farmers">
+    <meta name="theme-color" content="#4CAF50">
     <link rel="manifest" href="manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="CropAdvisor">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/icons/icon-192x192.png">
-    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-    
-    <title>Smart Crop Advisor</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <!-- Custom CSS -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%234CAF50' d='M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z'/%3E%3Cpath fill='%234CAF50' d='M50 25c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-light" style="user-select: auto; -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto;">
-    <!-- Language Selection Modal -->
-    <div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="languageModalLabel" data-i18n="selectLanguage">Select Your Language</h5>
+<body>
+    <!-- Language Selection Screen -->
+    <div id="languageScreen" class="screen active">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
                 </div>
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="en">
-                                <i class="bi bi-translate me-2"></i>English
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="hi">
-                                <i class="bi bi-translate me-2"></i>हिंदी
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="pa">
-                                <i class="bi bi-translate me-2"></i>ਪੰਜਾਬੀ
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="hne">
-                                <i class="bi bi-translate me-2"></i>छत्तीसगढ़ी
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="te">
-                                <i class="bi bi-translate me-2"></i>తెలుగు
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 language-select" data-lang="ml">
-                                <i class="bi bi-translate me-2"></i>മലയാളം
-                            </button>
-                        </div>
-                    </div>
+                <h1 class="app-title">KrishiSetu</h1>
+                <p class="tagline" data-translate="tagline">Where Farmers Efforts Meet Everyone's Progress</p>
+            </div>
+            
+            <div class="language-selection">
+                <h2 data-translate="selectLanguage">Select Your Language / अपनी भाषा चुनें</h2>
+                <div class="language-grid">
+                    <button class="language-btn" onclick="selectLanguage('en')">
+                        <i class="fas fa-globe"></i>
+                        <span>English</span>
+                    </button>
+                    <button class="language-btn" onclick="selectLanguage('hi')">
+                        <i class="fas fa-om"></i>
+                        <span>हिन्दी</span>
+                    </button>
+                    <button class="language-btn" onclick="selectLanguage('pa')">
+                        <i class="fas fa-hands-praying"></i>
+                        <span>ਪੰਜਾਬੀ</span>
+                    </button>
+                    <button class="language-btn" onclick="selectLanguage('cg')">
+                        <i class="fas fa-leaf"></i>
+                        <span>छत्तीसगढ़ी</span>
+                    </button>
+                    <button class="language-btn" onclick="selectLanguage('ta')">
+                        <i class="fas fa-temple-hindu"></i>
+                        <span>தமிழ்</span>
+                    </button>
+                    <button class="language-btn" onclick="selectLanguage('bn')">
+                        <i class="fas fa-fish"></i>
+                        <span>বাংলা</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main App (initially hidden) -->
-    <div id="app" class="d-none">
-        <!-- Top Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm fixed-top">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="#" data-i18n="welcome">Smart Crop Advisor</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
+    <!-- Login/Signup Screen -->
+    <div id="authScreen" class="screen">
+        <div class="container">
+            <div class="auth-header">
+                <button class="back-btn" onclick="showLanguageScreen()">
+                    <i class="fas fa-arrow-left"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#dashboard" data-i18n="dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#soil-analysis" data-i18n="soilAnalysis">Soil Analysis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pest-detection" data-i18n="pestDetection">Pest Detection</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#market-prices" data-i18n="marketPrices">Market Prices</a>
-                        </li>
-                        <li class="nav-item d-none d-md-block">
-                            <button class="btn btn-outline-light btn-sm mt-1 ms-2" id="ar-scan-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="AR Crop Scanner">
-                                <i class="bi bi-camera-video"></i> <span class="d-none d-lg-inline">AR Scan</span>
-                            </button>
-                        </li>
-                        <li class="nav-item ms-2">
-                            <button id="changeLanguageBtn" class="btn btn-outline-light btn-sm mt-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Change Language">
-                                <i class="bi bi-translate"></i>
-                            </button>
-                        </li>
-                    </ul>
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
                 </div>
+                <h1>KrishiSetu</h1>
             </div>
-        </nav>
-
-        <main class="py-4" style="margin-top: 70px;">
-            <div class="container">
-                <!-- Dashboard Section -->
-                <section id="dashboard" class="section">
-                    <div class="row g-4">
-                        <!-- Weather Card -->
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title text-muted" data-i18n="weatherToday">Weather Today</h5>
-                                    <div id="weather-widget">
-                                        <button id="request-location" class="btn btn-outline-primary w-100">
-                                            <i class="bi bi-geo-alt me-2"></i><span data-i18n="getWeather">Get Weather</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Crop Health -->
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title text-muted" data-i18n="cropHealth">Crop Health</h5>
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-success bg-opacity-10 p-3 rounded-circle me-3">
-                                            <i class="bi bi-heart-pulse text-success" style="font-size: 2rem;"></i>
-                                        </div>
-                                        <div>
-                                            <h3 class="mb-0" data-i18n="good">Good</h3>
-                                            <p class="text-muted mb-0" data-i18n="lastChecked">Last checked: <span class="last-updated">2h ago</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Actions -->
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title text-muted" data-i18n="quickActions">Quick Actions</h5>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-outline-primary quick-action" data-action="add-crop">
-                                            <i class="bi bi-plus-circle me-2"></i><span data-i18n="addCrop">Add New Crop</span>
-                                        </button>
-                                        <button class="btn btn-outline-success quick-action" data-action="schedule-task">
-                                            <i class="bi bi-calendar-check me-2"></i><span data-i18n="scheduleTask">Schedule Task</span>
-                                        </button>
-                                        <button class="btn btn-outline-info quick-action" data-action="view-reports">
-                                            <i class="bi bi-file-earmark-text me-2"></i><span data-i18n="viewReports">View Reports</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Recent Activities -->
-                        <div class="col-12">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h5 class="card-title text-muted mb-0" data-i18n="recentActivities">Recent Activities</h5>
-                                        <a href="#" class="btn btn-sm btn-outline-secondary view-all-activities" data-i18n="viewAll">View All</a>
-                                    </div>
-                                    <div class="recent-activities list-group list-group-flush">
-                                        <!-- Activities will be loaded dynamically -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Soil Analysis Section -->
-                <section id="soil-analysis" class="section" style="display: none;">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title" data-i18n="soilAnalysis">Soil Analysis</h3>
-                            <div class="alert alert-info" data-i18n="soilAnalysisContent">
-                                Soil analysis data will be displayed here.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Pest Detection Section -->
-                <section id="pest-detection" class="section" style="display: none;">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title" data-i18n="pestDetection">Pest Detection</h3>
-                            <div class="alert alert-warning" data-i18n="pestDetectionContent">
-                                Pest detection data will be displayed here.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Market Prices Section -->
-                <section id="market-prices" class="section" style="display: none;">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title" data-i18n="marketPrices">Market Prices</h3>
-                            <div class="alert alert-info" data-i18n="marketPricesContent">
-                                Market prices data will be displayed here.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-dark text-white py-4 mt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5 data-i18n="smartCropAdvisor">Smart Crop Advisor</h5>
-                        <p class="text-muted" data-i18n="empoweringFarmers">Empowering farmers with smart agricultural solutions</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h6 data-i18n="quickLinks">Quick Links</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-decoration-none text-muted" data-i18n="aboutUs">About Us</a></li>
-                            <li><a href="#" class="text-decoration-none text-muted" data-i18n="contact">Contact</a></li>
-                            <li><a href="#" class="text-decoration-none text-muted" data-i18n="faqs">FAQs</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h6 data-i18n="connectWithUs">Connect With Us</h6>
-                        <div class="d-flex gap-3">
-                            <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4">
-                <div class="text-center text-muted">
-                    <small data-i18n="copyright"> 2023 Smart Crop Advisor. All rights reserved.</small>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- AI Chatbot Button (Floating) -->
-    <button class="btn btn-primary rounded-circle position-fixed" id="chatbotBtn" style="bottom: 20px; right: 20px; width: 60px; height: 60px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-        <i class="bi bi-robot" style="font-size: 1.5rem;"></i>
-    </button>
-
-    <!-- AI Chatbot Modal -->
-    <div class="modal fade" id="chatbotModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Crop Advisor AI</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="min-height: 300px;">
-                    <div class="text-center py-5">
-                        <i class="bi bi-robot" style="font-size: 3rem; color: #6c757d;"></i>
-                        <p class="mt-3 text-muted">Ask me anything about your crops, soil, or farming techniques</p>
-                        <div class="input-group mt-3">
-                            <input type="text" class="form-control" placeholder="Type your question...">
-                            <button class="btn btn-primary">Send</button>
-                        </div>
-                    </div>
+            
+            <div class="auth-options">
+                <h2 data-translate="welcomeBack">Welcome Back</h2>
+                <p data-translate="authDescription">Join thousands of farmers improving their crop yields</p>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" onclick="showLoginForm()">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span data-translate="login">Login</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSignupForm()">
+                        <i class="fas fa-user-plus"></i>
+                        <span data-translate="signup">Sign Up</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="continueWithoutLogin()">
+                        <i class="fas fa-user-secret"></i>
+                        <span data-translate="continueWithoutLogin">Continue without Login</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- AR Scanner Modal -->
-    <div class="modal fade" id="arScannerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content bg-dark">
-                <!-- Camera Feed -->
-                <div class="position-relative h-100 w-100">
-                    <!-- Camera Feed -->
-                    <video id="camera-feed" class="w-100 h-100" playsinline></video>
-                    
-                    <!-- Camera Fallback (shown if camera access fails) -->
-                    <div id="camera-fallback" class="position-absolute top-0 start-0 w-100 h-100 d-none">
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
-                             class="w-100 h-100 object-fit-cover" alt="Crop field">
-                    </div>
-                    
-                    <!-- Camera Permission Prompt -->
-                    <div id="camera-permission-prompt" class="position-absolute top-50 start-50 translate-middle text-center text-white p-4 bg-dark bg-opacity-75 rounded-3">
-                        <div class="mb-3">
-                            <i class="bi bi-camera-video fs-1"></i>
-                        </div>
-                        <h4>Enable Camera Access</h4>
-                        <p class="mb-4">To scan your crops, we need access to your device's camera.</p>
-                        <button id="start-scanning" class="btn btn-success btn-lg">
-                            <i class="bi bi-camera me-2"></i> Start Scanning
-                        </button>
-                    </div>
-                    
-                    <!-- Camera Error -->
-                    <div id="camera-error" class="position-absolute top-50 start-50 translate-middle text-center text-white p-4 bg-dark bg-opacity-75 rounded-3 d-none">
-                        <div class="mb-3">
-                            <i class="bi bi-camera-video-off fs-1 text-danger"></i>
-                        </div>
-                        <h4>Camera Access Denied</h4>
-                        <p class="mb-4">We couldn't access your camera. Please check your browser settings and try again.</p>
-                        <button id="retry-camera" class="btn btn-primary me-2">
-                            <i class="bi bi-arrow-clockwise me-2"></i> Try Again
-                        </button>
-                        <button class="btn btn-outline-light" data-bs-dismiss="modal">
-                            <i class="bi bi-x-lg me-2"></i> Close
-                        </button>
-                    </div>
-                    
-                    <!-- Scanner UI (shown after camera access) -->
-                    <div id="scanner-ui" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column d-none">
-                        <!-- Top Bar -->
-                        <div class="d-flex justify-content-between align-items-center p-3 bg-dark bg-opacity-50">
-                            <h5 class="text-white mb-0">Crop Scanner</h5>
-                            <div>
-                                <button class="btn btn-sm btn-outline-light me-2" id="toggle-flash">
-                                    <i class="bi bi-lightning"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-light" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Scanner Frame -->
-                        <div class="flex-grow-1 position-relative">
-                            <div class="position-absolute top-50 start-50 translate-middle">
-                                <div class="scanning-animation"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- Analysis Results -->
-                        <div id="ar-analysis-results" class="bg-white rounded-top-4 p-3 d-none">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="mb-0">Analysis Results</h5>
-                                <span class="badge bg-success"><i class="bi bi-activity me-1"></i> <span class="crop-type">Wheat</span></span>
-                            </div>
-                            
-                            <!-- Health Meter -->
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <small>Plant Health</small>
-                                    <small class="text-muted"><span class="health-meter">85%</span></small>
-                                </div>
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar bg-success health-meter" role="progressbar" style="width: 85%;" 
-                                         aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Detected Issues -->
-                            <div class="mb-3">
-                                <h6>Detected Issues</h6>
-                                <div class="issues-list">
-                                    <!-- Filled by JavaScript -->
-                                </div>
-                            </div>
-                            
-                            <!-- Recommendations -->
-                            <div class="mb-2">
-                                <h6>Recommendations</h6>
-                                <ul class="list-unstyled recommendations-list">
-                                    <!-- Filled by JavaScript -->
-                                </ul>
-                            </div>
-                            
-                            <button class="btn btn-primary w-100 mt-2" data-bs-dismiss="modal">
-                                <i class="bi bi-check-lg me-2"></i> Done
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Login Form -->
+    <div id="loginForm" class="screen">
+        <div class="container">
+            <div class="auth-header">
+                <button class="back-btn" onclick="showAuthScreen()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 data-translate="login">Login</h2>
             </div>
+            
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label data-translate="phoneNumber">Phone Number</label>
+                    <input type="tel" id="loginPhone" required placeholder="+91 9876543210">
+                </div>
+                <div class="form-group">
+                    <label data-translate="password">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">
+                    <span data-translate="login">Login</span>
+                </button>
+                <p class="auth-link">
+                    <span data-translate="dontHaveAccount">Don't have an account?</span>
+                    <a href="#" onclick="showSignupForm()" data-translate="signup">Sign Up</a>
+                </p>
+            </form>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
+    <!-- Signup Form -->
+    <div id="signupForm" class="screen">
+        <div class="container">
+            <div class="auth-header">
+                <button class="back-btn" onclick="showAuthScreen()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2 data-translate="signup">Sign Up</h2>
+            </div>
+            
+            <form class="auth-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label data-translate="fullName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="phoneNumber">Phone Number</label>
+                    <input type="tel" id="signupPhone" required placeholder="+91 9876543210">
+                </div>
+                <div class="form-group">
+                    <label data-translate="farmSize">Farm Size (in acres)</label>
+                    <input type="number" id="farmSize" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="location">Location</label>
+                    <input type="text" id="location" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="password">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">
+                    <span data-translate="signup">Sign Up</span>
+                </button>
+                <p class="auth-link">
+                    <span data-translate="alreadyHaveAccount">Already have an account?</span>
+                    <a href="#" onclick="showLoginForm()" data-translate="login">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

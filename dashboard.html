@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KrishiSetu</title>
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%234CAF50' d='M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z'/%3E%3Cpath fill='%234CAF50' d='M50 25c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <i class="fas fa-seedling"></i>
+                <h1>KrishiSetu</h1>
+            </div>
+            <div class="header-actions">
+                <select id="languageSelector" class="language-selector" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="cg">छत्तीसगढ़ी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="bn">বাংলা</option>
+                </select>
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" style="display:none"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-home"></i>
+                <span data-translate="dashboard">Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('chatbot')">
+                <i class="fas fa-robot"></i>
+                <span data-translate="chatbot">ChatBot</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('ar')">
+                <i class="fas fa-camera"></i>
+                <span data-translate="arScan">AR Scan</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('soil')">
+                <i class="fas fa-mountain"></i>
+                <span data-translate="soilAnalysis">Soil Analysis</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('pest')">
+                <i class="fas fa-bug"></i>
+                <span data-translate="pestDetection">Pest Detection</span>
+            </a>
+            <a href="calendar.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Farming Calendar</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user-cog"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="section active">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <h2 data-translate="welcomeFarmer">Welcome, Farmer!</h2>
+                    <p data-translate="todayTip">Today's farming tip: Check soil moisture before watering</p>
+                </div>
+                <div class="welcome-icon">
+                    <i class="fas fa-tractor"></i>
+                </div>
+            </div>
+
+            <!-- Weather Forecast -->
+            <div class="weather-card">
+                <div class="weather-header">
+                    <h3 data-translate="weatherForecast">Weather Forecast</h3>
+                    <div class="weather-controls">
+                        <div class="location-search">
+                            <input type="text" id="locationSearch" placeholder="Search location..." 
+                                   data-translate-placeholder="searchLocation" 
+                                   onkeypress="handleLocationSearch(event)">
+                            <button onclick="searchCurrentLocation()" class="location-btn" title="Use current location">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </div>
+                        <button class="refresh-btn" onclick="refreshWeather()">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="weather-location">Chandigarh, Punjab</div>
+                <div id="weatherContent" class="weather-content">
+                    <div class="current-weather">
+                        <div class="weather-main">
+                            <i class="fas fa-sun weather-icon"></i>
+                            <div class="weather-info">
+                                <div class="temperature">28°C</div>
+                                <div class="weather-desc" data-translate="sunny">Sunny</div>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-item">
+                                <i class="fas fa-eye"></i>
+                                <span data-translate="humidity">Humidity</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-wind"></i>
+                                <span data-translate="windSpeed">Wind</span>
+                                <span>12 km/h</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span data-translate="feelsLike">Feels Like</span>
+                                <span class="feels-like-value">30°C</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                                <span data-translate="pressure">Pressure</span>
+                                <span class="pressure-value">1013 mb</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-eye"></i>
+                                <span data-translate="visibility">Visibility</span>
+                                <span class="visibility-value">10 km</span>
+                            </div>
+                            <div class="weather-item">
+                                <i class="fas fa-sun"></i>
+                                <span data-translate="uvIndex">UV Index</span>
+                                <span class="uv-value">6 (High)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-forecast">
+                        <div class="forecast-item">
+                            <div class="forecast-day">Today</div>
+                            <i class="fas fa-sun"></i>
+                            <div class="forecast-temp">28°/22°</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="forecast-day">Tomorrow</div>
+                            <i class="fas fa-cloud-rain"></i>
+                            <div class="forecast-temp">26°/20°</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="forecast-day">Day 3</div>
+                            <i class="fas fa-cloud"></i>
+                            <div class="forecast-temp">24°/18°</div>
+                        </div>
+                        <div class="forecast-actions">
+                            <button class="btn btn-outline" onclick="openWeatherForecastModal()">
+                                <i class="fas fa-calendar-week"></i>
+                                <span data-translate="viewExtendedForecast">Detailed Forecast</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Weather Alerts -->
+                    <div class="weather-alerts" style="display: none;"></div>
+                    
+                    <!-- Farming Recommendations -->
+                    <div class="farming-recommendations" style="display: none;">
+                        <h4 data-translate="farmingRecommendations">Farming Recommendations</h4>
+                        <div class="recommendations-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crop Health -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-translate="cropHealth">Crop Health</h3>
+                    <span class="status-badge healthy">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-translate="healthy">Healthy</span>
+                    </span>
+                </div>
+                <div class="crop-grid">
+                    <div class="crop-item">
+                        <div class="crop-icon">🌾</div>
+                        <div class="crop-info">
+                            <div class="crop-name">Wheat</div>
+                            <div class="crop-status" data-translate="excellent">Excellent</div>
+                        </div>
+                        <div class="crop-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <span>85%</span>
+                        </div>
+                    </div>
+                    <div class="crop-item">
+                        <div class="crop-icon">🌽</div>
+                        <div class="crop-info">
+                            <div class="crop-name">Corn</div>
+                            <div class="crop-status" data-translate="good">Good</div>
+                        </div>
+                        <div class="crop-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%"></div>
+                            </div>
+                            <span>72%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-translate="quickActions">Quick Actions</h3>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="showAddCropModal()">
+                        <i class="fas fa-plus-circle"></i>
+                        <span data-translate="addNewCrop">Add New Crop</span>
+                    </button>
+                    <button class="action-btn" onclick="showScheduleModal()">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span data-translate="scheduleTask">Schedule Task</span>
+                    </button>
+                    <button class="action-btn" onclick="viewReports()">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-translate="viewReports">View Reports</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-translate="recentActivities">Recent Activities</h3>
+                </div>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-translate="seedsPlanted">Seeds planted in Field A</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-translate="irrigationCompleted">Irrigation completed</div>
+                            <div class="activity-time">Yesterday</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-translate="fertilizeApplied">Fertilizer applied to crops</div>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Government Schemes -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 data-translate="govSchemes">Government Schemes</h3>
+                    <a href="#" class="see-all">See all</a>
+                </div>
+                <div class="schemes-list">
+                    <div class="scheme-item">
+                        <div class="scheme-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="scheme-content">
+                            <h4>PM-KISAN</h4>
+                            <p data-translate="pmKisanDesc">Income support scheme for farmers</p>
+                            <div class="scheme-amount">₹6,000/year</div>
+                        </div>
+                    </div>
+                    <div class="scheme-item">
+                        <div class="scheme-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="scheme-content">
+                            <h4>Crop Insurance</h4>
+                            <p data-translate="cropInsuranceDesc">Protect your crops from natural disasters</p>
+                            <div class="scheme-amount">Up to 90% coverage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personalized Farming Calendar -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Personalized Farming Calendar</h3>
+                </div>
+                <div id="farmingCalendar" class="farming-calendar">
+                    <p>Loading calendar...</p>
+                </div>
+            </div>
+
+            <!-- By-Product Income Maximizer -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>By-Product Income Maximizer</h3>
+                </div>
+                <div id="byProductSuggestions" class="byproduct-container">
+                    <p>Loading suggestions...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ChatBot Section -->
+        <section id="chatbotSection" class="section">
+            <div class="chatbot-container">
+                <div class="chat-header">
+                    <h3 data-translate="aiAssistant">AI Assistant</h3>
+                    <div class="voice-controls">
+                        <button id="voiceBtn" class="voice-btn" onclick="toggleVoice()">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="speakerBtn" class="voice-btn" onclick="toggleSpeaker()">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content" data-translate="welcomeMessage">
+                            Hello! I'm your farming assistant. How can I help you today?
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Type your message..." data-translate-placeholder="typeMessage">
+                    <button onclick="sendMessage()" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections will be loaded dynamically -->
+        <section id="arSection" class="section">
+            <div class="ar-container">
+                <h3 data-translate="arScanning">AR Crop Scanning</h3>
+                <div id="arCamera" class="ar-camera">
+                    <video id="video" autoplay></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="ar-overlay">
+                        <div class="scan-frame"></div>
+                        <div class="scan-instructions" data-translate="pointCamera">Point camera at your crop</div>
+                    </div>
+                </div>
+                <div class="ar-controls">
+                    <button onclick="startAR()" class="btn btn-primary" data-translate="startScanning">Start Scanning</button>
+                    <button onclick="stopAR()" class="btn btn-secondary" data-translate="stopScanning">Stop Scanning</button>
+                </div>
+                <div id="arResults" class="ar-results" style="display: none;"></div>
+            </div>
+        </section>
+
+        <section id="soilSection" class="section">
+            <iframe src="soil-analysis.html" style="width: 100%; height: calc(100vh - 160px); border: none;"></iframe>
+        </section>
+
+        <section id="pestSection" class="section">
+            <iframe src="pest-detection.html" style="width: 100%; height: calc(100vh - 160px); border: none;"></iframe>
+        </section>
+
+        <!-- Farming Calendar Section (separate file) -->
+        <section id="calendarSection" class="section">
+            <iframe src="farming-calendar.html" style="width: 100%; height: calc(100vh - 160px); border: none;"></iframe>
+        </section>
+
+        <!-- Profile Settings Section (separate file) -->
+        <section id="profileSection" class="section">
+            <iframe src="profile.html" style="width: 100%; height: calc(100vh - 160px); border: none;"></iframe>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="addCropModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="addNewCrop">Add New Crop</h3>
+                <button class="modal-close" onclick="closeModal('addCropModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label data-translate="cropType">Crop Type</label>
+                    <select required>
+                        <option value="">Select Crop</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="corn">Corn</option>
+                        <option value="cotton">Cotton</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-translate="fieldArea">Field Area (acres)</label>
+                    <input type="number" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label data-translate="plantingDate">Planting Date</label>
+                    <input type="date" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width" data-translate="addCrop">Add Crop</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>KrishiSetu</h4>
+                <p data-translate="footerDescription">Empowering farmers with smart agriculture solutions</p>
+            </div>
+            <div class="footer-section">
+                <h4 data-translate="quickLinks">Quick Links</h4>
+                <ul>
+                    <li><a href="#" data-translate="aboutUs">About Us</a></li>
+                    <li><a href="#" data-translate="support">Support</a></li>
+                    <li><a href="#" data-translate="privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-translate="contact">Contact</h4>
+                <p>📞 1800-XXX-XXXX</p>
+                <p>📧 support@krishisetu.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KrishiSetu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

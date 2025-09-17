@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Detection - KrishiSetu</title>
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="pest-detection-container">
+        <!-- Header -->
+        <div class="detection-header">
+            <h2 data-translate="pestDetection">Pest Detection</h2>
+            <p data-translate="pestDetectionDesc">AI-powered pest identification and treatment recommendations</p>
+        </div>
+
+        <!-- Scanning Section -->
+        <div class="scanning-section">
+            <div class="scan-card">
+                <div class="scan-camera" id="scanCamera">
+                    <video id="pestVideo" autoplay playsinline style="display: none;"></video>
+                    <canvas id="pestCanvas" style="display: none;"></canvas>
+                    <div class="scan-placeholder">
+                        <div class="scan-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 data-translate="scanForPests">Scan for Pests</h3>
+                        <p data-translate="scanInstructions">Point your camera at the affected crop area</p>
+                    </div>
+                    <div class="scan-overlay" style="display: none;">
+                        <div class="scan-frame">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                        <div class="scan-status">
+                            <div class="scanning-animation">
+                                <div class="scan-line"></div>
+                            </div>
+                            <p data-translate="scanning">Scanning...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scan-controls">
+                    <button class="btn btn-primary" onclick="startPestScanning()" id="startScanBtn">
+                        <i class="fas fa-camera"></i>
+                        <span data-translate="startScanning">Start Scanning</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="uploadPestImage()">
+                        <i class="fas fa-upload"></i>
+                        <span data-translate="uploadImage">Upload Image</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="stopPestScanning()" id="stopScanBtn" style="display: none;">
+                        <i class="fas fa-stop"></i>
+                        <span data-translate="stopScanning">Stop Scanning</span>
+                    </button>
+                </div>
+                <input type="file" id="pestImageInput" accept="image/*" style="display: none;">
+            </div>
+        </div>
+
+        <!-- Detection Results -->
+        <div id="detectionResults" class="detection-results" style="display: none;">
+            <div class="results-header">
+                <h3 data-translate="detectionResults">Detection Results</h3>
+                <div class="detection-status">
+                    <i class="fas fa-exclamation-triangle" style="color: #f44336;"></i>
+                    <span data-translate="pestFound">Pest Found</span>
+                </div>
+            </div>
+
+            <!-- Detected Pest Info -->
+            <div class="pest-info-card">
+                <div class="pest-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23e0e0e0' width='200' height='200'/%3E%3Ctext y='50%25' x='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-family='sans-serif' font-size='16'%3EPest Image%3C/text%3E%3C/svg%3E" alt="Detected pest">
+                </div>
+                <div class="pest-details">
+                    <h4 class="pest-name">Aphids (Green Peach Aphid)</h4>
+                    <div class="pest-scientific">Myzus persicae</div>
+                    <div class="pest-confidence">
+                        <span data-translate="confidence">Confidence:</span>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: 87%;"></div>
+                        </div>
+                        <span class="confidence-value">87%</span>
+                    </div>
+                    <div class="pest-severity">
+                        <span class="severity-label" data-translate="severity">Severity:</span>
+                        <span class="severity-badge moderate">Moderate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pest Information -->
+            <div class="pest-info-section">
+                <h4 data-translate="pestInformation">Pest Information</h4>
+                <div class="info-tabs">
+                    <button class="tab-btn active" onclick="showTab('description')">
+                        <span data-translate="description">Description</span>
+                    </button>
+                    <button class="tab-btn" onclick="showTab('lifecycle')">
+                        <span data-translate="lifecycle">Lifecycle</span>
+                    </button>
+                    <button class="tab-btn" onclick="showTab('damage')">
+                        <span data-translate="damage">Damage</span>
+                    </button>
+                </div>
+                
+                <div id="descriptionTab" class="tab-content active">
+                    <p data-translate="aphidDescription">Small, soft-bodied insects that feed on plant sap. They are typically green, black, or brown and cluster on new growth, undersides of leaves, and stems. Aphids reproduce rapidly and can cause significant crop damage if not controlled.</p>
+                    <div class="pest-characteristics">
+                        <div class="characteristic">
+                            <strong data-translate="size">Size:</strong> 
+                            <span>1-4mm</span>
+                        </div>
+                        <div class="characteristic">
+                            <strong data-translate="color">Color:</strong> 
+                            <span>Green, Black, Brown</span>
+                        </div>
+                        <div class="characteristic">
+                            <strong data-translate="location">Common Location:</strong> 
+                            <span data-translate="leafUndersides">Leaf undersides, stems, shoots</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="lifecycleTab" class="tab-content">
+                    <p data-translate="aphidLifecycle">Aphids have a complex lifecycle with both sexual and asexual reproduction. In favorable conditions, they can produce up to 12 generations per year. The lifecycle includes egg, four nymphal stages, and adult.</p>
+                    <div class="lifecycle-stages">
+                        <div class="stage">
+                            <i class="fas fa-circle"></i>
+                            <span>Egg (Winter)</span>
+                        </div>
+                        <div class="stage">
+                            <i class="fas fa-baby"></i>
+                            <span>Nymph (4 stages)</span>
+                        </div>
+                        <div class="stage">
+                            <i class="fas fa-bug"></i>
+                            <span>Adult</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="damageTab" class="tab-content">
+                    <p data-translate="aphidDamage">Aphids cause damage by sucking plant juices, leading to yellowing, wilting, and stunted growth. They also secrete honeydew, which attracts sooty mold and ants. Additionally, they can transmit plant viruses.</p>
+                    <div class="damage-symptoms">
+                        <div class="symptom">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span data-translate="yellowLeaves">Yellowing leaves</span>
+                        </div>
+                        <div class="symptom">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span data-translate="stuntedGrowth">Stunted growth</span>
+                        </div>
+                        <div class="symptom">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span data-translate="honeydew">Honeydew secretion</span>
+                        </div>
+                        <div class="symptom">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span data-translate="virusTransmission">Virus transmission</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Recommendations -->
+            <div class="treatment-section">
+                <h4 data-translate="treatmentRecommendations">Treatment Recommendations</h4>
+                <div class="treatment-options">
+                    <div class="treatment-card immediate">
+                        <div class="treatment-header">
+                            <i class="fas fa-bolt"></i>
+                            <span data-translate="immediateAction">Immediate Action</span>
+                        </div>
+                        <h5 data-translate="insecticidalSoap">Insecticidal Soap Spray</h5>
+                        <p data-translate="soapSprayDesc">Mix 2-3 tablespoons of mild liquid soap per gallon of water. Spray directly on affected areas, focusing on undersides of leaves.</p>
+                        <div class="treatment-details">
+                            <div class="detail">
+                                <strong data-translate="frequency">Frequency:</strong>
+                                <span data-translate="every3Days">Every 3 days</span>
+                            </div>
+                            <div class="detail">
+                                <strong data-translate="duration">Duration:</strong>
+                                <span data-translate="oneWeek">1 week</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span data-translate="buyTreatment">Buy Treatment</span>
+                        </button>
+                    </div>
+
+                    <div class="treatment-card biological">
+                        <div class="treatment-header">
+                            <i class="fas fa-leaf"></i>
+                            <span data-translate="biologicalControl">Biological Control</span>
+                        </div>
+                        <h5 data-translate="ladybugs">Introduce Ladybugs</h5>
+                        <p data-translate="ladybugDesc">Release beneficial insects like ladybugs, lacewings, or parasitic wasps that naturally prey on aphids.</p>
+                        <div class="treatment-details">
+                            <div class="detail">
+                                <strong data-translate="quantity">Quantity:</strong>
+                                <span>1500 ladybugs per acre</span>
+                            </div>
+                            <div class="detail">
+                                <strong data-translate="effectiveness">Effectiveness:</strong>
+                                <span data-translate="longTerm">Long-term</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary">
+                            <i class="fas fa-info"></i>
+                            <span data-translate="learnMore">Learn More</span>
+                        </button>
+                    </div>
+
+                    <div class="treatment-card chemical">
+                        <div class="treatment-header">
+                            <i class="fas fa-flask"></i>
+                            <span data-translate="chemicalControl">Chemical Control</span>
+                        </div>
+                        <h5 data-translate="neem">Neem Oil</h5>
+                        <p data-translate="neemDesc">Apply neem oil spray (organic insecticide) as a preventive and curative measure. Safe for beneficial insects when used correctly.</p>
+                        <div class="treatment-details">
+                            <div class="detail">
+                                <strong data-translate="concentration">Concentration:</strong>
+                                <span>2% neem oil solution</span>
+                            </div>
+                            <div class="detail">
+                                <strong data-translate="application">Application:</strong>
+                                <span data-translate="eveningSpray">Evening spray</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span data-translate="orderNow">Order Now</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prevention Tips -->
+            <div class="prevention-section">
+                <h4 data-translate="preventionTips">Prevention Tips</h4>
+                <div class="prevention-grid">
+                    <div class="prevention-tip">
+                        <div class="tip-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h5 data-translate="regularInspection">Regular Inspection</h5>
+                        <p data-translate="inspectionTip">Check plants weekly, especially new growth and leaf undersides for early detection.</p>
+                    </div>
+                    
+                    <div class="prevention-tip">
+                        <div class="tip-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h5 data-translate="diverseCrops">Crop Diversity</h5>
+                        <p data-translate="diversityTip">Plant companion crops and maintain biodiversity to support natural predators.</p>
+                    </div>
+                    
+                    <div class="prevention-tip">
+                        <div class="tip-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h5 data-translate="properWatering">Proper Watering</h5>
+                        <p data-translate="wateringTip">Avoid overhead watering and maintain proper plant spacing for air circulation.</p>
+                    </div>
+                    
+                    <div class="prevention-tip">
+                        <div class="tip-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h5 data-translate="healthyPlants">Healthy Plants</h5>
+                        <p data-translate="healthTip">Maintain plant health through proper nutrition and avoid over-fertilizing with nitrogen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="saveTreatmentPlan()">
+                    <i class="fas fa-save"></i>
+                    <span data-translate="saveTreatmentPlan">Save Treatment Plan</span>
+                </button>
+                <button class="btn btn-secondary" onclick="scheduleFollowup()">
+                    <i class="fas fa-calendar"></i>
+                    <span data-translate="scheduleFollowup">Schedule Follow-up</span>
+                </button>
+                <button class="btn btn-outline" onclick="shareResults()">
+                    <i class="fas fa-share"></i>
+                    <span data-translate="shareResults">Share Results</span>
+                </button>
+                <button class="btn btn-outline" onclick="consultExpert()">
+                    <i class="fas fa-user-md"></i>
+                    <span data-translate="consultExpert">Consult Expert</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script>
+        let stream = null;
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show detection results immediately for demo
+            setTimeout(() => {
+                document.getElementById('detectionResults').style.display = 'block';
+            }, 1000);
+        });
+
+        // Pest scanning functions
+        async function startPestScanning() {
+            try {
+                document.querySelector('.scan-placeholder').style.display = 'none';
+                document.querySelector('.scan-overlay').style.display = 'flex';
+                document.getElementById('startScanBtn').style.display = 'none';
+                document.getElementById('stopScanBtn').style.display = 'inline-flex';
+                
+                // Simulate camera access
+                setTimeout(() => {
+                    document.getElementById('detectionResults').style.display = 'block';
+                    stopPestScanning();
+                }, 3000);
+                
+            } catch (error) {
+                alert('Camera access denied. Please upload an image instead.');
+                stopPestScanning();
+            }
+        }
+
+        function stopPestScanning() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            
+            document.querySelector('.scan-placeholder').style.display = 'flex';
+            document.querySelector('.scan-overlay').style.display = 'none';
+            document.getElementById('startScanBtn').style.display = 'inline-flex';
+            document.getElementById('stopScanBtn').style.display = 'none';
+        }
+
+        function uploadPestImage() {
+            document.getElementById('pestImageInput').click();
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Action functions
+        function saveTreatmentPlan() {
+            alert('Treatment plan saved to your farming calendar');
+        }
+
+        function scheduleFollowup() {
+            alert('Follow-up inspection scheduled for next week');
+        }
+
+        function shareResults() {
+            alert('Pest detection results shared');
+        }
+
+        function consultExpert() {
+            alert('Connecting you with agricultural expert...');
+        }
+
+        // File input handler
+        document.getElementById('pestImageInput').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                alert('Analyzing uploaded pest image...');
+                setTimeout(() => {
+                    document.getElementById('detectionResults').style.display = 'block';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
