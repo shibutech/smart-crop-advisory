@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - CropAdvisor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .offline-container {
+            max-width: 500px;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .offline-icon {
+            font-size: 4rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        .btn-retry {
+            margin-top: 1.5rem;
+        }
+        .offline-features {
+            text-align: left;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .feature-item i {
+            margin-right: 10px;
+            color: #198754;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="bi bi-wifi-off"></i>
+        </div>
+        <h2>You're Offline</h2>
+        <p class="text-muted">We can't connect to the internet right now. Please check your connection and try again.</p>
+        
+        <button id="retry-connection" class="btn btn-primary btn-retry">
+            <i class="bi bi-arrow-repeat me-2"></i>Retry Connection
+        </button>
+        
+        <div class="offline-features">
+            <h5>Available Offline:</h5>
+            <div class="feature-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>View previously loaded crop information</span>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Access saved recommendations</span>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>View cached weather data</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Retry connection button
+        document.getElementById('retry-connection').addEventListener('click', function() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                // Show error if still offline
+                const button = this;
+                const originalText = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Still Offline';
+                
+                // Re-enable button after delay
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.innerHTML = originalText;
+                }, 2000);
+            }
+        });
+        
+        // Check if back online
+        window.addEventListener('online', function() {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

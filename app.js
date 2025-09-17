@@ -1,1006 +1,838 @@
-// Initialize the application when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Register service worker for PWA functionality
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('ServiceWorker registration successful');
-                })
-                .catch(err => {
-                    console.error('ServiceWorker registration failed: ', err);
-                });
-        });
+// Language content mapping
+const translations = {
+    en: {
+        welcome: "Welcome to Smart Crop Advisor",
+        dashboard: "Dashboard",
+        soilAnalysis: "Soil Analysis",
+        pestDetection: "Pest Detection",
+        marketPrices: "Market Prices",
+        weatherToday: "Weather Today",
+        getWeather: "Get Weather",
+        cropHealth: "Crop Health",
+        quickActions: "Quick Actions",
+        recentActivities: "Recent Activities",
+        viewAll: "View All",
+        addCrop: "Add New Crop",
+        scheduleTask: "Schedule Task",
+        viewReports: "View Reports",
+        lastUpdated: "Last updated"
+    },
+    hi: {
+        welcome: "स्मार्ट क्रॉप सलाहकार में आपका स्वागत है",
+        dashboard: "डैशबोर्ड",
+        soilAnalysis: "मृदा विश्लेषण",
+        pestDetection: "कीट पहचान",
+        marketPrices: "बाजार मूल्य",
+        weatherToday: "आज का मौसम",
+        getWeather: "मौसम जानें",
+        cropHealth: "फसल स्वास्थ्य",
+        quickActions: "त्वरित कार्य",
+        recentActivities: "हाल की गतिविधियाँ",
+        viewAll: "सभी देखें",
+        addCrop: "नई फसल जोड़ें",
+        scheduleTask: "कार्य शेड्यूल करें",
+        viewReports: "रिपोर्ट देखें",
+        lastUpdated: "अंतिम अपडेट"
+    },
+    pa: {
+        welcome: "ਸਮਾਰਟ ਕਰਾਪ ਸਲਾਹਕਾਰ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ",
+        dashboard: "ਡੈਸ਼ਬੋਰਡ",
+        soilAnalysis: "ਮਿੱਟੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ",
+        pestDetection: "ਕੀੜੇ ਦੀ ਪਛਾਣ",
+        marketPrices: "ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ",
+        weatherToday: "ਅੱਜ ਦਾ ਮੌਸਮ",
+        getWeather: "ਮੌਸਮ ਪਤਾ ਕਰੋ",
+        cropHealth: "ਫਸਲ ਦੀ ਸਿਹਤ",
+        quickActions: "ਤੇਜ਼ ਕਾਰਵਾਈਆਂ",
+        recentActivities: "ਤਾਜ਼ਾ ਗਤੀਵਿਧੀਆਂ",
+        viewAll: "ਸਭ ਵੇਖੋ",
+        addCrop: "ਨਵੀਂ ਫਸਲ ਜੋੜੋ",
+        scheduleTask: "ਕੰਮ ਸ਼ੈਡਿਊਲ ਕਰੋ",
+        viewReports: "ਰਿਪੋਰਟਾਂ ਵੇਖੋ",
+        lastUpdated: "ਆਖਰੀ ਅੱਪਡੇਟ"
+    },
+    hne: {
+        welcome: "स्मार्ट क्रॉप सलाहकार में रा़ज होय",
+        dashboard: "डैशबोर्ड",
+        soilAnalysis: "माटी जांच",
+        pestDetection: "कीड़ा पहिचान",
+        marketPrices: "बजार भाओ",
+        weatherToday: "आज के मौसम",
+        getWeather: "मौसम देखें",
+        cropHealth: "फसल सेहत",
+        quickActions: "जल्दी काम",
+        recentActivities: "हाल के काम",
+        viewAll: "सब देखें",
+        addCrop: "नई फसल डालें",
+        scheduleTask: "कार्य तय करें",
+        viewReports: "रिपोर्ट देखें",
+        lastUpdated: "आखिरी अपडेट"
+    },
+    te: {
+        welcome: "స్మార్ట్ క్రాప్ సలహాదారుకు స్వాగతం",
+        dashboard: "డాష్‌బోర్డ్",
+        soilAnalysis: "నేల విశ్లేషణ",
+        pestDetection: "కీటకాల గుర్తింపు",
+        marketPrices: "మార్కెట్ ధరలు",
+        weatherToday: "ఈరోజు వాతావరణం",
+        getWeather: "వాతావరణం తెలుసుకోండి",
+        cropHealth: "పంట ఆరోగ్యం",
+        quickActions: "త్వరిత చర్యలు",
+        recentActivities: "ఇటీవలి కార్యకలాపాలు",
+        viewAll: "అన్నీ చూడండి",
+        addCrop: "కొత్త పంటను జోడించండి",
+        scheduleTask: "పనిని షెడ్యూల్ చేయండి",
+        viewReports: "నివేదికలను వీక్షించండి",
+        lastUpdated: "చివరిగా నవీకరించబడింది"
+    },
+    ml: {
+        welcome: "സ്മാർട്ട് ക്രോപ്പ് ഉപദേശകിലേക്ക് സ്വാഗതം",
+        dashboard: "ഡാഷ്ബോർഡ്",
+        soilAnalysis: "മണ്ണ് പരിശോധന",
+        pestDetection: "കീടം കണ്ടെത്തൽ",
+        marketPrices: "മാർക്കറ്റ് വിലകൾ",
+        weatherToday: "ഇന്നത്തെ കാലാവസ്ഥ",
+        getWeather: "കാലാവസ്ഥ പരിശോധിക്കുക",
+        cropHealth: "വിളയുടെ ആരോഗ്യം",
+        quickActions: "ദ്രുത പ്രവർത്തനങ്ങൾ",
+        recentActivities: "സമീപകാല പ്രവർത്തനങ്ങൾ",
+        viewAll: "എല്ലാം കാണുക",
+        addCrop: "പുതിയ വിള ചേർക്കുക",
+        scheduleTask: "ജോലി ഷെഡ്യൂൾ ചെയ്യുക",
+        viewReports: "റിപ്പോർട്ടുകൾ കാണുക",
+        lastUpdated: "അവസാനമായി അപ്ഡേറ്റ് ചെയ്തത്"
     }
+};
 
-    // Initialize i18next for translations
-    i18next.init({
-        lng: localStorage.getItem('selectedLanguage') || 'en',
-        fallbackLng: 'en',
-        debug: true, // Enable debug mode to see what's happening
-        resources: {
-            en: {
-                translation: {
-                    appTitle: 'Kisan Sathi',
-                    appTagline: 'Your Smart Farming Companion',
-                    selectLanguage: 'Select Your Language',
-                    navDashboard: 'Dashboard',
-                    navSoilAnalysis: 'Soil Analysis',
-                    navPestDetection: 'Pest Detection',
-                    navWeather: 'Weather',
-                    navMarket: 'Market Prices',
-                    dashboardTitle: 'Farmer Dashboard',
-                    soilAnalysisTitle: 'Soil Health Analysis',
-                    pestDetectionTitle: 'Pest & Disease Detection',
-                    weatherTitle: 'Weather Update',
-                    weatherForecast: 'Weather Forecast',
-                    marketPricesTitle: 'Market Prices',
-                    fetchingWeather: 'Fetching weather data...',
-                    refresh: 'Refresh',
-                    humidity: 'Humidity',
-                    wind: 'Wind',
-                    pressure: 'Pressure',
-                    lastUpdated: 'Last updated',
-                    retry: 'Retry',
-                    errorLoadingWeather: 'Failed to load weather data. Please check your connection and try again.',
-                    soilAnalysis: 'Soil Analysis',
-                    soilAnalysisDesc: 'Get detailed analysis of your soil health and recommendations',
-                    pestDetection: 'Pest Detection',
-                    pestDetectionDesc: 'Identify pests and diseases in your crops',
-                    marketPrices: 'Market Prices',
-                    marketPricesDesc: 'Check current market prices for your produce',
-                    quickLinks: 'Quick Links',
-                    home: 'Home',
-                    contactUs: 'Contact Us',
-                    email: 'support@kisansathi.com',
-                    phone: '+91 98765 43210',
-                    location: 'New Delhi, India',
-                    followUs: 'Follow Us',
-                    downloadApp: 'Download App',
-                    allRightsReserved: 'All Rights Reserved',
-                    privacyPolicy: 'Privacy Policy',
-                    termsOfService: 'Terms of Service',
-                    faq: 'FAQ',
-                    crops: {
-                        wheat: 'Wheat',
-                        rice: 'Rice',
-                        soybean: 'Soybean',
-                        cotton: 'Cotton',
-                        maize: 'Maize',
-                        sugarcane: 'Sugarcane'
-                    },
-                    markets: {
-                        delhi: 'Delhi',
-                        mumbai: 'Mumbai',
-                        bengaluru: 'Bengaluru',
-                        hyderabad: 'Hyderabad',
-                        indore: 'Indore',
-                        ahmedabad: 'Ahmedabad'
-                    },
-                    pests: {
-                        aphids: 'Aphids',
-                        whiteflies: 'Whiteflies',
-                        spidermites: 'Spider Mites',
-                        mealybugs: 'Mealybugs',
-                        thrips: 'Thrips'
-                    },
-                    pestDescriptions: {
-                        aphids: 'Small sap-sucking insects that can damage plants',
-                        whiteflies: 'Tiny insects that feed on plant sap and can transmit diseases',
-                        spidermites: 'Tiny spider-like insects that feed on plant sap and can cause yellowing or bronzing of leaves',
-                        mealybugs: 'Small insects covered in a white, cottony substance that feed on plant sap',
-                        thrips: 'Tiny insects that feed on plant sap and can cause stunted growth or distorted leaves'
-                    },
-                    treatments: {
-                        aphids: [
-                            'Use neem oil spray',
-                            'Introduce natural predators like ladybugs',
-                            'Remove heavily infested leaves'
-                        ],
-                        whiteflies: [
-                            'Use yellow sticky traps',
-                            'Spray insecticidal soap',
-                            'Remove heavily infested leaves'
-                        ],
-                        spidermites: [
-                            'Use neem oil spray',
-                            'Increase water spray to wash off mites',
-                            'Remove heavily infested leaves'
-                        ],
-                        mealybugs: [
-                            'Use insecticidal soap',
-                            'Introduce natural predators like ladybugs',
-                            'Remove heavily infested leaves'
-                        ],
-                        thrips: [
-                            'Use neem oil spray',
-                            'Increase water spray to wash off thrips',
-                            'Remove heavily infested leaves'
-                        ]
-                    },
-                    soilTypes: {
-                        clay: 'Clay',
-                        silt: 'Silt',
-                        sand: 'Sand',
-                        loam: 'Loam'
-                    },
-                    moistureLevels: {
-                        low: 'Low',
-                        medium: 'Medium',
-                        high: 'High'
-                    },
-                    fertilizers: {
-                        npk: 'NPK 10-26-26',
-                        urea: 'Urea',
-                        dap: 'DAP'
-                    },
-                    applicationRates: {
-                        npk: '50 kg/acre',
-                        urea: '20 kg/acre',
-                        dap: '30 kg/acre'
-                    },
-                    tips: {
-                        maintainMoisture: 'Maintain soil moisture at optimal levels',
-                        addOrganicCompost: 'Add organic compost to improve soil structure',
-                        testSoilRegularly: 'Test soil every 6 months for better results'
-                    }
-                }
-            },
-            hi: {
-                translation: {
-                    appTitle: 'किसान साथी',
-                    appTagline: 'आपका स्मार्ट खेती सहयोगी',
-                    selectLanguage: 'अपनी भाषा चुनें',
-                    navDashboard: 'डैशबोर्ड',
-                    navSoilAnalysis: 'मिट्टी विश्लेषण',
-                    navPestDetection: 'कीट पहचान',
-                    navWeather: 'मौसम',
-                    navMarket: 'बाजार भाव',
-                    dashboardTitle: 'किसान डैशबोर्ड',
-                    soilAnalysisTitle: 'मिट्टी स्वास्थ्य विश्लेषण',
-                    pestDetectionTitle: 'कीट एवं रोग पहचान',
-                    weatherTitle: 'मौसम अपडेट',
-                    weatherForecast: 'मौसम पूर्वानुमान',
-                    marketPricesTitle: 'बाजार भाव',
-                    fetchingWeather: 'मौसम का डेटा लोड किया जा रहा है...',
-                    refresh: 'ताज़ा करें',
-                    humidity: 'नमी',
-                    wind: 'हवा',
-                    pressure: 'दबाव',
-                    lastUpdated: 'अंतिम अपडेट',
-                    retry: 'पुनः प्रयास करें',
-                    errorLoadingWeather: 'मौसम का डेटा लोड करने में विफल। कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।',
-                    soilAnalysis: 'मिट्टी विश्लेषण',
-                    soilAnalysisDesc: 'अपने मिट्टी के स्वास्थ्य और सिफारिशों का विस्तृत विश्लेषण प्राप्त करें',
-                    pestDetection: 'कीट पहचान',
-                    pestDetectionDesc: 'अपनी फसलों में कीटों और रोगों की पहचान करें',
-                    marketPrices: 'बाजार भाव',
-                    marketPricesDesc: 'अपने उत्पादों के वर्तमान बाजार भाव देखें',
-                    quickLinks: 'त्वरित लिंक',
-                    home: 'होम',
-                    contactUs: 'संपर्क करें',
-                    email: 'समर्थन@kisansathi.com',
-                    phone: '+91 98765 43210',
-                    location: 'नई दिल्ली, भारत',
-                    followUs: 'हमें फॉलो करें',
-                    downloadApp: 'ऐप डाउनलोड करें',
-                    allRightsReserved: 'सर्वाधिकार सुरक्षित',
-                    privacyPolicy: 'गोपनीयता नीति',
-                    termsOfService: 'सेवा की शर्तें',
-                    faq: 'सामान्य प्रश्न',
-                    crops: {
-                        wheat: 'गेहूं',
-                        rice: 'चावल',
-                        soybean: 'सोयाबीन',
-                        cotton: 'कपास',
-                        maize: 'मक्का',
-                        sugarcane: 'गन्ना'
-                    },
-                    markets: {
-                        delhi: 'दिल्ली',
-                        mumbai: 'मुंबई',
-                        bengaluru: 'बेंगलुरु',
-                        hyderabad: 'हैदराबाद',
-                        indore: 'इंदौर',
-                        ahmedabad: 'अहमदाबाद'
-                    },
-                    pests: {
-                        aphids: 'एफिड्स',
-                        whiteflies: 'सफेद मक्खियां',
-                        spidermites: 'स्पाइडर माइट्स',
-                        mealybugs: 'मीली बग्स',
-                        thrips: 'थ्रिप्स'
-                    },
-                    pestDescriptions: {
-                        aphids: 'छोटे सैप-चूसने वाले कीट जो पौधों को नुकसान पहुंचा सकते हैं',
-                        whiteflies: 'छोटे कीट जो पौधों के सैप पर फीड करते हैं और बीमारियों को प्रसारित कर सकते हैं',
-                        spidermites: 'छोटे स्पाइडर जैसे कीट जो पौधों के सैप पर फीड करते हैं और पत्तियों को पीला या भूरा कर सकते हैं',
-                        mealybugs: 'छोटे कीट जो पौधों के सैप पर फीड करते हैं और सफेद, कपास जैसे पदार्थ से ढके होते हैं',
-                        thrips: 'छोटे कीट जो पौधों के सैप पर फीड करते हैं और पौधों की वृद्धि को रोक सकते हैं या पत्तियों को विकृत कर सकते हैं'
-                    },
-                    treatments: {
-                        aphids: [
-                            'नीम का तेल स्प्रे का उपयोग करें',
-                            'प्राकृतिक शिकारियों को पेश करें जैसे लेडी बग्स',
-                            'भारी रूप से संक्रमित पत्तियों को हटा दें'
-                        ],
-                        whiteflies: [
-                            'पीले चिपचिपे फंदे का उपयोग करें',
-                            'कीटनाशक साबुन का स्प्रे करें',
-                            'भारी रूप से संक्रमित पत्तियों को हटा दें'
-                        ],
-                        spidermites: [
-                            'नीम का तेल स्प्रे का उपयोग करें',
-                            'माइट्स को धोने के लिए पानी का स्प्रे बढ़ाएं',
-                            'भारी रूप से संक्रमित पत्तियों को हटा दें'
-                        ],
-                        mealybugs: [
-                            'कीटनाशक साबुन का उपयोग करें',
-                            'प्राकृतिक शिकारियों को पेश करें जैसे लेडी बग्स',
-                            'भारी रूप से संक्रमित पत्तियों को हटा दें'
-                        ],
-                        thrips: [
-                            'नीम का तेल स्प्रे का उपयोग करें',
-                            'थ्रिप्स को धोने के लिए पानी का स्प्रे बढ़ाएं',
-                            'भारी रूप से संक्रमित पत्तियों को हटा दें'
-                        ]
-                    },
-                    soilTypes: {
-                        clay: 'मिट्टी',
-                        silt: 'सिल्ट',
-                        sand: 'रेत',
-                        loam: 'लोम'
-                    },
-                    moistureLevels: {
-                        low: 'कम',
-                        medium: 'मध्यम',
-                        high: 'उच्च'
-                    },
-                    fertilizers: {
-                        npk: 'एनपीके 10-26-26',
-                        urea: 'यूरिया',
-                        dap: 'डीएपी'
-                    },
-                    applicationRates: {
-                        npk: '50 किग्रा/एकड़',
-                        urea: '20 किग्रा/एकड़',
-                        dap: '30 किग्रा/एकड़'
-                    },
-                    tips: {
-                        maintainMoisture: 'मिट्टी की नमी को इष्टतम स्तर पर बनाए रखें',
-                        addOrganicCompost: 'मिट्टी की संरचना में सुधार के लिए जैविक खाद डालें',
-                        testSoilRegularly: 'बेहतर परिणामों के लिए हर 6 महीने में मिट्टी की जांच करें'
-                    }
-                }
-            },
-            pa: {
-                translation: {
-                    appTitle: 'ਕਿਸਾਨ ਸਾਥੀ',
-                    appTagline: 'ਤੁਹਾਡਾ ਸਮਾਰਟ ਖੇਤੀ ਸਹਿਯੋਗੀ',
-                    selectLanguage: 'ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ',
-                    navDashboard: 'ਡੈਸ਼ਬੋਰਡ',
-                    navSoilAnalysis: 'ਮਿੱਟੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ',
-                    navPestDetection: 'ਕੀੜੇ ਦੀ ਪਛਾਣ',
-                    navWeather: 'ਮੌਸਮ',
-                    navMarket: 'ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ',
-                    dashboardTitle: 'ਕਿਸਾਨ ਡੈਸ਼ਬੋਰਡ',
-                    soilAnalysisTitle: 'ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ',
-                    pestDetectionTitle: 'ਕੀੜੇ ਅਤੇ ਰੋਗ ਦੀ ਪਛਾਣ',
-                    weatherTitle: 'ਮੌਸਮ ਅਪਡੇਟ',
-                    weatherForecast: 'ਮੌਸਮ ਦਾ ਪੂਰਵਾਨੁਮਾਨ',
-                    marketPricesTitle: 'ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ',
-                    fetchingWeather: 'ਮੌਸਮ ਦਾ ਡੇਟਾ ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...',
-                    refresh: 'ਤਾਜ਼ਾ ਕਰੋ',
-                    humidity: 'ਨਮੀ',
-                    wind: 'ਹਵਾ',
-                    pressure: 'ਦਬਾਅ',
-                    lastUpdated: 'ਆਖਰੀ ਅੱਪਡੇਟ',
-                    retry: 'ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ',
-                    errorLoadingWeather: 'ਮੌਸਮ ਦਾ ਡੇਟਾ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
-                    soilAnalysis: 'ਮਿੱਟੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ',
-                    soilAnalysisDesc: 'ਆਪਣੀ ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਅਤੇ ਸਿਫਾਰਸ਼ਾਂ ਦਾ ਵਿਸਤ੍ਰਿਤ ਵਿਸ਼ਲੇਸ਼ਣ ਪ੍ਰਾਪਤ ਕਰੋ',
-                    pestDetection: 'ਕੀੜੇ ਦੀ ਪਛਾਣ',
-                    pestDetectionDesc: 'ਆਪਣੀਆਂ ਫਸਲਾਂ ਵਿੱਚ ਕੀੜਿਆਂ ਅਤੇ ਰੋਗਾਂ ਦੀ ਪਛਾਣ ਕਰੋ',
-                    marketPrices: 'ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ',
-                    marketPricesDesc: 'ਆਪਣੀਆਂ ਫਸਲਾਂ ਦੀਆਂ ਵਰਤਮਾਨ ਮਾਰਕੀਟ ਕੀਮਤਾਂ ਦੇਖੋ',
-                    quickLinks: 'ਤੇਜ਼ ਲਿੰਕ',
-                    home: 'ਹੋਮ',
-                    contactUs: 'ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ',
-                    email: 'ਸਹਾਇਤਾ@kisansathi.com',
-                    phone: '+91 98765 43210',
-                    location: 'ਨਵੀਂ ਦਿੱਲੀ, ਭਾਰਤ',
-                    followUs: 'ਸਾਨੂੰ ਫਾਲੋ ਕਰੋ',
-                    downloadApp: 'ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ',
-                    allRightsReserved: 'ਸਾਰੇ ਹੱਕ ਸੁਰੱਖਿਅਤ',
-                    privacyPolicy: 'ਪਰਾਈਵੇਸੀ ਨੀਤੀ',
-                    termsOfService: 'ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ',
-                    faq: 'ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲੇ ਸਵਾਲ',
-                    crops: {
-                        wheat: 'ਕਣਕ',
-                        rice: 'ਚਾਵਲ',
-                        soybean: 'ਸੋਯਾਬੀਨ',
-                        cotton: 'ਕਪਾਹ',
-                        maize: 'ਮੱਕੀ',
-                        sugarcane: 'ਗੰਨਾ'
-                    },
-                    markets: {
-                        delhi: 'ਦਿੱਲੀ',
-                        mumbai: 'ਮੁੰਬਈ',
-                        bengaluru: 'ਬੰਗਲੌਰ',
-                        hyderabad: 'ਹੈਦਰਾਬਾਦ',
-                        indore: 'ਇੰਦੌਰ',
-                        ahmedabad: 'ਅਹਿਮਦਾਬਾਦ'
-                    },
-                    pests: {
-                        aphids: 'ਐਫਿਡਜ਼',
-                        whiteflies: 'ਸਫੈਦ ਮੱਖੀਆਂ',
-                        spidermites: 'ਸਪਾਈਡਰ ਮਾਈਟਸ',
-                        mealybugs: 'ਮੀਲੀ ਬੱਗਸ',
-                        thrips: 'ਥ੍ਰਿਪਸ'
-                    },
-                    pestDescriptions: {
-                        aphids: 'ਛੋਟੇ ਸੈਪ-ਚੂਸਣ ਵਾਲੇ ਕੀੜੇ ਜੋ ਪੌਦਿਆਂ ਨੂੰ ਨੁਕਸਾਨ ਪਹੁੰਚਾ ਸਕਦੇ ਹਨ',
-                        whiteflies: 'ਛੋਟੇ ਕੀੜੇ ਜੋ ਪੌਦਿਆਂ ਦੇ ਸੈਪ ਉੱਤੇ ਫੀਡ ਕਰਦੇ ਹਨ ਅਤੇ ਬਿਮਾਰੀਆਂ ਨੂੰ ਫੈਲਾ ਸਕਦੇ ਹਨ',
-                        spidermites: 'ਛੋਟੇ ਸਪਾਈਡਰ ਵਰਗੇ ਕੀੜੇ ਜੋ ਪੌਦਿਆਂ ਦੇ ਸੈਪ ਉੱਤੇ ਫੀਡ ਕਰਦੇ ਹਨ ਅਤੇ ਪੱਤਿਆਂ ਨੂੰ ਪੀਲਾ ਜਾਂ ਭੁਰਾ ਕਰ ਸਕਦੇ ਹਨ',
-                        mealybugs: 'ਛੋਟੇ ਕੀੜੇ ਜੋ ਪੌਦਿਆਂ ਦੇ ਸੈਪ ਉੱਤੇ ਫੀਡ ਕਰਦੇ ਹਨ ਅਤੇ ਸਫੈਦ, ਕਪਾਹ ਵਰਗੇ ਪਦਾਰਥ ਨਾਲ ਢੱਕੇ ਹੁੰਦੇ ਹਨ',
-                        thrips: 'ਛੋਟੇ ਕੀੜੇ ਜੋ ਪੌਦਿਆਂ ਦੇ ਸੈਪ ਉੱਤੇ ਫੀਡ ਕਰਦੇ ਹਨ ਅਤੇ ਪੌਦਿਆਂ ਦੀ ਵਾਧਾ ਨੂੰ ਰੋਕ ਸਕਦੇ ਹਨ ਜਾਂ ਪੱਤਿਆਂ ਨੂੰ ਵਿਗਾੜ ਸਕਦੇ ਹਨ'
-                    },
-                    treatments: {
-                        aphids: [
-                            'ਨੀਮ ਦਾ ਤੇਲ ਸਪ੍ਰੇ ਕਰੋ',
-                            'ਕੁਦਰਤੀ ਸ਼ਿਕਾਰੀਆਂ ਨੂੰ ਪੇਸ਼ ਕਰੋ ਜਿਵੇਂ ਕਿ ਲੇਡੀ ਬੱਗਸ',
-                            'ਭਾਰੀ ਤੌਰ ਤੇ ਸੰਕਰਮਿਤ ਪੱਤਿਆਂ ਨੂੰ ਹਟਾ ਦਿਓ'
-                        ],
-                        whiteflies: [
-                            'ਪੀਲੇ ਚਿਪਚਿਪੇ ਫੰਦੇ ਦੀ ਵਰਤੋਂ ਕਰੋ',
-                            'ਕੀਟਨਾਸ਼ਕ ਸਾਬਣ ਦਾ ਸਪ੍ਰੇ ਕਰੋ',
-                            'ਭਾਰੀ ਤੌਰ ਤੇ ਸੰਕਰਮਿਤ ਪੱਤਿਆਂ ਨੂੰ ਹਟਾ ਦਿਓ'
-                        ],
-                        spidermites: [
-                            'ਨੀਮ ਦਾ ਤੇਲ ਸਪ੍ਰੇ ਕਰੋ',
-                            'ਮਾਈਟਸ ਨੂੰ ਧੋਣ ਲਈ ਪਾਣੀ ਦਾ ਸਪ੍ਰੇ ਵਧਾਓ',
-                            'ਭਾਰੀ ਤੌਰ ਤੇ ਸੰਕਰਮਿਤ ਪੱਤਿਆਂ ਨੂੰ ਹਟਾ ਦਿਓ'
-                        ],
-                        mealybugs: [
-                            'ਕੀਟਨਾਸ਼ਕ ਸਾਬਣ ਦੀ ਵਰਤੋਂ ਕਰੋ',
-                            'ਕੁਦਰਤੀ ਸ਼ਿਕਾਰੀਆਂ ਨੂੰ ਪੇਸ਼ ਕਰੋ ਜਿਵੇਂ ਕਿ ਲੇਡੀ ਬੱਗਸ',
-                            'ਭਾਰੀ ਤੌਰ ਤੇ ਸੰਕਰਮਿਤ ਪੱਤਿਆਂ ਨੂੰ ਹਟਾ ਦਿਓ'
-                        ],
-                        thrips: [
-                            'ਨੀਮ ਦਾ ਤੇਲ ਸਪ੍ਰੇ ਕਰੋ',
-                            'ਥ੍ਰਿਪਸ ਨੂੰ ਧੋਣ ਲਈ ਪਾਣੀ ਦਾ ਸਪ੍ਰੇ ਵਧਾਓ',
-                            'ਭਾਰੀ ਤੌਰ ਤੇ ਸੰਕਰਮਿਤ ਪੱਤਿਆਂ ਨੂੰ ਹਟਾ ਦਿਓ'
-                        ]
-                    },
-                    soilTypes: {
-                        clay: 'ਮਿੱਟੀ',
-                        silt: 'ਸਿਲਟ',
-                        sand: 'ਰੇਤ',
-                        loam: 'ਲੋਮ'
-                    },
-                    moistureLevels: {
-                        low: 'ਘੱਟ',
-                        medium: 'ਮੱਧਮ',
-                        high: 'ਉੱਚ'
-                    },
-                    fertilizers: {
-                        npk: 'ਐਨਪੀਕੇ 10-26-26',
-                        urea: 'ਯੂਰੀਆ',
-                        dap: 'ਡੀਏਪੀ'
-                    },
-                    applicationRates: {
-                        npk: '50 ਕਿਲੋ/ਏਕੜ',
-                        urea: '20 ਕਿਲੋ/ਏਕੜ',
-                        dap: '30 ਕਿਲੋ/ਏਕੜ'
-                    },
-                    tips: {
-                        maintainMoisture: 'ਮਿੱਟੀ ਦੀ ਨਮੀ ਨੂੰ ਆਪਟੀਮਲ ਪੱਧਰ ਤੇ ਰੱਖੋ',
-                        addOrganicCompost: 'ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਵਿੱਚ ਸੁਧਾਰ ਲਈ ਜੈਵਿਕ ਖਾਦ ਪਾਓ',
-                        testSoilRegularly: 'ਬਿਹਤਰ ਨਤੀਜਿਆਂ ਲਈ ਹਰ 6 ਮਹੀਨੇ ਬਾਅਦ ਮਿੱਟੀ ਦੀ ਜਾਂਚ ਕਰੋ'
-                    }
-                }
-            }
-        }
-    }).then(function() {
-        // Initialize app components after translations are loaded
-        initNavigation();
-        initLanguageSwitcher();
-        updateContent();
-        
-        // Initialize other components
-        initWeatherWidget();
-        initSoilAnalysis();
-        initPestDetection();
-        initMarketPrices();
-        initVoiceSupport();
-        initFeedbackSystem();
-    }).catch(function(err) {
-        console.error('Error initializing i18next:', err);
-    });
-});
-
-// Update the UI with the current language
-function updateContent() {
-    console.log('Updating content with language:', i18next.language);
-    
+// Update content based on selected language
+function updateContentLanguage(lang) {
     // Update all elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
-        const translation = i18next.t(key, { defaultValue: element.textContent });
-        if (translation) {
-            if (element.tagName === 'INPUT' && element.type === 'text') {
-                element.placeholder = translation;
-            } else if (element.hasAttribute('placeholder')) {
-                element.setAttribute('placeholder', translation);
-            } else if (element.hasAttribute('title')) {
-                element.setAttribute('title', translation);
+        if (translations[lang] && translations[lang][key]) {
+            // For input placeholders and other special attributes
+            if (element.hasAttribute('placeholder')) {
+                element.setAttribute('placeholder', translations[lang][key]);
             } else {
-                element.textContent = translation;
+                element.textContent = translations[lang][key];
             }
         }
     });
-    
-    // Update dynamic content
-    updateMarketPrices();
-    updatePestDetectionUI();
-    updateSoilAnalysisUI();
-}
 
-// Set the application language
-function setLanguage(lang) {
-    console.log('Setting language to:', lang);
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
     
-    // Save the selected language to localStorage
-    localStorage.setItem('selectedLanguage', lang);
+    // Update RTL/LTR based on language
+    if (['ar', 'fa', 'he', 'ur'].includes(lang)) {
+        document.documentElement.dir = 'rtl';
+    } else {
+        document.documentElement.dir = 'ltr';
+    }
     
-    // Change the language in i18next
-    i18next.changeLanguage(lang, (err, t) => {
-        if (err) {
-            console.error('Error changing language:', err);
-            return;
+    // Update the active language button in the language selector
+    document.querySelectorAll('.language-select').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
         }
-        
-        // Update the UI with the new language
-        updateContent();
-        
-        // Update the language selector
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect) {
-            languageSelect.value = lang;
-        }
-        
-        // Update the HTML lang attribute
-        document.documentElement.lang = lang;
     });
 }
 
-// Initialize language switcher
-function initLanguageSwitcher() {
-    console.log('Initializing language switcher');
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful');
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New update available
+                            showUpdateNotification();
+                        }
+                    });
+                });
+            })
+            .catch(err => console.error('ServiceWorker registration failed: ', err));
+    });
+}
+
+// PWA Installation Prompt
+let deferredPrompt;
+const installButton = document.getElementById('install-button');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
     
-    // Handle language selection from the initial screen
-    const languageOptions = document.querySelectorAll('.language-option');
-    const languageScreen = document.getElementById('languageScreen');
-    const app = document.getElementById('app');
+    // Show the install button if it exists
+    if (installButton) {
+        installButton.style.display = 'block';
+        installButton.addEventListener('click', installApp);
+    }
+});
+
+async function installApp() {
+    if (!deferredPrompt) return;
     
-    // Check if language is already selected
+    // Show the install prompt
+    deferredPrompt.prompt();
+    
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    
+    // Hide the install button
+    if (installButton) {
+        installButton.style.display = 'none';
+    }
+    
+    // We've used the prompt, and can't use it again, throw it away
+    deferredPrompt = null;
+}
+
+// Show update notification
+function showUpdateNotification() {
+    if (window.Notification && Notification.permission === 'granted') {
+        new Notification('Update Available', {
+            body: 'A new version of CropAdvisor is available. Restart the app to update.',
+            icon: 'images/icons/icon-192x192.png',
+            vibrate: [200, 100, 200]
+        });
+    } else if (window.Notification && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                showUpdateNotification();
+            }
+        });
+    }
+}
+
+// Check if app is running in standalone mode
+function isRunningStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || 
+           window.navigator.standalone || 
+           document.referrer.includes('android-app://');
+}
+
+// Show install button if not running in standalone mode
+if (!isRunningStandalone() && installButton) {
+    installButton.style.display = 'block';
+}
+
+// Language Selection and App Initialization
+document.addEventListener('DOMContentLoaded', function() {
+    // Enable text selection
+    document.body.style.userSelect = 'auto';
+    
+    // Get the modal element
+    const languageModalElement = document.getElementById('languageModal');
+    const languageModal = new bootstrap.Modal(languageModalElement, {
+        backdrop: 'static',
+        keyboard: false
+    });
+    
+    // Show language modal on first load if no language is selected
     const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage) {
-        console.log('Found saved language:', savedLanguage);
-        if (languageScreen) languageScreen.classList.add('hidden');
-        if (app) app.classList.remove('hidden');
+    if (!savedLanguage) {
+        languageModal.show();
+    } else {
+        updateContentLanguage(savedLanguage);
+        document.getElementById('app').classList.remove('d-none');
+    }
+    
+    // Handle language selection
+    document.querySelectorAll('.language-select').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const selectedLanguage = this.getAttribute('data-lang');
+            localStorage.setItem('selectedLanguage', selectedLanguage);
+            updateContentLanguage(selectedLanguage);
+            languageModal.hide();
+            document.getElementById('app').classList.remove('d-none');
+        });
+    });
+    
+    // Handle change language button
+    const changeLanguageBtn = document.getElementById('changeLanguageBtn');
+    if (changeLanguageBtn) {
+        changeLanguageBtn.addEventListener('click', function() {
+            languageModal.show();
+        });
+    }
+    
+    // Navigation handling
+    setupNavigation();
+    
+    // Weather functionality
+    setupWeather();
+    
+    // Initialize dashboard
+    initializeDashboard();
+    
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Initialize Chatbot
+    const chatbotBtn = document.getElementById('chatbotBtn');
+    const chatbotModal = new bootstrap.Modal(document.getElementById('chatbotModal'));
+    
+    if (chatbotBtn) {
+        chatbotBtn.addEventListener('click', function() {
+            chatbotModal.show();
+        });
+    }
+
+    // Initialize AR Scanner
+    const arScanBtn = document.getElementById('ar-scan-btn');
+    const arScannerModal = new bootstrap.Modal(document.getElementById('arScannerModal'));
+    
+    if (arScanBtn) {
+        arScanBtn.addEventListener('click', function() {
+            // In a real implementation, this would access the device camera
+            // For the prototype, we'll just show the modal with a placeholder
+            arScannerModal.show();
+        });
+    }
+
+    // Handle chat input
+    const chatInput = document.querySelector('#chatbotModal input[type="text"]');
+    const chatSendBtn = document.querySelector('#chatbotModal .btn-primary');
+    
+    if (chatInput && chatSendBtn) {
+        const sendMessage = () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                // In a real implementation, this would send the message to an AI service
+                console.log('Sending message to AI:', message);
+                chatInput.value = '';
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const responses = [
+                        "I can help you with crop management and farming techniques. What specific information do you need?",
+                        "For optimal growth, make sure your crops get enough sunlight and water.",
+                        "I've analyzed your query. Here's what I recommend based on your crop type and region.",
+                        "Based on the current season, you might want to consider adjusting your irrigation schedule."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    alert("AI Response: " + randomResponse);
+                }, 1000);
+            }
+        };
         
-        // Ensure the language is set in i18next
-        if (i18next.language !== savedLanguage) {
-            i18next.changeLanguage(savedLanguage);
+        chatSendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+    
+    // Simulate AR scanning (just for the prototype)
+    document.getElementById('arScannerModal')?.addEventListener('shown.bs.modal', function() {
+        console.log('AR Scanner activated - in a real implementation, this would access the device camera');
+    });
+    
+    // Add event listeners for quick action buttons
+    document.querySelectorAll('.quick-action').forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            let message = '';
+            let icon = 'info-circle';
+            
+            switch(action) {
+                case 'schedule-irrigation':
+                    message = 'Irrigation scheduling feature will be available in the next update. Our team is working on optimizing water usage recommendations for your fields.';
+                    break;
+                case 'add-note':
+                    message = 'Field notes feature coming soon! You\'ll be able to record observations, soil conditions, and crop growth stages.';
+                    break;
+                case 'view-weather':
+                    message = 'Weather forecast integration is in progress. Soon you\'ll get hyper-local weather predictions for your fields.';
+                    break;
+                case 'scan-pest':
+                    message = 'Pest scanning with AI is under development. This feature will help identify pests and diseases from photos of your crops.';
+                    icon = 'bug';
+                    break;
+                default:
+                    message = 'This feature is coming soon!';
+            }
+            
+            // Show a toast notification
+            showToast('Feature Coming Soon', message, icon);
+        });
+    });
+
+    // Show toast notification
+    function showToast(title, message, icon = 'info-circle') {
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
+        
+        const toastId = 'toast-' + Date.now();
+        const toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-white bg-primary border-0';
+        toast.role = 'alert';
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.id = toastId;
+        
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-${icon} me-2 fs-5"></i>
+                        <strong class="me-auto">${title}</strong>
+                    </div>
+                    <div class="mt-1">${message}</div>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        const bsToast = new bootstrap.Toast(toast, {
+            autohide: true,
+            delay: 5000
+        });
+        
+        toast.addEventListener('hidden.bs.toast', function() {
+            toast.remove();
+        });
+        
+        bsToast.show();
+    }
+
+    // Add toast container to body if it doesn't exist
+    function ensureToastContainer() {
+        if (!document.getElementById('toastContainer')) {
+            const container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+            container.style.zIndex = '1100';
+            document.body.appendChild(container);
         }
     }
+
+    // Initialize toast container when DOM is loaded
+    ensureToastContainer();
     
-    // Add click handlers for language selection
-    languageOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
-            const lang = e.currentTarget.getAttribute('data-lang');
-            console.log('Language option clicked:', lang);
-            setLanguage(lang);
-            
-            // Hide language screen and show app
-            if (languageScreen) languageScreen.classList.add('hidden');
-            if (app) app.classList.remove('hidden');
-        });
+    // Show welcome message
+    setTimeout(() => {
+        showToast(
+            'Welcome to CropAdvisor', 
+            'Explore the new features including soil analysis, pest detection, and market prices!',
+            'emoji-smile'
+        );
+    }, 1000);
+});
+
+// Add CSS for toast notifications
+const toastStyles = document.createElement('style');
+toastStyles.textContent = `
+    .toast {
+        margin-bottom: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-radius: 0.5rem;
+        max-width: 350px;
+    }
+    .toast-body {
+        padding: 1rem;
+    }
+    .toast-container {
+        z-index: 1090;
+    }
+`;
+document.head.appendChild(toastStyles);
+
+// Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing initialization code...
+    
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
     
-    // Handle language selector in the app
-    const languageSelect = document.getElementById('languageSelect');
-    if (languageSelect) {
-        // Set the current language
-        languageSelect.value = savedLanguage || 'en';
+    // Add click handlers for view buttons in tables
+    document.querySelectorAll('button[data-bs-target^="#"]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const target = this.getAttribute('data-bs-target');
+            if (target === '#soilAnalysisModal' || target === '#pestHistoryModal' || target === '#priceTrendsModal') {
+                e.preventDefault();
+                showToast(
+                    'Feature Preview', 
+                    'This is a preview of the detailed view. The complete feature with real-time data will be available in the next update.',
+                    'info-circle'
+                );
+            }
+        });
+    });
+});
+
+// Previous code...
+
+// AR Scanner with Camera Access
+let stream = null;
+
+async function startCamera() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: { 
+                facingMode: 'environment',
+                width: { ideal: 1920 },
+                height: { ideal: 1080 }
+            },
+            audio: false
+        });
         
-        // Add change event listener
-        languageSelect.addEventListener('change', (e) => {
-            console.log('Language select changed to:', e.target.value);
-            setLanguage(e.target.value);
-        });
+        const videoElement = document.getElementById('camera-feed');
+        videoElement.srcObject = stream;
+        videoElement.play();
+        
+        // Show scanner UI
+        document.getElementById('scanner-ui').classList.remove('d-none');
+        document.getElementById('camera-permission-prompt').classList.add('d-none');
+        
+        // Start analysis simulation
+        startAnalysis();
+        
+    } catch (err) {
+        console.error('Error accessing camera:', err);
+        document.getElementById('camera-error').classList.remove('d-none');
+        document.getElementById('camera-permission-prompt').classList.add('d-none');
+        
+        // Fallback to static image for demo
+        document.getElementById('camera-fallback').classList.remove('d-none');
     }
 }
 
-// Navigation and routing
-function initNavigation() {
-    // Handle navigation between different sections
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sectionId = e.target.getAttribute('href').substring(1);
-            showSection(sectionId);
-        });
-    });
-    
-    // Show the initial section based on URL hash
-    const initialSection = window.location.hash.substring(1) || 'dashboard';
-    showSection(initialSection);
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+    }
 }
 
-function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('main > section').forEach(section => {
+// Dummy crop data for simulation
+const dummyCropData = {
+    'wheat': {
+        health: 85,
+        issues: [
+            { type: 'rust', severity: 'low', confidence: 0.75 },
+            { type: 'nutrient_deficiency', nutrient: 'nitrogen', severity: 'medium', confidence: 0.82 }
+        ],
+        growthStage: 'tillering',
+        daysToHarvest: 45,
+        recommendations: [
+            'Apply nitrogen-rich fertilizer',
+            'Monitor for rust spread',
+            'Check soil moisture levels'
+        ]
+    },
+    'rice': {
+        health: 92,
+        issues: [
+            { type: 'blast', severity: 'low', confidence: 0.68 }
+        ],
+        growthStage: 'vegetative',
+        daysToHarvest: 60,
+        recommendations: [
+            'Apply fungicide for blast control',
+            'Maintain proper water levels',
+            'Monitor for leaf folder insects'
+        ]
+    },
+    'corn': {
+        health: 78,
+        issues: [
+            { type: 'armyworm', severity: 'high', confidence: 0.88 },
+            { type: 'drought_stress', severity: 'medium', confidence: 0.65 }
+        ],
+        growthStage: 'silking',
+        daysToHarvest: 30,
+        recommendations: [
+            'Apply appropriate insecticide for armyworm',
+            'Irrigate if possible',
+            'Consider early harvest if damage is severe'
+        ]
+    }
+};
+
+function getRandomCropData() {
+    const crops = Object.keys(dummyCropData);
+    const randomCrop = crops[Math.floor(Math.random() * crops.length)];
+    return {
+        cropType: randomCrop,
+        ...dummyCropData[randomCrop]
+    };
+}
+
+let analysisInterval;
+
+function startAnalysis() {
+    // Clear any existing interval
+    if (analysisInterval) clearInterval(analysisInterval);
+    
+    // Initial analysis
+    updateAnalysisUI();
+    
+    // Update analysis every 5 seconds
+    analysisInterval = setInterval(updateAnalysisUI, 5000);
+}
+
+function updateAnalysisUI() {
+    const cropData = getRandomCropData();
+    const resultsContainer = document.getElementById('ar-analysis-results');
+    
+    // Update crop type
+    resultsContainer.querySelector('.crop-type').textContent = cropData.cropType.charAt(0).toUpperCase() + cropData.cropType.slice(1);
+    
+    // Update health meter
+    const healthMeter = resultsContainer.querySelector('.health-meter');
+    healthMeter.style.width = `${cropData.health}%`;
+    healthMeter.setAttribute('aria-valuenow', cropData.health);
+    healthMeter.textContent = `${cropData.health}%`;
+    
+    // Update issues
+    const issuesList = resultsContainer.querySelector('.issues-list');
+    issuesList.innerHTML = cropData.issues.map(issue => `
+        <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+            <div>
+                <strong>${issue.type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong>
+                <div class="text-muted small">
+                    Severity: ${issue.severity} • Confidence: ${Math.round(issue.confidence * 100)}%
+                    ${issue.nutrient ? `• Nutrient: ${issue.nutrient}` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Update recommendations
+    const recommendationsList = resultsContainer.querySelector('.recommendations-list');
+    recommendationsList.innerHTML = cropData.recommendations.map(rec => `
+        <li class="d-flex align-items-start mb-2">
+            <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+            <span>${rec}</span>
+        </li>
+    `).join('');
+    
+    // Show results
+    resultsContainer.classList.remove('d-none');
+}
+
+// Update AR scanner modal event listeners
+document.getElementById('arScannerModal')?.addEventListener('show.bs.modal', function() {
+    document.getElementById('camera-permission-prompt').classList.remove('d-none');
+    document.getElementById('scanner-ui').classList.add('d-none');
+    document.getElementById('camera-error').classList.add('d-none');
+    document.getElementById('camera-fallback').classList.add('d-none');
+    document.getElementById('ar-analysis-results').classList.add('d-none');
+});
+
+document.getElementById('arScannerModal')?.addEventListener('hidden.bs.modal', function() {
+    stopCamera();
+    if (analysisInterval) clearInterval(analysisInterval);
+});
+
+// Add click handler for retry button
+document.getElementById('retry-camera')?.addEventListener('click', startCamera);
+
+// Initialize camera when the start scanning button is clicked
+document.getElementById('start-scanning')?.addEventListener('click', startCamera);
+
+function setupNavigation() {
+    // Show dashboard by default and set active nav link
+    document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
-        section.classList.remove('active');
     });
+    document.getElementById('dashboard').style.display = 'block';
     
-    // Show the selected section
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.style.display = 'block';
-        section.classList.add('active');
-    }
-    
-    // Update active nav link
-    document.querySelectorAll('nav a').forEach(link => {
+    // Set active nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${sectionId}`) {
+        if (link.getAttribute('href') === '#dashboard') {
             link.classList.add('active');
         }
     });
     
-    // Update URL
-    window.location.hash = sectionId;
-}
-
-// WeatherAPI.com configuration
-const WEATHER_API_KEY = 'cad6a2e3e077442e88b194629251409';
-const WEATHER_API_BASE_URL = 'https://api.weatherapi.com/v1';
-let isWeatherLoading = false;
-
-// Weather integration
-async function initWeatherWidget() {
-    if (isWeatherLoading) return;
-    
-    isWeatherLoading = true;
-    
-    try {
-        // Show loading state
-        const weatherWidget = document.getElementById('weather-widget');
-        const weatherContainer = document.getElementById('weather-container');
-        
-        if (weatherWidget) {
-            weatherWidget.innerHTML = `
-                <div class="weather-loading">
-                    <div class="spinner"></div>
-                    <p data-i18n="fetchingWeather">Fetching weather data...</p>
-                </div>
-            `;
-            // Update translations for the loading message
-            updateContent();
-        }
-
-        let position;
-        if (navigator.geolocation) {
-            position = await new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(resolve, reject, {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
-                });
-            });
-        }
-
-        if (position && position.coords) {
-            const { latitude, longitude } = position.coords;
-            await updateWeatherWidget(latitude, longitude);
-        } else {
-            // Default to New Delhi if geolocation is not available or denied
-            console.log('Using default location: New Delhi');
-            await updateWeatherWidget(28.6139, 77.2090);
-        }
-    } catch (error) {
-        console.error('Error initializing weather widget:', error);
-        showWeatherError(error);
-    } finally {
-        isWeatherLoading = false;
-    }
-}
-
-async function updateWeatherWidget(lat, lon) {
-    try {
-        // Show loading state in the main weather container if available
-        const weatherContainer = document.getElementById('weather-container');
-        if (weatherContainer) {
-            weatherContainer.innerHTML = `
-                <div class="weather-loading">
-                    <div class="spinner"></div>
-                    <p data-i18n="fetchingWeather">Fetching weather data...</p>
-                </div>
-            `;
-            updateContent(); // Update translations
-        }
-
-        // Fetch current weather and forecast in parallel
-        const [currentResponse, forecastResponse] = await Promise.all([
-            fetch(`${WEATHER_API_BASE_URL}/current.json?key=${WEATHER_API_KEY}&q=${lat},${lon}&aqi=no`),
-            fetch(`${WEATHER_API_BASE_URL}/forecast.json?key=${WEATHER_API_KEY}&q=${lat},${lon}&days=5&aqi=no&alerts=yes`)
-        ]);
-
-        if (!currentResponse.ok) {
-            throw new Error(`Weather API error: ${currentResponse.status} ${currentResponse.statusText}`);
-        }
-        if (!forecastResponse.ok) {
-            throw new Error(`Forecast API error: ${forecastResponse.status} ${forecastResponse.statusText}`);
-        }
-
-        const currentData = await currentResponse.json();
-        const forecastData = await forecastResponse.json();
-
-        updateCurrentWeather(currentData);
-        updateWeatherForecast(forecastData);
-        updateWeatherAlerts(forecastData);
-    } catch (error) {
-        console.error('Error updating weather widget:', error);
-        showWeatherError(error);
-    }
-}
-
-function updateCurrentWeather(data) {
-    if (!data || !data.current || !data.location) return;
-
-    const { current, location } = data;
-    
-    // Update location
-    const locationElement = document.getElementById('location-name');
-    if (locationElement) {
-        locationElement.textContent = `${location.name}, ${location.region}, ${location.country}`;
-    }
-
-    // Update current weather
-    const tempElement = document.getElementById('current-temp');
-    if (tempElement) {
-        tempElement.textContent = Math.round(current.temp_c);
-    }
-
-    // Update weather description
-    const descElement = document.getElementById('weather-description');
-    if (descElement && current.condition) {
-        descElement.textContent = current.condition.text;
-    }
-
-    // Update weather icon
-    const iconElement = document.querySelector('.weather-icon');
-    if (iconElement) {
-        iconElement.innerHTML = `<img src="https:${current.condition.icon}" alt="${current.condition.text}">`;
-    }
-
-    // Update weather details
-    const humidityElement = document.getElementById('humidity');
-    if (humidityElement) humidityElement.textContent = current.humidity;
-
-    const windElement = document.getElementById('wind-speed');
-    if (windElement) windElement.textContent = current.wind_kph;
-
-    const pressureElement = document.getElementById('pressure');
-    if (pressureElement) pressureElement.textContent = current.pressure_mb;
-
-    // Update last updated time
-    const lastUpdated = document.getElementById('last-updated');
-    if (lastUpdated) {
-        const lastUpdatedTime = new Date(current.last_updated_epoch * 1000).toLocaleTimeString();
-        lastUpdated.textContent = `Last updated: ${lastUpdatedTime}`;
-    }
-}
-
-function updateWeatherForecast(data) {
-    if (!data || !data.forecast) return;
-
-    const forecastContainer = document.getElementById('weather-forecast');
-    if (!forecastContainer) return;
-
-    // Clear previous forecast
-    forecastContainer.innerHTML = '';
-
-    // Add forecast header
-    const forecastHeader = document.createElement('h3');
-    forecastHeader.textContent = '5-Day Forecast';
-    forecastHeader.style.marginBottom = '1rem';
-    forecastContainer.appendChild(forecastHeader);
-
-    const forecastDays = document.createElement('div');
-    forecastDays.className = 'forecast-days';
-
-    // Get next 5 days forecast
-    data.forecast.forecastday.slice(0, 5).forEach(day => {
-        const date = new Date(day.date);
-        const dayName = date.toLocaleDateString(i18next.language, { weekday: 'short' });
-        
-        const dayElement = document.createElement('div');
-        dayElement.className = 'forecast-day';
-        dayElement.innerHTML = `
-            <div class="forecast-day-name">${dayName}</div>
-            <div class="forecast-icon">
-                <img src="https:${day.day.condition.icon}" alt="${day.day.condition.text}">
-            </div>
-            <div class="forecast-temp">
-                <span class="forecast-temp-max">${Math.round(day.day.maxtemp_c)}°</span>
-                <span class="forecast-temp-min">${Math.round(day.day.mintemp_c)}°</span>
-            </div>
-            <div class="forecast-precip">
-                <span class="material-icons">opacity</span>
-                ${day.day.daily_chance_of_rain}%
-            </div>
-        `;
-        forecastDays.appendChild(dayElement);
-    });
-
-    forecastContainer.appendChild(forecastDays);
-}
-
-function updateWeatherAlerts(data) {
-    if (!data || !data.alerts || !data.alerts.alert) return;
-
-    const alertsContainer = document.getElementById('weather-alerts');
-    if (!alertsContainer) return;
-
-    // Clear previous alerts
-    alertsContainer.innerHTML = '';
-
-    // Add alerts header
-    const alertsHeader = document.createElement('h3');
-    alertsHeader.textContent = 'Weather Alerts';
-    alertsHeader.style.margin = '2rem 0 1rem';
-    alertsContainer.appendChild(alertsHeader);
-
-    // Add each alert
-    data.alerts.alert.forEach(alert => {
-        const alertElement = document.createElement('div');
-        alertElement.className = 'alert-item';
-        alertElement.innerHTML = `
-            <div class="alert-header">
-                <span class="material-icons">warning</span>
-                <strong>${alert.headline || 'Weather Alert'}</strong>
-            </div>
-            <div class="alert-message">${alert.desc || 'No details available'}</div>
-            <div class="alert-period">
-                <small>${new Date(alert.effective).toLocaleString()} - ${new Date(alert.expires).toLocaleString()}</small>
-            </div>
-        `;
-        alertsContainer.appendChild(alertElement);
-    });
-}
-
-function showWeatherError(error) {
-    console.error('Weather error:', error);
-    
-    const errorMessage = document.createElement('div');
-    errorMessage.className = 'error-message';
-    errorMessage.innerHTML = `
-        <span class="material-icons">error_outline</span>
-        <p data-i18n="errorLoadingWeather">Failed to load weather data. Please check your connection and try again.</p>
-        <button id="retry-weather" class="btn btn-primary">
-            <span class="material-icons">refresh</span>
-            <span data-i18n="retry">Retry</span>
-        </button>
-    `;
-
-    const weatherWidget = document.getElementById('weather-widget') || document.getElementById('weather-container');
-    if (weatherWidget) {
-        weatherWidget.innerHTML = '';
-        weatherWidget.appendChild(errorMessage);
-        
-        // Add retry button event listener
-        const retryButton = document.getElementById('retry-weather');
-        if (retryButton) {
-            retryButton.addEventListener('click', initWeatherWidget);
-        }
-        
-        // Update translations
-        updateContent();
-    }
-}
-
-// Add event listener for manual refresh
-const refreshButton = document.getElementById('refresh-weather');
-if (refreshButton) {
-    refreshButton.addEventListener('click', initWeatherWidget);
-}
-
-// Soil Analysis and Fertilizer Recommendation
-function initSoilAnalysis() {
-    const soilForm = document.getElementById('soil-analysis-form');
-    if (soilForm) {
-        soilForm.addEventListener('submit', (e) => {
+    // Handle nav link clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const soilType = document.getElementById('soil-type').value;
-            const phLevel = document.getElementById('ph-level').value;
-            const moisture = document.getElementById('moisture').value;
+            const targetId = this.getAttribute('href').substring(1);
             
-            // In a real app, you would send this data to a backend service
-            const recommendation = generateSoilRecommendation(soilType, phLevel, moisture);
-            displaySoilRecommendation(recommendation);
-        });
-    }
-}
-
-function generateSoilRecommendation(soilType, phLevel, moisture) {
-    // This is a simple mock implementation
-    return {
-        fertilizer: 'NPK 10-26-26',
-        quantity: '50 kg/acre',
-        schedule: 'Apply before sowing and during growth stage',
-        tips: [
-            'Maintain soil moisture at optimal levels',
-            'Add organic compost to improve soil structure',
-            'Test soil every 6 months for better results'
-        ]
-    };
-}
-
-// Pest and Disease Detection
-function initPestDetection() {
-    const imageUpload = document.getElementById('pest-image-upload');
-    if (imageUpload) {
-        imageUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                analyzePestImage(file);
-            }
-        });
-    }
-}
-
-function analyzePestImage(file) {
-    // In a real app, you would send the image to a machine learning model
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        // Display the uploaded image
-        const preview = document.getElementById('pest-image-preview');
-        if (preview) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        }
-        
-        // Simulate API call
-        setTimeout(() => {
-            displayPestAnalysis({
-                pestName: 'Aphids',
-                confidence: '85%',
-                description: 'Small sap-sucking insects that can damage plants',
-                treatment: [
-                    'Use neem oil spray',
-                    'Introduce natural predators like ladybugs',
-                    'Remove heavily infested leaves'
-                ]
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
             });
-        }, 1500);
-    };
-    reader.readAsDataURL(file);
+            
+            // Show target section
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
 }
 
-// Market Price Tracking
-function initMarketPrices() {
-    // In a real app, you would fetch this from an API
-    const mockPrices = [
-        { crop: 'Wheat', price: '₹2,100/quintal', market: 'Delhi' },
-        { crop: 'Rice', price: '₹1,950/quintal', market: 'Mumbai' },
-        { crop: 'Soybean', price: '₹5,200/quintal', market: 'Indore' },
-        { crop: 'Cotton', price: '₹6,500/quintal', market: 'Ahmedabad' },
+function setupWeather() {
+    const weatherWidget = document.getElementById('weather-widget');
+    const requestLocationBtn = document.getElementById('request-location');
+    
+    if (requestLocationBtn) {
+        requestLocationBtn.addEventListener('click', function() {
+            getWeatherByLocation();
+        });
+    }
+    
+    // Load weather on page load if location is available
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                fetchWeatherData(latitude, longitude);
+            },
+            error => {
+                console.error('Error getting location:', error);
+                // Default to New Delhi coordinates if location access is denied
+                fetchWeatherData(28.6139, 77.2090);
+            }
+        );
+    } else {
+        // Default to New Delhi coordinates if geolocation is not supported
+        fetchWeatherData(28.6139, 77.2090);
+    }
+}
+
+async function fetchWeatherData(lat, lon) {
+    const apiKey = 'cad6a2e3e077442e88b194629251409';
+    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&aqi=no`;
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Weather data not available');
+        }
+        const data = await response.json();
+        updateWeatherUI(data);
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        showWeatherError('Failed to fetch weather data. Please try again.');
+    }
+}
+
+function updateWeatherUI(data) {
+    const weatherWidget = document.getElementById('weather-widget');
+    if (!weatherWidget) return;
+    
+    const iconUrl = data.current.condition.icon.startsWith('http') ? 
+        data.current.condition.icon : 
+        'https:' + data.current.condition.icon;
+    
+    weatherWidget.innerHTML = `
+        <div class="weather-info">
+            <div class="d-flex align-items-center">
+                <img src="${iconUrl}" alt="${data.current.condition.text}" class="me-2">
+                <div>
+                    <h4 class="mb-0">${Math.round(data.current.temp_c)}°C</h4>
+                    <small class="text-muted">${data.current.condition.text}</small>
+                </div>
+            </div>
+            <div class="mt-2">
+                <small class="text-muted">
+                    <i class="bi bi-geo-alt"></i> ${data.location.name}, ${data.location.country}
+                </small>
+            </div>
+        </div>
+    `;
+}
+
+function showWeatherError(message) {
+    const weatherWidget = document.getElementById('weather-widget');
+    if (!weatherWidget) return;
+    
+    weatherWidget.innerHTML = `
+        <div class="alert alert-warning mb-0">
+            <i class="bi bi-exclamation-triangle"></i> ${message}
+        </div>
+    `;
+}
+
+function getWeatherByLocation() {
+    const weatherWidget = document.getElementById('weather-widget');
+    if (!weatherWidget) return;
+    
+    weatherWidget.innerHTML = `
+        <div class="text-center py-2">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="ms-2">Getting weather...</span>
+        </div>
+    `;
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                fetchWeatherData(latitude, longitude);
+            },
+            error => {
+                console.error('Error getting location:', error);
+                showWeatherError('Unable to get your location. Using default location.');
+                fetchWeatherData(28.6139, 77.2090); // Default to New Delhi
+            }
+        );
+    } else {
+        showWeatherError('Geolocation is not supported by your browser.');
+        fetchWeatherData(28.6139, 77.2090); // Default to New Delhi
+    }
+}
+
+function initializeDashboard() {
+    // Sample data for recent activities
+    const activities = [
+        { title: 'Irrigation Completed', time: '2 hours ago', description: 'Field A1 was irrigated' },
+        { title: 'Pest Alert', time: '5 hours ago', description: 'Pest detected in Field B2' },
+        { title: 'Fertilization Scheduled', time: '1 day ago', description: 'Scheduled for tomorrow' }
     ];
     
-    updateMarketPrices(mockPrices);
-}
-
-function updateMarketPrices(prices) {
-    const container = document.getElementById('market-prices');
-    if (container) {
-        container.innerHTML = `
-            <h3>Current Market Prices</h3>
-            <table>
-                <tr>
-                    <th>Crop</th>
-                    <th>Price</th>
-                    <th>Market</th>
-                </tr>
-                ${prices.map(item => `
-                    <tr>
-                        <td>${item.crop}</td>
-                        <td>${item.price}</td>
-                        <td>${item.market}</td>
-                    </tr>
-                `).join('')}
-            </table>
-            <button id="refresh-prices">Refresh Prices</button>
-        `;
+    // Update recent activities
+    const activitiesList = document.querySelector('.recent-activities');
+    if (activitiesList) {
+        activitiesList.innerHTML = activities.map(activity => `
+            <div class="list-group-item border-0 px-0">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">${activity.title}</h6>
+                    <small class="text-muted">${activity.time}</small>
+                </div>
+                <p class="mb-1 small text-muted">${activity.description}</p>
+            </div>
+        `).join('');
     }
-}
-
-// Voice Support
-function initVoiceSupport() {
-    const voiceButton = document.getElementById('voice-command');
-    if (voiceButton && 'webkitSpeechRecognition' in window) {
-        const recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        
-        voiceButton.addEventListener('click', () => {
-            recognition.start();
-            voiceButton.textContent = 'Listening...';
-            
-            recognition.onresult = (event) => {
-                const command = event.results[0][0].transcript.toLowerCase();
-                handleVoiceCommand(command);
-                voiceButton.textContent = 'Tap to Speak';
-            };
-            
-            recognition.onerror = () => {
-                voiceButton.textContent = 'Tap to Speak';
-            };
-        });
-    }
-}
-
-function handleVoiceCommand(command) {
-    // Simple command handling
-    if (command.includes('weather')) {
-        showSection('weather');
-    } else if (command.includes('soil') || command.includes('fertilizer')) {
-        showSection('soil-analysis');
-    } else if (command.includes('pest') || command.includes('disease')) {
-        showSection('pest-detection');
-    } else if (command.includes('price') || command.includes('market')) {
-        showSection('market-prices');
-    }
-}
-
-// Feedback System
-function initFeedbackSystem() {
-    const feedbackForm = document.getElementById('feedback-form');
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const feedback = document.getElementById('feedback-text').value;
-            const rating = document.querySelector('input[name="rating"]:checked')?.value || 0;
-            
-            // In a real app, you would send this to your backend
-            console.log('Feedback submitted:', { feedback, rating });
-            
-            // Show thank you message
-            const feedbackContainer = document.getElementById('feedback-container');
-            if (feedbackContainer) {
-                feedbackContainer.innerHTML = `
-                    <h3>Thank You!</h3>
-                    <p>Your feedback has been submitted successfully.</p>
-                    <button onclick="showSection('dashboard')">Back to Dashboard</button>
-                `;
-            }
-        });
-    }
-}
-
-// Helper function to update UI elements with translations
-function updateTranslations(lang) {
-    document.documentElement.lang = lang;
-    // Update all elements with data-i18n attributes
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        el.textContent = i18next.t(key);
+    
+    // Update last updated time
+    const lastUpdatedElements = document.querySelectorAll('.last-updated');
+    lastUpdatedElements.forEach(el => {
+        el.textContent = new Date().toLocaleTimeString();
     });
 }
-
-// Export functions that need to be available globally
-window.showSection = showSection;
