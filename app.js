@@ -7,6 +7,9 @@ let isVoiceEnabled = false;
 let speechRecognition = null;
 let speechSynthesis = window.speechSynthesis;
 let currentCalendarDate = new Date(); // tracks which month is shown on calendar page
+// AR globals
+let currentStream = null;
+let currentFacingMode = 'environment'; // default to back camera
 
 // Weather API Configuration
 const WEATHER_API_KEY = 'cad6a2e3e077442e88b194629251409';
@@ -915,50 +918,118 @@ function initializeAR() {
 }
 
 function startAR() {
-    const video = document.getElementById('video');
-    
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-                video.srcObject = stream;
-                video.play();
-                
-                // Simulate AR scanning
-                setTimeout(() => {
-                    showARResults();
-                    stopAR();
-                }, 5000);
-            })
-            .catch(function(error) {
-                console.log('Camera access denied:', error);
-                alert('Camera access required for AR scanning');
-            });
-    }
+    startCameraWithFacing(currentFacingMode).catch(err => {
+        console.log('Camera start failed:', err);
+        alert('Camera access required for AR scanning');
+    });
 }
 
 function stopAR() {
     const video = document.getElementById('video');
-    if (video.srcObject) {
-        video.srcObject.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
+    if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null;
+    }
+    if (video) video.srcObject = null;
+    // clear overlay
+    const overlay = document.getElementById('arResultOverlay');
+    if (overlay) overlay.innerHTML = '';
+}
+
+async function startCameraWithFacing(facingMode = 'environment') {
+    const video = document.getElementById('video');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('MediaDevices API not supported');
+    }
+    // Stop any existing stream first
+    if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null;
+    }
+    // Try exact facingMode first, fallback to first video device
+    const constraints = {
+        audio: false,
+        video: { facingMode: { ideal: facingMode }, width: { ideal: 1280 }, height: { ideal: 720 } }
+    };
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        currentStream = stream;
+        currentFacingMode = facingMode;
+        video.srcObject = stream;
+        await video.play();
+        beginRealtimeOverlay();
+    } catch (err) {
+        console.log('FacingMode failed, trying default camera:', err);
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        currentStream = stream;
+        video.srcObject = stream;
+        await video.play();
+        beginRealtimeOverlay();
     }
 }
 
+function switchCamera() {
+    currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+    startCameraWithFacing(currentFacingMode);
+}
+
+function toggleARFullscreen() {
+    const container = document.getElementById('arCamera');
+    if (!container) return;
+    if (!document.fullscreenElement) {
+        if (container.requestFullscreen) container.requestFullscreen();
+        else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+        else if (container.msRequestFullscreen) container.msRequestFullscreen();
+    } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+}
+
+let arOverlayTimer = null;
+function beginRealtimeOverlay() {
+    // Clear previous
+    if (arOverlayTimer) {
+        clearInterval(arOverlayTimer);
+        arOverlayTimer = null;
+    }
+    const overlay = document.getElementById('arResultOverlay');
+    const canvas = document.getElementById('canvas');
+    const video = document.getElementById('video');
+    if (!overlay || !canvas || !video) return;
+    const ctx = canvas.getContext('2d');
+    // Example: every 1s, capture a frame and show dummy analysis in overlay
+    arOverlayTimer = setInterval(() => {
+        try {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // TODO: Run real model inference here
+            const timestamp = new Date().toLocaleTimeString();
+            overlay.innerHTML = `
+                <div class="overlay-chip">
+                    <strong>Health:</strong> Good (85%)
+                </div>
+                <div class="overlay-chip">
+                    <strong>Pest Risk:</strong> Low
+                </div>
+                <div class="overlay-chip time">${timestamp}</div>
+            `;
+        } catch (e) {
+            // ignore transient errors while video initializes
+        }
+    }, 1000);
+}
+
 function showARResults() {
-    const resultsDiv = document.getElementById('arResults');
-    if (resultsDiv) {
-        resultsDiv.style.display = 'block';
-        resultsDiv.innerHTML = `
-            <h4>Crop Analysis Results</h4>
-            <div class="ar-result-item">
-                <strong>Crop Health:</strong> Good (85%)
-            </div>
-            <div class="ar-result-item">
-                <strong>Growth Stage:</strong> Flowering
-            </div>
-            <div class="ar-result-item">
-                <strong>Recommendation:</strong> Continue current care routine
-            </div>
+    // Maintain for backward compatibility: mirror to overlay
+    const overlay = document.getElementById('arResultOverlay');
+    if (overlay) {
+        overlay.innerHTML = `
+            <div class="overlay-chip"><strong>Crop Health:</strong> Good (85%)</div>
+            <div class="overlay-chip"><strong>Growth Stage:</strong> Flowering</div>
+            <div class="overlay-chip"><strong>Recommendation:</strong> Continue current care routine</div>
         `;
     }
 }
@@ -1376,10 +1447,9 @@ function renderFarmingCalendar() {
         <div class="calendar-grid">
             ${items.map(i => `
                 <div class="calendar-item suitability-${i.suitable >= 80 ? 'high' : i.suitable >= 60 ? 'med' : 'low'}">
-                    <div class="calendar-date">${new Date(i.date).toLocaleDateString()}</div>
-                    <div class="calendar-condition"><i class="fas fa-cloud"></i> ${i.condition}</div>
-                    <div class="calendar-task">${i.task}</div>
-                    <div class="calendar-score">Suitability: ${i.suitable}%</div>
+                    <div class="date-number">${new Date(i.date).toLocaleDateString()}</div>
+                    <div class="day-task">${i.task}</div>
+                    <div class="day-score">${i.suitable}%</div>
                 </div>
             `).join('')}
         </div>

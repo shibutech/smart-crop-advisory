@@ -9,6 +9,24 @@
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%234CAF50' d='M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z'/%3E%3Cpath fill='%234CAF50' d='M50 25c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Inline profile-specific styles */
+        .profile-card { max-width: 960px; margin: 0 auto; }
+        .profile-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.25rem; }
+        .profile-form .form-group { display: flex; flex-direction: column; }
+        .profile-form .form-group label { font-weight: 600; margin-bottom: 0.4rem; }
+        .profile-form .form-group input,
+        .profile-form .form-group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; padding: 0.7rem 0.9rem; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: var(--background-secondary); color: var(--text-primary); transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+        .profile-form .form-group select { background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 20px) calc(1.1em), calc(100% - 15px) calc(1.1em); background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+        .profile-form .form-group input:focus,
+        .profile-form .form-group select:focus { outline: none; border-color: var(--primary-color, #4CAF50); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); background: #fff; }
+        .profile-form .form-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 0.5rem; }
+        @media (max-width: 768px) {
+            .profile-form { grid-template-columns: 1fr; }
+            .profile-form .form-actions { justify-content: stretch; }
+            .profile-form .form-actions .btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -18,36 +36,36 @@
                 <h1>KrishiSetu</h1>
             </div>
             <div class="header-actions">
-                <a href="dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                <a href="dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> <span data-translate="backToDashboard">Back to Dashboard</span></a>
             </div>
         </div>
     </header>
 
     <main class="main-content">
-        <div class="card">
+        <div class="card profile-card">
             <div class="card-header">
-                <h3>Profile Settings</h3>
-                <a href="calendar.html" class="see-all">View Calendar</a>
+                <h3 data-translate="profileSettings">Profile Settings</h3>
+                <a href="calendar.html" class="see-all" data-translate="viewCalendarLink">View Calendar</a>
             </div>
-            <form id="profileForm" class="modal-form">
+            <form id="profileForm" class="profile-form">
                 <div class="form-group">
-                    <label for="farmerName">Farmer Name</label>
+                    <label for="farmerName" data-translate="farmerName">Farmer Name</label>
                     <input type="text" id="farmerName" placeholder="Your name" />
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone" data-translate="phone">Phone</label>
                     <input type="tel" id="phone" placeholder="Phone number" />
                 </div>
                 <div class="form-group">
-                    <label for="location">Location (Village/City)</label>
+                    <label for="location" data-translate="location">Location</label>
                     <input type="text" id="location" placeholder="Enter your location" />
                 </div>
                 <div class="form-group">
-                    <label for="farmSize">Farm Size (acres)</label>
+                    <label for="farmSize" data-translate="farmSize">Farm Size (in acres)</label>
                     <input type="number" id="farmSize" step="0.1" placeholder="e.g., 5.0" />
                 </div>
                 <div class="form-group">
-                    <label for="cropType">Primary Crop</label>
+                    <label for="cropType" data-translate="cropType">Crop Type</label>
                     <select id="cropType">
                         <option value="">Select Crop</option>
                         <option value="Wheat">Wheat (ਗੇਂਹੂਂ)</option>
@@ -63,7 +81,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="soilType">Soil Type</label>
+                    <label for="soilType" data-translate="soilType">Soil Type</label>
                     <select id="soilType">
                         <option value="">Select Soil Type</option>
                         <option value="Alluvial">Alluvial</option>
@@ -75,7 +93,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="irrigation">Irrigation Method</label>
+                    <label for="irrigation" data-translate="irrigation">Irrigation Method</label>
                     <select id="irrigation">
                         <option value="">Select Method</option>
                         <option value="Canal">Canal</option>
@@ -85,7 +103,9 @@
                         <option value="Rain-fed">Rain-fed</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Save Profile</button>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-translate="saveProfile">Save Profile</button>
+                </div>
             </form>
         </div>
     </main>
@@ -94,23 +114,23 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>KrishiSetu</h4>
-                <p>Empowering farmers with smart agriculture solutions</p>
+                <p data-translate="footerDescription">Empowering farmers with smart agriculture solutions</p>
             </div>
             <div class="footer-section">
-                <h4>Quick Links</h4>
+                <h4 data-translate="quickLinks">Quick Links</h4>
                 <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="calendar.html">Farming Calendar</a></li>
+                    <li><a href="dashboard.html" data-translate="dashboard">Dashboard</a></li>
+                    <li><a href="calendar.html" data-translate="farmingCalendarNav">Farming Calendar</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>Contact</h4>
+                <h4 data-translate="contact">Contact</h4>
                 <p>📞 1800-XXX-XXXX</p>
                 <p>📧 support@krishisetu.in</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 KrishiSetu. All rights reserved.</p>
+            <p>&copy; 2024 KrishiSetu. All rights reserved.</p>
         </div>
     </footer>
 
@@ -118,4 +138,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-

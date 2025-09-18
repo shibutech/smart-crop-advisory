@@ -162,6 +162,31 @@
         </div>
     </div>
 
+    <!-- By-Product Income Maximizer Prototype -->
+    <div id="byProductMaximizer" class="screen">
+        <div class="container">
+            <h2>By-Product Income Maximizer</h2>
+            <p>Identify income opportunities from agricultural by-products.</p>
+
+            <!-- Input Section -->
+            <div class="form-group">
+                <label for="cropInput">Select Crop/Livestock:</label>
+                <select id="cropInput">
+                    <option value="wheat">Wheat</option>
+                    <option value="sugarcane">Sugarcane</option>
+                    <option value="cow">Cow</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="getByProductOpportunities()">Get Opportunities</button>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section" style="display: none;">
+                <h3>Opportunities</h3>
+                <ul id="opportunitiesList"></ul>
+            </div>
+        </div>
+    </div>
+
     <script src="translations.js"></script>
     <script src="app.js"></script>
     <script>
@@ -176,6 +201,46 @@
                         console.log('SW registration failed: ', registrationError);
                     });
             });
+        }
+
+        function getByProductOpportunities() {
+            const crop = document.getElementById('cropInput').value;
+            const resultsSection = document.getElementById('results');
+            const opportunitiesList = document.getElementById('opportunitiesList');
+
+            // Clear previous results
+            opportunitiesList.innerHTML = '';
+
+            // Example data for by-products
+            const byProducts = {
+                wheat: [
+                    'Wheat husk → Paper industry',
+                    'Wheat bran → Animal feed'
+                ],
+                sugarcane: [
+                    'Sugarcane bagasse → Biofuel',
+                    'Molasses → Alcohol production'
+                ],
+                cow: [
+                    'Cow dung → Organic fertilizer packs',
+                    'Cow urine → Ayurvedic medicines'
+                ]
+            };
+
+            // Display opportunities
+            if (byProducts[crop]) {
+                byProducts[crop].forEach(opportunity => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = opportunity;
+                    opportunitiesList.appendChild(listItem);
+                });
+            } else {
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No opportunities found.';
+                opportunitiesList.appendChild(listItem);
+            }
+
+            resultsSection.style.display = 'block';
         }
     </script>
 </body>

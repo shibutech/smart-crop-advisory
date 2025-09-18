@@ -1059,6 +1059,41 @@ p {
     box-shadow: var(--shadow);
 }
 
+/* AR real-time overlay */
+.ar-result-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3;
+    pointer-events: none; /* allow taps to pass through */
+}
+
+.overlay-chip {
+    pointer-events: auto; /* allow selection if needed */
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    backdrop-filter: saturate(120%) blur(2px);
+}
+
+.overlay-chip.time {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+/* Improve AR controls spacing on small screens */
+@media (max-width: 600px) {
+    .ar-controls {
+        gap: 0.5rem;
+    }
+}
+
 /* Soil Analysis Specific Styles */
 .soil-analysis-container {
     max-width: 1200px;

@@ -18,7 +18,7 @@
                 <h1>KrishiSetu</h1>
             </div>
             <div class="header-actions">
-                <a href="dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                <a href="dashboard.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> <span data-translate="backToDashboard">Back to Dashboard</span></a>
             </div>
         </div>
     </header>
@@ -26,36 +26,36 @@
     <main class="main-content">
         <div class="card">
             <div class="card-header">
-                <h3>Personalized Farming Calendar</h3>
-                <a href="profile.html" class="see-all">Update Profile</a>
+                <h3 data-translate="personalizedCalendar">Personalized Farming Calendar</h3>
+                <a href="profile.html" class="see-all" data-translate="updateProfile">Update Profile</a>
             </div>
 
             <div class="month-calendar">
                 <div class="calendar-controls">
-                    <button id="prevMonthBtn" class="btn btn-outline"><i class="fas fa-chevron-left"></i></button>
+                    <button id="prevMonthBtn" class="btn btn-outline" title="Prev"><i class="fas fa-chevron-left"></i></button>
                     <div class="calendar-title">
                         <h4 id="monthLabel">Month YYYY</h4>
                         <div id="calendarMeta" class="calendar-meta"></div>
                     </div>
-                    <button id="nextMonthBtn" class="btn btn-outline"><i class="fas fa-chevron-right"></i></button>
+                    <button id="nextMonthBtn" class="btn btn-outline" title="Next"><i class="fas fa-chevron-right"></i></button>
                 </div>
 
                 <div class="day-name-row">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
+                    <div data-translate="weekdaySun">Sun</div>
+                    <div data-translate="weekdayMon">Mon</div>
+                    <div data-translate="weekdayTue">Tue</div>
+                    <div data-translate="weekdayWed">Wed</div>
+                    <div data-translate="weekdayThu">Thu</div>
+                    <div data-translate="weekdayFri">Fri</div>
+                    <div data-translate="weekdaySat">Sat</div>
                 </div>
 
                 <div id="monthGrid" class="month-grid"></div>
                 <div class="calendar-legend">
-                    <span class="legend-item high"></span> High suitability
-                    <span class="legend-item med"></span> Medium
-                    <span class="legend-item low"></span> Low
-                    <span class="legend-item no"></span> No forecast
+                    <span class="legend-item high"></span> <span data-translate="legendHigh">High suitability</span>
+                    <span class="legend-item med"></span> <span data-translate="legendMedium">Medium</span>
+                    <span class="legend-item low"></span> <span data-translate="legendLow">Low</span>
+                    <span class="legend-item no"></span> <span data-translate="legendNoForecast">No forecast</span>
                 </div>
             </div>
         </div>
@@ -65,23 +65,23 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>KrishiSetu</h4>
-                <p>Empowering farmers with smart agriculture solutions</p>
+                <p data-translate="footerDescription">Empowering farmers with smart agriculture solutions</p>
             </div>
             <div class="footer-section">
-                <h4>Quick Links</h4>
+                <h4 data-translate="quickLinks">Quick Links</h4>
                 <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="dashboard.html" data-translate="dashboard">Dashboard</a></li>
+                    <li><a href="profile.html" data-translate="profileNav">Profile</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>Contact</h4>
+                <h4 data-translate="contact">Contact</h4>
                 <p>📞 1800-XXX-XXXX</p>
                 <p>📧 support@krishisetu.in</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 KrishiSetu. All rights reserved.</p>
+            <p>&copy; 2024 KrishiSetu. All rights reserved.</p>
         </div>
     </footer>
 
@@ -89,4 +89,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-

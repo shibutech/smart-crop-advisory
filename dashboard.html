@@ -60,11 +60,11 @@
             </a>
             <a href="calendar.html" class="nav-item">
                 <i class="fas fa-calendar-alt"></i>
-                <span>Farming Calendar</span>
+                <span data-translate="farmingCalendarNav">Farming Calendar</span>
             </a>
             <a href="profile.html" class="nav-item">
                 <i class="fas fa-user-cog"></i>
-                <span>Profile</span>
+                <span data-translate="profileNav">Profile</span>
             </a>
         </div>
     </nav>
@@ -309,7 +309,7 @@
             <!-- Personalized Farming Calendar -->
             <div class="card">
                 <div class="card-header">
-                    <h3>Personalized Farming Calendar</h3>
+                    <h3 data-translate="personalizedCalendar">Personalized Farming Calendar</h3>
                 </div>
                 <div id="farmingCalendar" class="farming-calendar">
                     <p>Loading calendar...</p>
@@ -319,7 +319,7 @@
             <!-- By-Product Income Maximizer -->
             <div class="card">
                 <div class="card-header">
-                    <h3>By-Product Income Maximizer</h3>
+                    <h3 data-translate="byProductMaximizer">By-Product Income Maximizer</h3>
                 </div>
                 <div id="byProductSuggestions" class="byproduct-container">
                     <p>Loading suggestions...</p>
@@ -362,17 +362,19 @@
             <div class="ar-container">
                 <h3 data-translate="arScanning">AR Crop Scanning</h3>
                 <div id="arCamera" class="ar-camera">
-                    <video id="video" autoplay></video>
+                    <video id="video" autoplay playsinline></video>
                     <canvas id="canvas" style="display: none;"></canvas>
                     <div class="ar-overlay">
                         <div class="scan-frame"></div>
                         <div class="scan-instructions" data-translate="pointCamera">Point camera at your crop</div>
+                        <div id="arResultOverlay" class="ar-result-overlay" aria-live="polite"></div>
                     </div>
                 </div>
                 <div class="ar-controls">
                     <button onclick="startAR()" class="btn btn-primary" data-translate="startScanning">Start Scanning</button>
                     <button onclick="stopAR()" class="btn btn-secondary" data-translate="stopScanning">Stop Scanning</button>
-                    <button onclick="switchCamera()" class="btn btn-outline" data-translate="switchCamera">Switch Camera</button>
+                    <button onclick="switchCamera()" class="btn btn-outline" title="Switch camera"><i class="fas fa-sync-alt"></i> Switch Camera</button>
+                    <button onclick="toggleARFullscreen()" class="btn btn-outline" title="Toggle full screen"><i class="fas fa-expand"></i> Full Screen</button>
                 </div>
                 <div id="arResults" class="ar-results" style="display: none;"></div>
             </div>

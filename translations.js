@@ -89,7 +89,55 @@ const translations = {
         // Weather conditions
         cloudy: "Cloudy",
         rainy: "Rainy",
-        partlyCloudy: "Partly Cloudy"
+        partlyCloudy: "Partly Cloudy",
+        
+        // By-Product Income Maximizer
+        byProductMaximizer: "By-Product Income Maximizer",
+        identifyOpportunities: "Identify income opportunities from agricultural by-products.",
+        selectCrop: "Select Crop/Livestock:",
+        getOpportunities: "Get Opportunities",
+        opportunities: "Opportunities",
+        noOpportunities: "No opportunities found.",
+        wheatHusk: "Wheat husk → Paper industry",
+        wheatBran: "Wheat bran → Animal feed",
+        sugarcaneBagasse: "Sugarcane bagasse → Biofuel",
+        molasses: "Molasses → Alcohol production",
+        cowDung: "Cow dung → Organic fertilizer packs",
+        cowUrine: "Cow urine → Ayurvedic medicines",
+        
+        // Personalized Farming Calendar
+        personalizedCalendar: "Personalized Farming Calendar",
+        viewCalendar: "View your personalized farming calendar.",
+        
+        // Navbar extra
+        farmingCalendarNav: "Farming Calendar",
+        profileNav: "Profile",
+        
+        // Calendar page
+        updateProfile: "Update Profile",
+        backToDashboard: "Back to Dashboard",
+        legendHigh: "High suitability",
+        legendMedium: "Medium",
+        legendLow: "Low",
+        legendNoForecast: "No forecast",
+        loadingCalendar: "Preparing your personalized calendar...",
+        
+        // Profile page
+        profileSettings: "Profile Settings",
+        farmerName: "Farmer Name",
+        phone: "Phone",
+        irrigation: "Irrigation Method",
+        saveProfile: "Save Profile",
+        viewCalendarLink: "View Calendar",
+        
+        // Weekdays
+        weekdaySun: "Sun",
+        weekdayMon: "Mon",
+        weekdayTue: "Tue",
+        weekdayWed: "Wed",
+        weekdayThu: "Thu",
+        weekdayFri: "Fri",
+        weekdaySat: "Sat",
     },
     
     hi: {
@@ -181,7 +229,55 @@ const translations = {
         // मौसम स्थिति
         cloudy: "बादल",
         rainy: "बारिश",
-        partlyCloudy: "आंशिक बादल"
+        partlyCloudy: "आंशिक बादल",
+        
+        // उत्पाद आय अधिकतम करें
+        byProductMaximizer: "उत्पाद आय अधिकतम करें",
+        identifyOpportunities: "कृषि उप-उत्पादों से आय के अवसरों की पहचान करें।",
+        selectCrop: "फसल/पशुधन चुनें:",
+        getOpportunities: "अवसर प्राप्त करें",
+        opportunities: "अवसर",
+        noOpportunities: "कोई अवसर नहीं मिला।",
+        wheatHusk: "गेहूं भूसी → कागज उद्योग",
+        wheatBran: "गेहूं चोकर → पशु आहार",
+        sugarcaneBagasse: "गन्ना बगास → जैव ईंधन",
+        molasses: "गुड़ → शराब उत्पादन",
+        cowDung: "गाय का गोबर → जैविक खाद पैक",
+        cowUrine: "गाय का मूत्र → आयुर्वेदिक दवाएं",
+        
+        // व्यक्तिगत खेती कैलेंडर
+        personalizedCalendar: "व्यक्तिगत खेती कैलेंडर",
+        viewCalendar: "अपना व्यक्तिगत खेती कैलेंडर देखें।",
+        
+        // Navbar extra
+        farmingCalendarNav: "खेती कैलेंडर",
+        profileNav: "प्रोफाइल",
+        
+        // Calendar page
+        updateProfile: "प्रोफाइल अपडेट करें",
+        backToDashboard: "डैशबोर्ड पर वापस",
+        legendHigh: "उच्च उपयुक्तता",
+        legendMedium: "मध्यम",
+        legendLow: "कम",
+        legendNoForecast: "पूर्वानुमान नहीं",
+        loadingCalendar: "आपका व्यक्तिगत कैलेंडर तैयार किया जा रहा है...",
+        
+        // Profile page
+        profileSettings: "प्रोफ़ाइल सेटिंग्स",
+        farmerName: "किसान का नाम",
+        phone: "फोन",
+        irrigation: "सिंचाई विधि",
+        saveProfile: "प्रोफाइल सहेजें",
+        viewCalendarLink: "कैलेंडर देखें",
+        
+        // सप्ताह के दिन
+        weekdaySun: "रवि",
+        weekdayMon: "सोम",
+        weekdayTue: "मंगल",
+        weekdayWed: "बुध",
+        weekdayThu: "गुरु",
+        weekdayFri: "शुक्र",
+        weekdaySat: "शनि",
     },
     
     pa: {
@@ -222,14 +318,14 @@ const translations = {
         quickActions: "ਤੇਜ਼ ਕਾਰਵਾਈਆਂ",
         addNewCrop: "ਨਵੀਂ ਫਸਲ ਜੋੜੋ",
         scheduleTask: "ਕੰਮ ਤਹਿ ਕਰੋ",
-        viewReports: "ਰਿਪੋਰਟਾਂ ਦੇਖੋ",
+        viewReports: "ਰਿਪੋਰਟ ਦੇਖੋ",
         recentActivities: "ਹਾਲ ਦੀਆਂ ਗਤੀਵਿਧੀਆਂ",
         seedsPlanted: "ਖੇਤ ਅ ਵਿੱਚ ਬੀਜ ਬੋਏ ਗਏ",
         irrigationCompleted: "ਸਿੰਚਾਈ ਪੂਰੀ ਹੋਈ",
         fertilizeApplied: "ਫਸਲ ਵਿੱਚ ਖਾਦ ਪਾਈ ਗਈ",
         govSchemes: "ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ",
         pmKisanDesc: "ਕਿਸਾਨਾਂ ਲਈ ਆਮਦਨ ਸਹਾਇਤਾ ਯੋਜਨਾ",
-        cropInsuranceDesc: "ਕੁਦਰਤੀ ਆਫਤਾਂ ਤੋਂ ਫਸਲ ਸੁਰੱਖਿਆ",
+        cropInsuranceDesc: "ਪ੍ਰਾਕ੍ਰਿਤਕ ਆਫਤਾਂ ਤੋਂ ਫਸਲ ਸੁਰੱਖਿਆ",
         
         // ਚੈਟਬਾਟ
         aiAssistant: "ਏਆਈ ਸਹਾਇਕ",
@@ -273,7 +369,55 @@ const translations = {
         // ਮੌਸਮ ਸਥਿਤੀਆਂ
         cloudy: "ਬੱਦਲਵਾਈ",
         rainy: "ਬਾਰਿਸ਼",
-        partlyCloudy: "ਅੰਸ਼ਕ ਬੱਦਲਵਾਈ"
+        partlyCloudy: "ਅੰਸ਼ਕ ਬੱਦਲਵਾਈ",
+        
+        // ਉਤਪਾਦ ਆਯੁ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਵਾਲਾ
+        byProductMaximizer: "ਉਤਪਾਦ ਆਯੁ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਵਾਲਾ",
+        identifyOpportunities: "ਕ੃਷ੀ ਉਪ-ਉਤਪਾਦਾਂ ਤੋਂ ਆਯ ਦੇ ਮੌਕੇ ਪਛਾਣੋ।",
+        selectCrop: "ਫਸਲ/ਪਸ਼ੂਧਨ ਚੁਣੋ:",
+        getOpportunities: "ਮੌਕੇ ਪ੍ਰਾਪਤ ਕਰੋ",
+        opportunities: "ਮੌਕੇ",
+        noOpportunities: "ਕੋਈ ਮੌਕਾ ਨਹੀਂ ਮਿਲਿਆ।",
+        wheatHusk: "ਗਹੂੰ ਦੀ ਭੂਸੀ → ਕਾਗਜ਼ ਉਦਯੋਗ",
+        wheatBran: "ਗਹੂੰ ਦਾ ਚੋਕਰ → ਪਸ਼ੂਆਂ ਦਾ ਖੁਰਾਕ",
+        sugarcaneBagasse: "ਗਨਾ ਬਗਾਸ → ਬਾਇਓਫਿਊਲ",
+        molasses: "ਗੁੜ → ਸ਼ਰਾਬ ਉਤਪਾਦਨ",
+        cowDung: "ਗਾਇ ਦਾ ਗੋਬਰ → ਜੈਵਿਕ ਖਾਦ ਪੈਕ",
+        cowUrine: "ਗਾਇ ਦਾ ਮੂਤਰ → ਆਯੁਰਵੇਦਿਕ ਦਵਾਈਆਂ",
+        
+        // ਵਿਅਕਤੀਗਤ ਖੇਤੀ ਕੈਲੰਡਰ
+        personalizedCalendar: "ਵਿਅਕਤੀਗਤ ਖੇਤੀ ਕੈਲੰਡਰ",
+        viewCalendar: "ਆਪਣਾ ਵਿਅਕਤੀਗਤ ਖੇਤੀ ਕੈਲੰਡਰ ਵੇਖੋ।",
+        
+        // Navbar extra
+        farmingCalendarNav: "ਖੇਤੀ ਕੈਲੰਡਰ",
+        profileNav: "ਪ੍ਰੋਫਾਈਲ",
+        
+        // Calendar page
+        updateProfile: "ਪ੍ਰੋਫਾਈਲ ਅੱਪਡੇਟ ਕਰੋ",
+        backToDashboard: "ਡੈਸ਼ਬੋਰਡ ਤੇ ਵਾਪਸ",
+        legendHigh: "ਉੱਚ ਯੋਗਤਾ",
+        legendMedium: "ਦਰਮਿਆਨਾ",
+        legendLow: "ਘੱਟ",
+        legendNoForecast: "ਪੂਰਵ ਅਨੁਮਾਨ ਨਹੀਂ",
+        loadingCalendar: "ਤੁਹਾਡਾ ਵਿਅਕਤੀਗਤ ਕੈਲੰਡਰ ਤਿਆਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+        
+        // Profile page
+        profileSettings: "ਪ੍ਰੋਫਾਈਲ ਸੈਟਿੰਗਜ਼",
+        farmerName: "ਕਿਸਾਨ ਦਾ ਨਾਮ",
+        phone: "ਫੋਨ",
+        irrigation: "ਸਿੰਚਾਈ ਤਰੀਕਾ",
+        saveProfile: "ਪ੍ਰੋਫਾਈਲ ਸੇਵ ਕਰੋ",
+        viewCalendarLink: "ਕੈਲੰਡਰ ਵੇਖੋ",
+        
+        // ਹਫ਼ਤੇ ਦੇ ਦਿਨ
+        weekdaySun: "ਐਤ",
+        weekdayMon: "ਸੋਮ",
+        weekdayTue: "ਮੰਗਲ",
+        weekdayWed: "ਬੁੱਧ",
+        weekdayThu: "ਵੀਰ",
+        weekdayFri: "ਸ਼ੁੱਕਰ",
+        weekdaySat: "ਸ਼ਨੀ",
     },
     
     cg: {
@@ -365,7 +509,55 @@ const translations = {
         // मौसम हालत
         cloudy: "बादर",
         rainy: "बरसात",
-        partlyCloudy: "कुछ बादर"
+        partlyCloudy: "कुछ बादर",
+        
+        // उत्पाद आय अधिकतम करें
+        byProductMaximizer: "उत्पाद आय अधिकतम करें",
+        identifyOpportunities: "कृषि उप-उत्पादों से आय के अवसरों की पहचान करें।",
+        selectCrop: "फसल/पशुधन चुनें:",
+        getOpportunities: "अवसर प्राप्त करें",
+        opportunities: "अवसर",
+        noOpportunities: "कोई अवसर नहीं मिला।",
+        wheatHusk: "गेहूं भूसी → कागज उद्योग",
+        wheatBran: "गेहूं चोकर → पशु आहार",
+        sugarcaneBagasse: "गन्ना बगास → जैव ईंधन",
+        molasses: "गुड़ → शराब उत्पादन",
+        cowDung: "गाय का गोबर → जैविक खाद पैक",
+        cowUrine: "गाय का मूत्र → आयुर्वेदिक दवाएं",
+        
+        // व्यक्तिगत खेती कैलेंडर
+        personalizedCalendar: "व्यक्तिगत खेती कैलेंडर",
+        viewCalendar: "अपना व्यक्तिगत खेती कैलेंडर देखें।",
+        
+        // Navbar extra
+        farmingCalendarNav: "खेती के कैलेन्डर",
+        profileNav: "प्रोफाइल",
+        
+        // Calendar page
+        updateProfile: "प्रोफाइल अपडेट करव",
+        backToDashboard: "डैशबोर्ड मं वापस जाव",
+        legendHigh: "जादा उपयुक्त",
+        legendMedium: "मध्यम",
+        legendLow: "कम",
+        legendNoForecast: "कोई पूर्वानुमान नइ",
+        loadingCalendar: "तुमर निजी कैलेन्डर बनत हवय...",
+        
+        // Profile page
+        profileSettings: "प्रोफाइल सेटिंग्स",
+        farmerName: "किसान के नाव",
+        phone: "फोन",
+        irrigation: "सिचाई तरीका",
+        saveProfile: "प्रोफाइल सेव करव",
+        viewCalendarLink: "कैलेन्डर देखव",
+        
+        // हफ्ता के दिन
+        weekdaySun: "रवि",
+        weekdayMon: "सोम",
+        weekdayTue: "मंगल",
+        weekdayWed: "बुध",
+        weekdayThu: "गुरु",
+        weekdayFri: "शुक्र",
+        weekdaySat: "शनि",
     },
     
     ta: {
@@ -457,7 +649,55 @@ const translations = {
         // வானிலை நிலைமைகள்
         cloudy: "மேகமூட்டம்",
         rainy: "மழை",
-        partlyCloudy: "பகுதி மேகமூட்டம்"
+        partlyCloudy: "பகுதி மேகமூட்டம்",
+        
+        // உற்பத்தி வருமானத்தை அதிகரிப்பான்
+        byProductMaximizer: "உற்பத்தி வருமானத்தை அதிகரிப்பான்",
+        identifyOpportunities: "கிராமிய உற்பத்தி துணை பொருட்களில் இருந்து வருமான வாய்ப்புகளை அடையாளம் காண்க.",
+        selectCrop: "பயிர்/மாடுகள் தேர்ந்தெடுக்கவும்:",
+        getOpportunities: "வாய்ப்புகளைப் பெறவும்",
+        opportunities: "வாய்ப்புகள்",
+        noOpportunities: "வாய்ப்புகள் எதுவும் கிடைக்கவில்லை.",
+        wheatHusk: "கோஷ்டி → காகிதம் தொழில்",
+        wheatBran: "கோஷ்டி → மாடு உணவு",
+        sugarcaneBagasse: "சர்க்கரை cane களிமண் → உயிரியல் எரிபொருள்",
+        molasses: "குருதிக்கொல்லை → மது உற்பத்தி",
+        cowDung: "பசு மண் → காரிக மண் பேக்குகள்",
+        cowUrine: "பசு மூத்திரம் → ஆயுர்வேத மருந்துகள்",
+        
+        // தனிப்பயன் விவசாய காலண்டர்
+        personalizedCalendar: "தனிப்பயன் விவசாய காலண்டர்",
+        viewCalendar: "உங்கள் தனிப்பயன் விவசாய காலண்டரைப் பார்வையிடவும்.",
+        
+        // Navbar extra
+        farmingCalendarNav: "விவசாய காலண்டர்",
+        profileNav: "சுயவிவரம்",
+        
+        // Calendar page
+        updateProfile: "சுயவிவரத்தை புதுப்பிக்கவும்",
+        backToDashboard: "டாஷ்போர்டுக்கு திரும்ப",
+        legendHigh: "அதிகத் தகுதி",
+        legendMedium: "நடுத்தரம்",
+        legendLow: "குறைவான",
+        legendNoForecast: "முன்னறிவிப்பு இல்லை",
+        loadingCalendar: "உங்கள் தனிப்பயன் காலண்டர் தயார் செய்யப்படுகிறது...",
+        
+        // Profile page
+        profileSettings: "சுயவிவர அமைப்புகள்",
+        farmerName: "விவசாயியின் பெயர்",
+        phone: "தொலைபேசி",
+        irrigation: "நீர்ப்பாசன முறை",
+        saveProfile: "சுயவிவரத்தை சேமிக்கவும்",
+        viewCalendarLink: "காலண்டரைப் பார்வையிடவும்",
+        
+        // வார நாட்கள்
+        weekdaySun: "ஞா",
+        weekdayMon: "தி",
+        weekdayTue: "செ",
+        weekdayWed: "பு",
+        weekdayThu: "வி",
+        weekdayFri: "வெ",
+        weekdaySat: "ச",
     },
     
     bn: {
@@ -549,8 +789,56 @@ const translations = {
         // আবহাওয়ার অবস্থা
         cloudy: "মেঘাচ্ছন্ন",
         rainy: "বৃষ্টি",
-        partlyCloudy: "আংশিক মেঘাচ্ছন্ন"
-    }
+        partlyCloudy: "আংশিক মেঘাচ্ছন্ন",
+        
+        // উৎপাদন আয় সর্বাধিককারী
+        byProductMaximizer: "উৎপাদন আয় সর্বাধিককারী",
+        identifyOpportunities: "কৃষি উপ-উৎপাদন থেকে আয়ের সুযোগ চিহ্নিত করুন।",
+        selectCrop: "ফসল/পশু নির্বাচন করুন:",
+        getOpportunities: "সুযোগগুলি পান",
+        opportunities: "সুযোগগুলি",
+        noOpportunities: "কোনও সুযোগ পাওয়া যায়নি।",
+        wheatHusk: "গমের ভুসি → কাগজ শিল্প",
+        wheatBran: "গমের চোকার → পশুর খাবার",
+        sugarcaneBagasse: "গমের বাগাস → বায়োফুয়েল",
+        molasses: "গুড় → মদ উৎপাদন",
+        cowDung: "গরুর গোবর → জৈব সার প্যাক",
+        cowUrine: "গরুর মূত্র → আয়ুর্বেদিক ওষুধ",
+        
+        // ব্যক্তিগত কৃষি ক্যালেন্ডার
+        personalizedCalendar: "ব্যক্তিগত কৃষি ক্যালেন্ডার",
+        viewCalendar: "আপনার ব্যক্তিগত কৃষি ক্যালেন্ডার দেখুন।",
+        
+        // Navbar extra
+        farmingCalendarNav: "কৃষি ক্যালেন্ডার",
+        profileNav: "প্রোফাইল",
+        
+        // Calendar page
+        updateProfile: "প্রোফাইল আপডেট করুন",
+        backToDashboard: "ড্যাশবোর্ডে ফিরে যান",
+        legendHigh: "উচ্চ উপযোগী",
+        legendMedium: "মাঝারি",
+        legendLow: "কম",
+        legendNoForecast: "কোনও পূর্বাভাস নেই",
+        loadingCalendar: "আপনার ব্যক্তিগত ক্যালেন্ডার প্রস্তুত করা হচ্ছে...",
+        
+        // Profile page
+        profileSettings: "প্রোফাইল সেটিংস",
+        farmerName: "কৃষকের নাম",
+        phone: "ফোন",
+        irrigation: "সেচ পদ্ধতি",
+        saveProfile: "প্রোফাইল সংরক্ষণ করুন",
+        viewCalendarLink: "ক্যালেন্ডার দেখুন",
+        
+        // সপ্তাহের দিন
+        weekdaySun: "রবি",
+        weekdayMon: "সোম",
+        weekdayTue: "মঙ্গল",
+        weekdayWed: "বুধ",
+        weekdayThu: "বৃহস্পতি",
+        weekdayFri: "শুক্র",
+        weekdaySat: "শনি",
+    },
 };
 
 // Current language
