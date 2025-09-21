@@ -1,8 +1,8 @@
-# KrishiSetu - Smart Crop Advisory System for Small and Marginal Farmer's
+# KrishiSetu - Smart Crop Advisory System
 
-**Tagline:** *Connecting Farmer's with Technology and Knowledge*
+**Tagline:** *Where Farmers Efforts Meet Everyone's Progress*
 
-A comprehensive multilingual PWA (Progressive Web App) designed for small and marginal farmers to provide AI-driven crop advisory services, weather-based farming schedules, Augmented Reality (AR) Based Pest Scan, Ai Call/Chat Agent and income maximization through by-product utilization.
+A comprehensive multilingual PWA (Progressive Web App) designed for small and marginal farmers to provide AI-driven crop advisory services, weather-based farming schedules, and income maximization through by-product utilization.
 
 ## 🌟 Features
 
@@ -19,9 +19,6 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
 - Multilingual responses
 - Farming queries and solutions
 - Speech recognition and synthesis
-- Augmented Reality (AR)
-- AI Call Agent
-- Ai Chat Agent
 
 ### 3. **AI-Generated Personalized Farming Calendar**
 - Based on farm size, crop type, and soil analysis
@@ -46,10 +43,8 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
 - Service worker caching
 - SMS/IVR tips integration
 - Works without internet connectivity
-- AI Call agent support
 
 ### 7. **By-Product Income Maximizer**
-*Examples:*
 - Wheat straw → Paper industry, Biofuel, Animal feed
 - Rice husk → Construction material, Organic fertilizer
 - Sugarcane bagasse → Paper production, Power generation
@@ -65,7 +60,7 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
 - Historical tracking
 
 ### 9. **Weather Forecast Integration**
-- WeatherAPI.com integration
+- WeatherAPI.com integration (API Key: cad6a2e3e077442e88b194629251409)
 - 3-day weather forecast
 - Weather-based task recommendations
 - Location-based climate data
@@ -89,12 +84,12 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
 1. Open `index.html` in a web browser
 2. Select your preferred language
 3. Choose to login, signup, or continue without login
-4. Start using the KrishiSetu
+4. Start using the application
 
 ### PWA Installation
 - The app will prompt for installation on compatible devices
 - Can be installed on home screen like a native app
-- Works offline (few features) once installed
+- Works offline once installed
 
 ## 📱 User Journey
 
@@ -105,7 +100,6 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
    - Dashboard
    - ChatBot
    - AR Scan
-   - Ai Agent
    - Soil Analysis
    - Pest Detection
 
@@ -185,10 +179,10 @@ KrishiSetu/
 
 - Real AI model integration for crop/pest detection
 - WhatsApp Bot integration
-- AI Call Agent for offline supports (target: Keypad Phone Users)
 - SMS gateway for offline tips
 - Real-time marketplace for by-products
 - Farmer community features
+- Video tutorials and guides
 - Integration with government databases
 - IoT sensor data integration
 
@@ -203,8 +197,8 @@ This project is created for Smart India Hackathon and is intended for educationa
 ## 📞 Support
 
 For technical support or queries:
-- Email: support_xyz@krishisetu.in (demo)
-- Phone: 1800-123-4567 (demo)
+- Email: support@krishisetu.in (demo)
+- Phone: 1800-XXX-XXXX (demo)
 
 ## 🏆 Acknowledgments
 
@@ -215,6 +209,4 @@ For technical support or queries:
 
 ---
 
-**KrishiSetu** - Empowering farmers with smart agriculture solutions through technology and Connecting Farmer's with Technology and Knowledge.
-
-
+**KrishiSetu** - Empowering farmers with smart agriculture solutions through technology.
