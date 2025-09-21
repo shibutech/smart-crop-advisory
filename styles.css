@@ -988,11 +988,12 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 2rem;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .scan-frame {
@@ -1064,6 +1065,11 @@ p {
     border-radius: var(--border-radius);
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 10;
 }
 
 .ar-controls .btn:hover {
@@ -1085,50 +1091,6 @@ p {
 .ar-controls .btn-outline:hover {
     background: var(--primary-color);
     color: white;
-}
-
-/* Mobile-first responsive design for AR controls */
-@media (max-width: 768px) {
-    .ar-controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-        margin-top: 1rem;
-        padding: 0.75rem;
-    }
-
-    .ar-controls .btn {
-        min-width: unset;
-        padding: 0.875rem 1rem;
-        font-size: 0.9rem;
-        width: 100%;
-    }
-
-    .ar-controls .btn i {
-        margin-right: 0.25rem;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .ar-controls {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
-    .ar-controls .btn {
-        padding: 1rem;
-        font-size: 1rem;
-        min-height: 50px; /* Improved touch target */
-    }
-}
-
-.ar-results {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
 }
 
 /* AR real-time overlay */
@@ -1157,78 +1119,6 @@ p {
 .overlay-chip.time {
     font-size: 0.8rem;
     opacity: 0.9;
-}
-
-/* Improve AR controls spacing on small screens */
-@media (max-width: 600px) {
-    .ar-controls {
-        gap: 0.5rem;
-        justify-content: space-around;
-        padding: 0 1rem;
-    }
-
-    .ar-controls .btn {
-        min-width: 80px;
-        padding: 0.75rem 1rem;
-        font-size: 0.875rem;
-    }
-
-    .ar-controls .btn i {
-        margin-right: 0.25rem;
-    }
-}
-
-/* Additional mobile improvements for AR section */
-@media (max-width: 768px) {
-    .ar-container {
-        padding: 1rem;
-    }
-
-    .ar-camera {
-        max-width: 100%;
-        height: 300px;
-        margin: 1rem auto;
-    }
-
-    .scan-frame {
-        width: 200px;
-        height: 200px;
-    }
-
-    .ar-controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-        margin-top: 1rem;
-    }
-
-    .ar-controls .btn {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Ensure buttons are always visible and accessible */
-.ar-controls .btn {
-    display: inline-flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: relative !important;
-    z-index: 10;
-}
-
-/* Mobile-specific button sizing */
-@media (max-width: 480px) {
-    .ar-controls {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
-    .ar-controls .btn {
-        padding: 1rem;
-        font-size: 0.9rem;
-        min-height: 48px; /* Touch-friendly minimum size */
-    }
 }
 
 /* Soil Analysis Specific Styles */
@@ -2502,4 +2392,106 @@ p {
 .byproduct-container .byproduct-income {
     font-size: 0.9rem;
     color: var(--text-secondary);
+}
+
+/* AR Scanning - Clean Mobile-First Approach */
+.ar-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(10px);
+}
+
+.ar-controls .btn {
+    min-width: 120px;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 10;
+}
+
+.ar-controls .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ar-controls .btn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.ar-controls .btn-outline {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.ar-controls .btn-outline:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Mobile Responsiveness - Tablet and up */
+@media (max-width: 768px) {
+    .ar-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        padding: 0.75rem;
+    }
+
+    .ar-controls .btn {
+        min-width: unset;
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+        width: 100%;
+        min-height: 48px; /* Touch-friendly */
+    }
+
+    .ar-controls .btn i {
+        margin-right: 0.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .ar-controls {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .ar-controls .btn {
+        padding: 1rem;
+        font-size: 1rem;
+        min-height: 50px; /* Improved touch target */
+    }
+}
+
+/* Override any conflicting styles from other sections */
+.ar-section .ar-controls,
+.arSection .ar-controls,
+#arSection .ar-controls {
+    display: flex !important;
+}
+
+.ar-section .ar-controls .btn,
+.arSection .ar-controls .btn,
+#arSection .ar-controls .btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
