@@ -65,7 +65,7 @@ A comprehensive multilingual PWA (Progressive Web App) designed for small and ma
 - Historical tracking
 
 ### 9. **Weather Forecast Integration**
-- WeatherAPI.com integration (API Key: cad6a2e3e077442e88b194629251409)
+- WeatherAPI.com integration
 - 3-day weather forecast
 - Weather-based task recommendations
 - Location-based climate data
@@ -216,4 +216,5 @@ For technical support or queries:
 ---
 
 **KrishiSetu** - Empowering farmers with smart agriculture solutions through technology and Connecting Farmer's with Technology and Knowledge.
+
 
