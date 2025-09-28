@@ -86,27 +86,6 @@ const translations = {
         severity: "Severity",
         treatment: "Treatment",
         
-        // Market Prices
-        marketPrices: "Market Prices",
-        state: "State",
-        district: "District",
-        market: "Market",
-        commodity: "Commodity",
-        variety: "Variety",
-        grade: "Grade",
-        arrivalDate: "Arrival Date",
-        minPrice: "Min Price",
-        maxPrice: "Max Price",
-        modalPrice: "Modal Price",
-        currentMarketPrices: "Current Market Prices",
-        lastUpdated: "Last updated",
-        loadingMarketData: "Loading market data...",
-        errorLoadingData: "Error loading market data. Please try again.",
-        noDataFound: "No data found matching your criteria.",
-        refresh: "Refresh",
-        search: "Search",
-        clearFilters: "Clear Filters",
-        
         // Weather conditions
         cloudy: "Cloudy",
         rainy: "Rainy",
@@ -247,27 +226,6 @@ const translations = {
         severity: "गंभीरता",
         treatment: "उपचार",
         
-        // बाजार मूल्य
-        marketPrices: "बाजार मूल्य",
-        state: "राज्य",
-        district: "जिला",
-        market: "मंडी",
-        commodity: "कमोडिटी",
-        variety: "किस्म",
-        grade: "ग्रेड",
-        arrivalDate: "आगमन तारीख",
-        minPrice: "न्यूनतम मूल्य",
-        maxPrice: "अधिकतम मूल्य",
-        modalPrice: "मोडल मूल्य",
-        currentMarketPrices: "वर्तमान बाजार मूल्य",
-        lastUpdated: "अंतिम अपडेट",
-        loadingMarketData: "बाजार डेटा लोड हो रहा है...",
-        errorLoadingData: "बाजार डेटा लोड करने में त्रुटि। कृपया पुनः प्रयास करें।",
-        noDataFound: "आपके मानदंड से मेल खाने वाला कोई डेटा नहीं मिला।",
-        refresh: "रीफ्रेश",
-        search: "खोज",
-        clearFilters: "फिल्टर साफ करें",
-        
         // मौसम स्थिति
         cloudy: "बादल",
         rainy: "बारिश",
@@ -376,7 +334,7 @@ const translations = {
         
         // ਏਆਰ ਸਕੈਨਿੰਗ
         arScanning: "ਏਆਰ ਫਸਲ ਸਕੈਨਿੰਗ",
-        pointCamera: "ਕੈਮਰਾ ਲ ਫਸਲ ਕੋਤੀ ਕਰੋ",
+        pointCamera: "ਕੈਮਰਾ ਫਸਲ ਵੱਲ ਕਰੋ",
         startScanning: "ਸਕੈਨਿੰਗ ਸ਼ੁਰੂ ਕਰੋ",
         stopScanning: "ਸਕੈਨਿੰਗ ਰੋਕੋ",
         
@@ -408,31 +366,10 @@ const translations = {
         severity: "ਗੰਭੀਰਤਾ",
         treatment: "ਇਲਾਜ",
         
-        // ਬਾਜ਼ਾਰ ਕੀਮਤਾਂ
-        marketPrices: "ਬਾਜ਼ਾਰ ਕੀਮਤਾਂ",
-        state: "ਰਾਜ",
-        district: "ਜ਼ਿਲ੍ਹਾ",
-        market: "ਮੰਡੀ",
-        commodity: "ਕਮੋਡਿਟੀ",
-        variety: "ਕਿਸਮ",
-        grade: "ਗ੍ਰੇਡ",
-        arrivalDate: "ਆਗਮਨ ਤਾਰੀਖ",
-        minPrice: "ਘੱਟੋ ਘੱਟ ਕੀਮਤ",
-        maxPrice: "ਵੱਧ ਤੋਂ ਵੱਧ ਕੀਮਤ",
-        modalPrice: "ਮੋਡਲ ਕੀਮਤ",
-        currentMarketPrices: "ਮੌਜੂਦਾ ਬਾਜ਼ਾਰ ਕੀਮਤਾਂ",
-        lastUpdated: "ਆਖਰੀ ਅੱਪਡੇਟ",
-        loadingMarketData: "ਬਾਜ਼ਾਰ ਡੇਟਾ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
-        errorLoadingData: "ਬਾਜ਼ਾਰ ਡੇਟਾ ਲੋਡ ਕਰਨ ਵਿੱਚ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
-        noDataFound: "ਤੁਹਾਡੇ ਮਾਪਦੰਡ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਕੋਈ ਡੇਟਾ ਨਹੀਂ ਮਿਲਿਆ।",
-        refresh: "ਤਾਜ਼ਾ ਕਰੋ",
-        search: "ਖੋਜ",
-        clearFilters: "ਫਿਲਟਰ ਸਾਫ਼ ਕਰੋ",
-        
         // ਮੌਸਮ ਸਥਿਤੀਆਂ
-        cloudy: "ਬਾਦਰ",
-        rainy: "ਬਰਸਾਤ",
-        partlyCloudy: "ਕੁਝ ਬਾਦਰ",
+        cloudy: "ਬੱਦਲਵਾਈ",
+        rainy: "ਬਾਰਿਸ਼",
+        partlyCloudy: "ਅੰਸ਼ਕ ਬੱਦਲਵਾਈ",
         
         // ਉਤਪਾਦ ਆਯੁ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਵਾਲਾ
         byProductMaximizer: "ਉਤਪਾਦ ਆਯੁ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਵਾਲਾ",
@@ -443,7 +380,7 @@ const translations = {
         noOpportunities: "ਕੋਈ ਮੌਕਾ ਨਹੀਂ ਮਿਲਿਆ।",
         wheatHusk: "ਗਹੂੰ ਦੀ ਭੂਸੀ → ਕਾਗਜ਼ ਉਦਯੋਗ",
         wheatBran: "ਗਹੂੰ ਦਾ ਚੋਕਰ → ਪਸ਼ੂਆਂ ਦਾ ਖੁਰਾਕ",
-        sugarcaneBagasse: "ਗਨਾ ਬਗਾਸ → ਜੈਵ ਈਂਧਨ",
+        sugarcaneBagasse: "ਗਨਾ ਬਗਾਸ → ਬਾਇਓਫਿਊਲ",
         molasses: "ਗੁੜ → ਸ਼ਰਾਬ ਉਤਪਾਦਨ",
         cowDung: "ਗਾਇ ਦਾ ਗੋਬਰ → ਜੈਵਿਕ ਖਾਦ ਪੈਕ",
         cowUrine: "ਗਾਇ ਦਾ ਮੂਤਰ → ਆਯੁਰਵੇਦਿਕ ਦਵਾਈਆਂ",
@@ -569,31 +506,10 @@ const translations = {
         severity: "गंभीरता",
         treatment: "इलाज",
         
-        // बाजार मूल्य
-        marketPrices: "बाजार मूल्य",
-        state: "राज्य",
-        district: "जिला",
-        market: "मंडी",
-        commodity: "कमोडिटी",
-        variety: "किसिम",
-        grade: "ग्रेड",
-        arrivalDate: "आगमन तारीख",
-        minPrice: "सबसे कम मूल्य",
-        maxPrice: "सबसे जादा मूल्य",
-        modalPrice: "मोडल मूल्य",
-        currentMarketPrices: "अभी के बाजार मूल्य",
-        lastUpdated: "आखिरी अपडेट",
-        loadingMarketData: "बाजार डेटा लोड होथे...",
-        errorLoadingData: "बाजार डेटा लोड करे मं गलती होइस। फेर कोसिस करव।",
-        noDataFound: "तुम्हर मानदंड से मेल खाथे डेटा नई मिलिस।",
-        refresh: "ताजा करव",
-        search: "खोजव",
-        clearFilters: "फिल्टर साफ करव",
-        
-        // मौसम स्थिति
-        cloudy: "बादल",
-        rainy: "बारिश",
-        partlyCloudy: "आंशिक बादल",
+        // मौसम हालत
+        cloudy: "बादर",
+        rainy: "बरसात",
+        partlyCloudy: "कुछ बादर",
         
         // उत्पाद आय अधिकतम करें
         byProductMaximizer: "उत्पाद आय अधिकतम करें",
@@ -663,7 +579,7 @@ const translations = {
         phoneNumber: "தொலைபேசி எண்",
         password: "கடவுச்சொல்",
         fullName: "முழு பெயர்",
-        farmSize: "வயல் அளவு (ஏக்கரில்)",
+        farmSize: "பண்ணை அளவு (ஏக்கரில்)",
         location: "இடம்",
         dontHaveAccount: "கணக்கு இல்லையா?",
         alreadyHaveAccount: "ஏற்கனவே கணக்கு உள்ளதா?",
@@ -746,12 +662,12 @@ const translations = {
         wheatBran: "கோஷ்டி → மாடு உணவு",
         sugarcaneBagasse: "சர்க்கரை cane களிமண் → உயிரியல் எரிபொருள்",
         molasses: "குருதிக்கொல்லை → மது உற்பத்தி",
-        cowDung: "பசு மண் → ஜைவ மண் பேக்குகள்",
+        cowDung: "பசு மண் → காரிக மண் பேக்குகள்",
         cowUrine: "பசு மூத்திரம் → ஆயுர்வேத மருந்துகள்",
         
-        // வியக்திகள் விவசாய காலண்டர்
-        personalizedCalendar: "வியக்திகள் விவசாய காலண்டர்",
-        viewCalendar: "உங்கள் வியக்திகள் விவசாய காலண்டரைப் பார்வையிடவும்.",
+        // தனிப்பயன் விவசாய காலண்டர்
+        personalizedCalendar: "தனிப்பயன் விவசாய காலண்டர்",
+        viewCalendar: "உங்கள் தனிப்பயன் விவசாய காலண்டரைப் பார்வையிடவும்.",
         
         // Navbar extra
         farmingCalendarNav: "விவசாய காலண்டர்",
@@ -764,7 +680,7 @@ const translations = {
         legendMedium: "நடுத்தரம்",
         legendLow: "குறைவான",
         legendNoForecast: "முன்னறிவிப்பு இல்லை",
-        loadingCalendar: "உங்கள் வியக்திகள் காலண்டர் தயார் செய்யப்படுகிறது...",
+        loadingCalendar: "உங்கள் தனிப்பயன் காலண்டர் தயார் செய்யப்படுகிறது...",
         
         // Profile page
         profileSettings: "சுயவிவர அமைப்புகள்",
@@ -824,12 +740,12 @@ const translations = {
         scheduleTask: "কাজের সময়সূচী করুন",
         viewReports: "রিপোর্ট দেখুন",
         recentActivities: "সাম্প্রতিক কার্যক্রম",
-        seedsPlanted: "খেত অ মে বীজ রোপণ করা হয়েছে",
+        seedsPlanted: "ক্ষেত এ-তে বীজ রোপণ করা হয়েছে",
         irrigationCompleted: "সেচ সম্পন্ন হয়েছে",
         fertilizeApplied: "ফসলে সার প্রয়োগ করা হয়েছে",
         govSchemes: "সরকারী প্রকল্প",
         pmKisanDesc: "কৃষকদের জন্য আয় সহায়তা প্রকল্প",
-        cropInsuranceDesc: "প্রাকৃতিক দুর্যোগ থেকে ফসল রক্ষা করুন",
+        cropInsuranceDesc: "প্রাকৃতিক দুর্যোগ থেকে আপনার ফসল রক্ষা করুন",
         
         // চ্যাটবট
         aiAssistant: "এআই সহায়ক",
@@ -870,27 +786,6 @@ const translations = {
         severity: "তীব্রতা",
         treatment: "চিকিৎসা",
         
-        // বাজার মূল্য
-        marketPrices: "বাজার মূল্য",
-        state: "রাজ্য",
-        district: "জেলা",
-        market: "মার্কেট",
-        commodity: "কমোডিটি",
-        variety: "ভেরিয়েটি",
-        grade: "গ্রেড",
-        arrivalDate: "আগমন তারিখ",
-        minPrice: "সর্বনিম্ন মূল্য",
-        maxPrice: "সর্বোচ্চ মূল্য",
-        modalPrice: "মোডাল মূল্য",
-        currentMarketPrices: "বর্তমান বাজার মূল্য",
-        lastUpdated: "শেষ আপডেট",
-        loadingMarketData: "বাজার ডেটা লোড হচ্ছে...",
-        errorLoadingData: "বাজার ডেটা লোড করতে ত্রুটি। দয়া করে আবার চেষ্টা করুন।",
-        noDataFound: "আপনার মানদণ্ডের সাথে মেলে এমন কোন ডেটা পাওয়া যায়নি।",
-        refresh: "রিফ্রেশ",
-        search: "সার্চ",
-        clearFilters: "ফিল্টার ক্লিয়ার করুন",
-        
         // আবহাওয়ার অবস্থা
         cloudy: "মেঘাচ্ছন্ন",
         rainy: "বৃষ্টি",
@@ -905,7 +800,7 @@ const translations = {
         noOpportunities: "কোনও সুযোগ পাওয়া যায়নি।",
         wheatHusk: "গমের ভুসি → কাগজ শিল্প",
         wheatBran: "গমের চোকার → পশুর খাবার",
-        sugarcaneBagasse: "গন্না বাগাস → জৈব জ্বালানি",
+        sugarcaneBagasse: "গমের বাগাস → বায়োফুয়েল",
         molasses: "গুড় → মদ উৎপাদন",
         cowDung: "গরুর গোবর → জৈব সার প্যাক",
         cowUrine: "গরুর মূত্র → আয়ুর্বেদিক ওষুধ",
@@ -945,3 +840,75 @@ const translations = {
         weekdaySat: "শনি",
     },
 };
+
+// Current language
+let currentLanguage = localStorage.getItem('krishiSetuLanguage') || 'en';
+
+// Translation function
+function translate(key) {
+    return translations[currentLanguage] && translations[currentLanguage][key] 
+        ? translations[currentLanguage][key] 
+        : translations['en'][key] || key;
+}
+
+// Update all translatable elements
+function updateTranslations() {
+    const elements = document.querySelectorAll('[data-translate]');
+    elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = translate(key);
+        
+        // Handle different element types
+        if (element.tagName === 'INPUT' && element.type !== 'submit') {
+            if (element.hasAttribute('placeholder')) {
+                element.placeholder = translation;
+            } else {
+                element.value = translation;
+            }
+        } else {
+            element.textContent = translation;
+        }
+    });
+    
+    // Update placeholder attributes
+    const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
+    placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-translate-placeholder');
+        element.placeholder = translate(key);
+    });
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = currentLanguage;
+}
+
+// Change language function
+function changeLanguage(languageCode) {
+    currentLanguage = languageCode;
+    localStorage.setItem('krishiSetuLanguage', languageCode);
+    updateTranslations();
+    
+    // Update language selector if it exists
+    const languageSelector = document.getElementById('languageSelector');
+    if (languageSelector) {
+        languageSelector.value = languageCode;
+    }
+    
+    // Trigger custom event for other components
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: languageCode } }));
+}
+
+// Initialize translations when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Set initial language selector value
+    const languageSelector = document.getElementById('languageSelector');
+    if (languageSelector) {
+        languageSelector.value = currentLanguage;
+    }
+    
+    updateTranslations();
+});
+
+// Export for use in other scripts
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { translations, translate, changeLanguage, updateTranslations };
+}

@@ -58,10 +58,6 @@
                 <i class="fas fa-bug"></i>
                 <span data-translate="pestDetection">Pest Detection</span>
             </a>
-            <a href="market-prices.html" class="nav-item">
-                <i class="fas fa-chart-line"></i>
-                <span data-translate="marketPrices">Market Prices</span>
-            </a>
             <a href="calendar.html" class="nav-item">
                 <i class="fas fa-calendar-alt"></i>
                 <span data-translate="farmingCalendarNav">Farming Calendar</span>
@@ -377,14 +373,8 @@
                 <div class="ar-controls">
                     <button onclick="startAR()" class="btn btn-primary" data-translate="startScanning">Start Scanning</button>
                     <button onclick="stopAR()" class="btn btn-secondary" data-translate="stopScanning">Stop Scanning</button>
-                    <button onclick="switchCamera()" class="btn btn-outline" title="Switch between front and back camera">
-                        <i class="fas fa-sync-alt"></i>
-                        <span>Switch Camera</span>
-                    </button>
-                    <button onclick="toggleARFullscreen()" class="btn btn-outline" title="Toggle full screen mode">
-                        <i class="fas fa-expand"></i>
-                        <span>Full Screen</span>
-                    </button>
+                    <button onclick="switchCamera()" class="btn btn-outline" title="Switch camera"><i class="fas fa-sync-alt"></i> Switch Camera</button>
+                    <button onclick="toggleARFullscreen()" class="btn btn-outline" title="Toggle full screen"><i class="fas fa-expand"></i> Full Screen</button>
                 </div>
                 <div id="arResults" class="ar-results" style="display: none;"></div>
             </div>
