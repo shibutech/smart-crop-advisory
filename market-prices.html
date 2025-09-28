@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Prices - KrishiSetu</title>
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%234CAF50' d='M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z'/%3E%3Cpath fill='%234CAF50' d='M50 25c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .market-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .market-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .market-title i {
+            color: #4CAF50;
+            font-size: 1.5em;
+        }
+
+        .market-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .prices-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .prices-header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .last-updated {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .prices-table {
+            overflow-x: auto;
+        }
+
+        .prices-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .prices-table th,
+        .prices-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prices-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+
+        .prices-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .price-highlight {
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .commodity-name {
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #e74c3c;
+            background: #ffe6e6;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .refresh-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #45a049;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        @media (max-width: 768px) {
+            .market-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prices-table {
+                font-size: 14px;
+            }
+
+            .prices-table th,
+            .prices-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="dashboard.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+            <div class="header-actions">
+                <select id="languageSelector" class="language-selector" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="cg">छत्तीसगढ़ी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="bn">বাংলা</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="market-container">
+        <div class="market-header">
+            <div class="market-title">
+                <i class="fas fa-chart-line"></i>
+                <h1 data-translate="marketPrices">Market Prices</h1>
+            </div>
+            <div class="market-controls">
+                <button class="refresh-btn" onclick="refreshMarketData()">
+                    <i class="fas fa-sync-alt"></i>
+                    <span data-translate="refresh">Refresh</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-container">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="stateFilter" data-translate="state">State</label>
+                    <select id="stateFilter" onchange="filterData()">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="districtFilter" data-translate="district">District</label>
+                    <select id="districtFilter" onchange="filterData()">
+                        <option value="">All Districts</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="commodityFilter" data-translate="commodity">Commodity</label>
+                    <select id="commodityFilter" onchange="filterData()">
+                        <option value="">All Commodities</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="searchInput" data-translate="search">Search</label>
+                    <input type="text" id="searchInput" placeholder="Search commodities..." onkeyup="filterData()">
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="refresh-btn" onclick="clearFilters()">
+                    <span data-translate="clearFilters">Clear Filters</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Market Data -->
+        <div class="prices-container">
+            <div class="prices-header">
+                <h3 data-translate="currentMarketPrices">Current Market Prices</h3>
+                <div class="last-updated" id="lastUpdated">
+                    <span data-translate="lastUpdated">Last updated</span>: <span id="updateTime">Loading...</span>
+                </div>
+            </div>
+            <div class="prices-table">
+                <table id="pricesTable">
+                    <thead>
+                        <tr>
+                            <th data-translate="state">State</th>
+                            <th data-translate="district">District</th>
+                            <th data-translate="market">Market</th>
+                            <th data-translate="commodity">Commodity</th>
+                            <th data-translate="variety">Variety</th>
+                            <th data-translate="grade">Grade</th>
+                            <th data-translate="arrivalDate">Arrival Date</th>
+                            <th data-translate="minPrice">Min Price</th>
+                            <th data-translate="maxPrice">Max Price</th>
+                            <th data-translate="modalPrice">Modal Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pricesTableBody">
+                        <tr>
+                            <td colspan="10" class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span data-translate="loadingMarketData">Loading market data...</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error" id="errorMessage" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span data-translate="errorLoadingData">Error loading market data. Please try again.</span>
+        </div>
+
+        <!-- No Data Message -->
+        <div class="no-data" id="noDataMessage" style="display: none;">
+            <i class="fas fa-info-circle"></i>
+            <span data-translate="noDataFound">No data found matching your criteria.</span>
+        </div>
+    </main>
+
+    <script src="translations.js"></script>
+    <script src="market-prices.js"></script>
+</body>
+</html>
